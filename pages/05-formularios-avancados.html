@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Módulo 5: formulários acessíveis, tipos de input, validação nativa, pattern, fieldset, radio, checkbox, select, datalist, textarea e output.">
+  <title>Módulo 05 · Formulários avançados | Fundamentos Web</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/style.css">
+
+  <!-- Modo prática: botão "Praticar" que abre os exemplos em um mini editor. -->
+  <link rel="stylesheet" href="../styles/pratica.css">
+  <script src="../scripts/pratica-exercicios.js" defer></script>
+  <script src="../scripts/pratica-blocos.js" defer></script>
+  <script src="../scripts/pratica-montar.js" defer></script>
+  <script src="../scripts/pratica.js" defer></script>
+
+  <style>
+    /* ---------- Estrutura base dos formulários de demonstração ---------- */
+    .m5-form {
+      display: grid;
+      gap: 16px;
+      max-width: 760px;
+      margin: 0;
+    }
+
+    .m5-field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .m5-field > label,
+    .m5-label {
+      color: var(--ink-soft);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .m5-form input:not([type="radio"]):not([type="checkbox"]):not([type="range"]):not([type="color"]),
+    .m5-form select,
+    .m5-form textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--line-strong);
+      border-radius: 7px;
+      background: #ffffff;
+      color: var(--ink);
+      font-size: 0.88rem;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .m5-form input:not([type="radio"]):not([type="checkbox"]):not([type="range"]):not([type="color"]):focus,
+    .m5-form select:focus,
+    .m5-form textarea:focus {
+      border-color: var(--brand);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.14);
+    }
+
+    .m5-form input[type="color"] {
+      width: 100%;
+      height: 46px;
+      padding: 4px;
+      border: 1px solid var(--line-strong);
+      border-radius: 7px;
+      background: #ffffff;
+      cursor: pointer;
+    }
+
+    .m5-form input[type="range"] {
+      width: 100%;
+      accent-color: var(--brand);
+    }
+
+    .m5-form input[type="file"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 7px;
+      background: #f8faff;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .m5-form textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .m5-form input::placeholder,
+    .m5-form textarea::placeholder {
+      color: #94a3b8;
+    }
+
+    .m5-form input:user-invalid,
+    .m5-form select:user-invalid,
+    .m5-form textarea:user-invalid {
+      border-color: #e11d48;
+      box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.1);
+    }
+
+    .m5-hint {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.72rem;
+      line-height: 1.5;
+    }
+
+    .m5-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .m5-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .m5-submit {
+      padding: 10px 18px;
+      border: 1px solid var(--brand);
+      border-radius: 7px;
+      background: var(--brand);
+      color: #ffffff;
+      font-size: 0.86rem;
+      font-weight: 700;
+      transition: background 0.2s ease;
+    }
+
+    .m5-submit:hover {
+      background: var(--brand-dark);
+    }
+
+    .m5-reset {
+      padding: 10px 15px;
+      border: 1px solid var(--line-strong);
+      border-radius: 7px;
+      background: #ffffff;
+      color: var(--ink-soft);
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    /* ---------- Agrupamentos ---------- */
+    .m5-form fieldset {
+      min-width: 0;
+      margin: 0;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #fbfdff;
+    }
+
+    .m5-form legend {
+      padding: 0 6px;
+      color: var(--ink-soft);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .m5-choice-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 16px;
+    }
+
+    .m5-choice {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      color: var(--ink-soft);
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }
+
+    .m5-choice input {
+      flex: 0 0 auto;
+      margin-top: 3px;
+      accent-color: var(--brand);
+    }
+
+    .m5-output-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8faff;
+    }
+
+    .m5-output-row output {
+      min-width: 44px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: var(--brand);
+      color: #ffffff;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .m5-output-row label {
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .m5-output-row input[type="range"] {
+      flex: 1 1 180px;
+      width: auto;
+    }
+
+    .m5-demo-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.76rem;
+    }
+
+    @media (max-width: 620px) {
+      .m5-grid-2,
+      .m5-choice-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html" aria-label="Fundamentos Web — página inicial">
+        <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+        <span>fundamentos<span class="brand-accent">.web</span></span>
+      </a>
+      <nav class="header-nav" aria-label="Navegação principal">
+        <a href="../index.html">Trilha completa</a>
+        <span class="module-pill">Módulo 05 de 08</span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo" class="container lesson-layout">
+    <aside class="lesson-sidebar" aria-label="Nesta aula">
+      <a class="back-link" href="../index.html">← Voltar ao início</a>
+      <p class="sidebar-kicker">Neste módulo</p>
+      <nav class="toc" aria-label="Índice do módulo 5">
+        <a href="#estrutura-form">1. Estrutura acessível</a>
+        <a href="#tipos-input">2. Tipos de entrada</a>
+        <a href="#restricoes">3. Restrições e pattern</a>
+        <a href="#agrupamentos">4. Agrupamentos e seleções</a>
+        <a href="#output">5. Saída dinâmica</a>
+      </nav>
+      <div class="sidebar-note">
+        <strong>Como estudar</strong>
+        <p>Teste os formulários com o teclado. Use Tab para navegar e observe os estados de foco e validação.</p>
+      </div>
+    </aside>
+
+    <article class="lesson-content">
+      <header class="lesson-hero">
+        <p class="eyebrow">Módulo 05 · Coleta de dados</p>
+        <h1>Formulários avançados</h1>
+        <p class="lead">
+          Formulários conectam pessoas e sistemas. Um campo bem construído tem
+          rótulo, nome, tipo adequado e validação previsível. Neste módulo, você
+          combina acessibilidade, restrições nativas e agrupamentos complexos.
+        </p>
+        <ul class="lesson-meta">
+          <li>Nível intermediário</li>
+          <li>5 tópicos práticos</li>
+          <li>Leitura estimada: 45 min</li>
+        </ul>
+      </header>
+
+      <!-- ================================================================
+           1. ESTRUTURA ACESSÍVEL
+           ================================================================ -->
+      <section class="lesson-section" id="estrutura-form">
+        <div class="section-title">
+          <span class="section-index">01</span>
+          <div>
+            <p class="eyebrow">Rótulos e identidade</p>
+            <h2>form, action, label for e name</h2>
+          </div>
+        </div>
+
+        <p>
+          O elemento <code>&lt;form&gt;</code> agrupa controles e define para onde
+          os dados serão enviados (<code>action</code>) e como
+          (<code>method</code>). Cada campo precisa de um <code>name</code>, que é
+          a chave enviada ao servidor, e de um <code>id</code> para ser associado
+          ao <code>&lt;label for="..."&gt;</code>. O rótulo visível não substitui
+          o <code>name</code>; eles cumprem papéis diferentes.
+        </p>
+        <p>
+          <code>autocomplete</code> ajuda o navegador a preencher dados conhecidos.
+          O botão deve ter <code>type</code> explícito: <code>submit</code> envia,
+          <code>reset</code> limpa e <code>button</code> não tem comportamento
+          padrão. Um <code>placeholder</code> é apenas uma dica e não deve ser a
+          única identificação do campo.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>formulario-acessivel.html</span>
+            <span class="code-lang">HTML</span>
+          </figcaption>
+          <pre><code>&lt;form action="/cadastro" method="post"&gt;
+  &lt;div class="campo"&gt;
+    &lt;label for="nome"&gt;Nome completo&lt;/label&gt;
+    &lt;input
+      type="text"
+      id="nome"
+      name="nome"
+      autocomplete="name"
+      required&gt;
+  &lt;/div&gt;
+
+  &lt;div class="campo"&gt;
+    &lt;label for="email"&gt;E-mail&lt;/label&gt;
+    &lt;input
+      type="email"
+      id="email"
+      name="email"
+      autocomplete="email"
+      required&gt;
+  &lt;/div&gt;
+
+  &lt;button type="submit"&gt;Enviar cadastro&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <form class="m5-form" action="#estrutura-form" method="get">
+              <div class="m5-field">
+                <label for="m5-nome">Nome completo</label>
+                <input type="text" id="m5-nome" name="nome" autocomplete="name" placeholder="Ex.: Ana Souza" required>
+              </div>
+              <div class="m5-field">
+                <label for="m5-email">E-mail</label>
+                <input type="email" id="m5-email" name="email" autocomplete="email" placeholder="ana@exemplo.com" required>
+                <p class="m5-hint">O tipo email ativa a validação nativa do navegador.</p>
+              </div>
+              <div class="m5-actions">
+                <button class="m5-submit" type="submit">Enviar cadastro</button>
+                <button class="m5-reset" type="reset">Limpar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Acessibilidade:</strong> clicar no texto do <code>&lt;label&gt;</code> coloca o foco no campo. Isso beneficia todas as pessoas e é essencial para quem usa leitores de tela ou tem dificuldade motora.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           2. TIPOS DE ENTRADA
+           ================================================================ -->
+      <section class="lesson-section" id="tipos-input">
+        <div class="section-title">
+          <span class="section-index">02</span>
+          <div>
+            <p class="eyebrow">O teclado certo para cada dado</p>
+            <h2>text, password, email, tel, number, date, color, range e file</h2>
+          </div>
+        </div>
+
+        <p>
+          O <code>type</code> informa o tipo de dado e ativa teclados, controles e
+          validações adequadas. <code>email</code> valida o formato básico;
+          <code>tel</code> abre teclado numérico em celulares; <code>number</code>
+          aceita passos e limites; <code>date</code> exibe um seletor de data;
+          <code>color</code> abre uma paleta; <code>range</code> cria um controle
+          deslizante; <code>file</code> permite anexar arquivos.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>tipos-de-input.html</span>
+            <span class="code-lang">HTML</span>
+          </figcaption>
+          <pre><code>&lt;label for="usuario"&gt;Usuário&lt;/label&gt;
+&lt;input type="text" id="usuario" name="usuario"
+       autocomplete="username" required&gt;
+
+&lt;label for="senha"&gt;Senha&lt;/label&gt;
+&lt;input type="password" id="senha" name="senha"
+       minlength="8" autocomplete="new-password" required&gt;
+
+&lt;label for="email"&gt;E-mail&lt;/label&gt;
+&lt;input type="email" id="email" name="email"
+       autocomplete="email" required&gt;
+
+&lt;label for="telefone"&gt;Telefone&lt;/label&gt;
+&lt;input type="tel" id="telefone" name="telefone"
+       inputmode="tel" autocomplete="tel"&gt;
+
+&lt;label for="idade"&gt;Idade&lt;/label&gt;
+&lt;input type="number" id="idade" name="idade"
+       min="16" max="120" step="1"&gt;
+
+&lt;label for="nascimento"&gt;Data de nascimento&lt;/label&gt;
+&lt;input type="date" id="nascimento" name="nascimento"&gt;
+
+&lt;label for="cor"&gt;Cor favorita&lt;/label&gt;
+&lt;input type="color" id="cor" name="cor" value="#4f46e5"&gt;
+
+&lt;label for="nivel"&gt;Nível de experiência (0–10)&lt;/label&gt;
+&lt;input type="range" id="nivel" name="nivel"
+       min="0" max="10" step="1" value="5"&gt;
+
+&lt;label for="anexo"&gt;Anexar currículo&lt;/label&gt;
+&lt;input type="file" id="anexo" name="anexo"
+       accept=".pdf,.doc,.docx"&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <form class="m5-form" action="#tipos-input" method="get">
+              <div class="m5-grid-2">
+                <div class="m5-field">
+                  <label for="m5-usuario">Usuário</label>
+                  <input type="text" id="m5-usuario" name="usuario" autocomplete="username" placeholder="ana.souza" required>
+                </div>
+                <div class="m5-field">
+                  <label for="m5-senha">Senha</label>
+                  <input type="password" id="m5-senha" name="senha" minlength="8" autocomplete="new-password" placeholder="Mínimo de 8 caracteres" required>
+                </div>
+              </div>
+
+              <div class="m5-grid-2">
+                <div class="m5-field">
+                  <label for="m5-email-tipo">E-mail</label>
+                  <input type="email" id="m5-email-tipo" name="email" autocomplete="email" placeholder="ana@exemplo.com" required>
+                </div>
+                <div class="m5-field">
+                  <label for="m5-telefone">Telefone</label>
+                  <input type="tel" id="m5-telefone" name="telefone" inputmode="tel" autocomplete="tel" placeholder="(11) 91234-5678">
+                </div>
+              </div>
+
+              <div class="m5-grid-2">
+                <div class="m5-field">
+                  <label for="m5-idade">Idade</label>
+                  <input type="number" id="m5-idade" name="idade" min="16" max="120" step="1" placeholder="18">
+                </div>
+                <div class="m5-field">
+                  <label for="m5-nascimento">Data de nascimento</label>
+                  <input type="date" id="m5-nascimento" name="nascimento">
+                </div>
+              </div>
+
+              <div class="m5-grid-2">
+                <div class="m5-field">
+                  <label for="m5-cor">Cor favorita</label>
+                  <input type="color" id="m5-cor" name="cor" value="#4f46e5">
+                </div>
+                <div class="m5-field">
+                  <label for="m5-nivel">Nível de experiência (0–10)</label>
+                  <input type="range" id="m5-nivel" name="nivel" min="0" max="10" step="1" value="5">
+                </div>
+              </div>
+
+              <div class="m5-field">
+                <label for="m5-anexo">Anexar currículo</label>
+                <input type="file" id="m5-anexo" name="anexo" accept=".pdf,.doc,.docx">
+                <p class="m5-hint">Aceita PDF, DOC e DOCX. O envio real depende do servidor.</p>
+              </div>
+
+              <div class="m5-actions">
+                <button class="m5-submit" type="submit">Testar validação</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <p><strong>Validação nativa não basta:</strong> o navegador pode ser contornado. Valide sempre no servidor e trate os dados com segurança. A validação no cliente melhora a experiência, mas não substitui a do servidor.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           3. RESTRIÇÕES E PATTERN
+           ================================================================ -->
+      <section class="lesson-section" id="restricoes">
+        <div class="section-title">
+          <span class="section-index">03</span>
+          <div>
+            <p class="eyebrow">Regras declarativas</p>
+            <h2>required, min, max, step, placeholder, autocomplete e pattern</h2>
+          </div>
+        </div>
+
+        <p>
+          Atributos de restrição descrevem o que é aceitável antes de qualquer
+          JavaScript. <code>required</code> torna o campo obrigatório;
+          <code>minlength</code> e <code>maxlength</code> limitam caracteres;
+          <code>min</code>, <code>max</code> e <code>step</code> controlam
+          intervalos numéricos e datas; <code>pattern</code> aplica uma expressão
+          regular. O atributo <code>title</code> pode explicar o formato esperado
+          e aparece na mensagem de erro.
+        </p>
+        <p>
+          Em <code>pattern</code>, a correspondência é feita com o valor inteiro,
+          como se houvesse âncoras <code>^</code> e <code>$</code>. No exemplo,
+          <code>[0-9]{2}</code> exige dois dígitos, <code>[0-9]{4,5}</code> aceita
+          quatro ou cinco, e o hífen é literal.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>restricoes.html</span>
+            <span class="code-lang">HTML</span>
+          </figcaption>
+          <pre><code>&lt;form action="/perfil" method="post"&gt;
+  &lt;label for="apelido"&gt;Apelido&lt;/label&gt;
+  &lt;input
+    type="text"
+    id="apelido"
+    name="apelido"
+    minlength="3"
+    maxlength="18"
+    placeholder="De 3 a 18 caracteres"
+    autocomplete="nickname"
+    required&gt;
+
+  &lt;label for="telefone"&gt;Telefone&lt;/label&gt;
+  &lt;input
+    type="tel"
+    id="telefone"
+    name="telefone"
+    placeholder="11 91234-5678"
+    pattern="[0-9]{2} [0-9]{4,5}-[0-9]{4}"
+    title="Use o formato 11 91234-5678"
+    autocomplete="tel"
+    required&gt;
+
+  &lt;label for="cep"&gt;CEP&lt;/label&gt;
+  &lt;input
+    type="text"
+    id="cep"
+    name="cep"
+    placeholder="01000-000"
+    pattern="[0-9]{5}-[0-9]{3}"
+    title="Use o formato 01000-000"
+    inputmode="numeric"
+    autocomplete="postal-code"&gt;
+
+  &lt;label for="convidados"&gt;Número de convidados&lt;/label&gt;
+  &lt;input
+    type="number"
+    id="convidados"
+    name="convidados"
+    min="1"
+    max="50"
+    step="1"
+    value="1"&gt;
+
+  &lt;button type="submit"&gt;Salvar perfil&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">teste o envio</span>
+          </div>
+          <div class="demo-panel-body">
+            <form class="m5-form" action="#restricoes" method="get">
+              <div class="m5-field">
+                <label for="m5-apelido">Apelido</label>
+                <input
+                  type="text"
+                  id="m5-apelido"
+                  name="apelido"
+                  minlength="3"
+                  maxlength="18"
+                  placeholder="De 3 a 18 caracteres"
+                  autocomplete="nickname"
+                  required>
+              </div>
+
+              <div class="m5-grid-2">
+                <div class="m5-field">
+                  <label for="m5-telefone-restricao">Telefone</label>
+                  <input
+                    type="tel"
+                    id="m5-telefone-restricao"
+                    name="telefone"
+                    placeholder="11 91234-5678"
+                    pattern="[0-9]{2} [0-9]{4,5}-[0-9]{4}"
+                    title="Use o formato 11 91234-5678"
+                    autocomplete="tel"
+                    required>
+                  <p class="m5-hint">Pattern: <code>[0-9]{2} [0-9]{4,5}-[0-9]{4}</code></p>
+                </div>
+                <div class="m5-field">
+                  <label for="m5-cep">CEP</label>
+                  <input
+                    type="text"
+                    id="m5-cep"
+                    name="cep"
+                    placeholder="01000-000"
+                    pattern="[0-9]{5}-[0-9]{3}"
+                    title="Use o formato 01000-000"
+                    inputmode="numeric"
+                    autocomplete="postal-code">
+                  <p class="m5-hint">Pattern: <code>[0-9]{5}-[0-9]{3}</code></p>
+                </div>
+              </div>
+
+              <div class="m5-field">
+                <label for="m5-convidados">Número de convidados</label>
+                <input type="number" id="m5-convidados" name="convidados" min="1" max="50" step="1" value="1">
+                <p class="m5-hint">Aceita de 1 a 50 pessoas, em passos de 1.</p>
+              </div>
+
+              <div class="m5-actions">
+                <button class="m5-submit" type="submit">Salvar perfil</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Dica:</strong> use <code>inputmode</code> para sugerir o teclado adequado sem mudar o tipo do campo. Exemplo: <code>inputmode="numeric"</code> em CEPs.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           4. AGRUPAMENTOS E SELEÇÕES
+           ================================================================ -->
+      <section class="lesson-section" id="agrupamentos">
+        <div class="section-title">
+          <span class="section-index">04</span>
+          <div>
+            <p class="eyebrow">Muitas opções, uma boa organização</p>
+            <h2>fieldset, radio, checkbox, select, optgroup, datalist e textarea</h2>
+          </div>
+        </div>
+
+        <p>
+          <code>&lt;fieldset&gt;</code> e <code>&lt;legend&gt;</code> agrupam
+          controles relacionados. Botões <code>radio</code> com o mesmo
+          <code>name</code> formam uma escolha única; <code>checkbox</code> permite
+          várias seleções. <code>&lt;select&gt;</code> com
+          <code>&lt;optgroup&gt;</code> organiza opções em grupos;
+          <code>&lt;datalist&gt;</code> oferece sugestões sem restringir o valor;
+          <code>&lt;textarea&gt;</code> permite texto multilinha.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>agrupamentos.html</span>
+            <span class="code-lang">HTML</span>
+          </figcaption>
+          <pre><code>&lt;form action="/preferencias" method="post"&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;Plano de estudo&lt;/legend&gt;
+
+    &lt;label&gt;
+      &lt;input type="radio" name="plano" value="basico" checked&gt;
+      Básico
+    &lt;/label&gt;
+
+    &lt;label&gt;
+      &lt;input type="radio" name="plano" value="completo"&gt;
+      Completo
+    &lt;/label&gt;
+  &lt;/fieldset&gt;
+
+  &lt;fieldset&gt;
+    &lt;legend&gt;Interesses&lt;/legend&gt;
+
+    &lt;label&gt;
+      &lt;input type="checkbox" name="interesses" value="html"&gt;
+      HTML
+    &lt;/label&gt;
+
+    &lt;label&gt;
+      &lt;input type="checkbox" name="interesses" value="css"&gt;
+      CSS
+    &lt;/label&gt;
+
+    &lt;label&gt;
+      &lt;input type="checkbox" name="interesses" value="acessibilidade"&gt;
+      Acessibilidade
+    &lt;/label&gt;
+  &lt;/fieldset&gt;
+
+  &lt;label for="trilha"&gt;Trilha&lt;/label&gt;
+  &lt;select id="trilha" name="trilha"&gt;
+    &lt;optgroup label="Front-end"&gt;
+      &lt;option value="html"&gt;HTML&lt;/option&gt;
+      &lt;option value="css"&gt;CSS&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup label="Complementos"&gt;
+      &lt;option value="a11y"&gt;Acessibilidade&lt;/option&gt;
+      &lt;option value="git"&gt;Git&lt;/option&gt;
+    &lt;/optgroup&gt;
+  &lt;/select&gt;
+
+  &lt;label for="linguagem"&gt;Linguagem favorita&lt;/label&gt;
+  &lt;input list="linguagens" id="linguagem" name="linguagem"&gt;
+  &lt;datalist id="linguagens"&gt;
+    &lt;option value="HTML"&gt;&lt;/option&gt;
+    &lt;option value="CSS"&gt;&lt;/option&gt;
+    &lt;option value="JavaScript"&gt;&lt;/option&gt;
+  &lt;/datalist&gt;
+
+  &lt;label for="mensagem"&gt;Mensagem&lt;/label&gt;
+  &lt;textarea id="mensagem" name="mensagem"
+            rows="4" maxlength="240"&gt;&lt;/textarea&gt;
+
+  &lt;button type="submit"&gt;Salvar preferências&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <form class="m5-form" action="#agrupamentos" method="get">
+              <fieldset>
+                <legend>Plano de estudo</legend>
+                <div class="m5-choice-grid">
+                  <label class="m5-choice">
+                    <input type="radio" name="plano" value="basico" checked>
+                    <span>Básico — fundamentos essenciais</span>
+                  </label>
+                  <label class="m5-choice">
+                    <input type="radio" name="plano" value="completo">
+                    <span>Completo — trilha + projetos</span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend>Interesses</legend>
+                <div class="m5-choice-grid">
+                  <label class="m5-choice">
+                    <input type="checkbox" name="interesses" value="html">
+                    <span>HTML semântico</span>
+                  </label>
+                  <label class="m5-choice">
+                    <input type="checkbox" name="interesses" value="css">
+                    <span>CSS moderno</span>
+                  </label>
+                  <label class="m5-choice">
+                    <input type="checkbox" name="interesses" value="a11y">
+                    <span>Acessibilidade</span>
+                  </label>
+                  <label class="m5-choice">
+                    <input type="checkbox" name="interesses" value="layout">
+                    <span>Layout e responsividade</span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <div class="m5-grid-2">
+                <div class="m5-field">
+                  <label for="m5-trilha">Trilha</label>
+                  <select id="m5-trilha" name="trilha">
+                    <optgroup label="Front-end">
+                      <option value="html">HTML</option>
+                      <option value="css">CSS</option>
+                    </optgroup>
+                    <optgroup label="Complementos">
+                      <option value="a11y">Acessibilidade</option>
+                      <option value="git">Git</option>
+                    </optgroup>
+                  </select>
+                </div>
+                <div class="m5-field">
+                  <label for="m5-linguagem">Linguagem favorita</label>
+                  <input type="text" list="m5-linguagens" id="m5-linguagem" name="linguagem" placeholder="Digite ou escolha">
+                  <datalist id="m5-linguagens">
+                    <option value="HTML"></option>
+                    <option value="CSS"></option>
+                    <option value="JavaScript"></option>
+                    <option value="TypeScript"></option>
+                  </datalist>
+                  <p class="m5-hint">O datalist sugere valores, mas não bloqueia a digitação.</p>
+                </div>
+              </div>
+
+              <div class="m5-field">
+                <label for="m5-mensagem">Mensagem</label>
+                <textarea id="m5-mensagem" name="mensagem" rows="4" maxlength="240" placeholder="Conte o que você quer aprender..."></textarea>
+                <p class="m5-hint">Máximo de 240 caracteres. O contador dinâmico é feito com JavaScript.</p>
+              </div>
+
+              <div class="m5-actions">
+                <button class="m5-submit" type="submit">Salvar preferências</button>
+                <button class="m5-reset" type="reset">Restaurar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Radio x checkbox:</strong> use radio quando apenas uma opção pode ser escolhida e checkbox quando várias podem ser marcadas. O <code>name</code> comum é o que agrupa os radios.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           5. SAÍDA DINÂMICA
+           ================================================================ -->
+      <section class="lesson-section" id="output">
+        <div class="section-title">
+          <span class="section-index">05</span>
+          <div>
+            <p class="eyebrow">Feedback imediato</p>
+            <h2>O elemento output e uma pitada de JavaScript</h2>
+          </div>
+        </div>
+
+        <p>
+          <code>&lt;output&gt;</code> representa o resultado de um cálculo ou de
+          uma ação do usuário. Ele é associado aos controles com o atributo
+          <code>for</code>, que recebe os IDs dos campos de origem. Como HTML e
+          CSS não recalculam valores, usamos uma pequena camada de JavaScript para
+          atualizar a saída em tempo real.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>output-dinamico.html</span>
+            <span class="code-lang">HTML + JS</span>
+          </figcaption>
+          <pre><code>&lt;label for="volume"&gt;Volume da trilha sonora&lt;/label&gt;
+&lt;input
+  type="range"
+  id="volume"
+  name="volume"
+  min="0"
+  max="100"
+  value="50"&gt;
+
+&lt;output for="volume" id="volume-saida"&gt;50&lt;/output&gt;
+
+&lt;script&gt;
+  // Captura os elementos uma única vez.
+  const volume = document.querySelector("#volume");
+  const saida = document.querySelector("#volume-saida");
+
+  // Atualiza o texto do output sempre que o valor muda.
+  volume.addEventListener("input", () =&gt; {
+    saida.value = volume.value;
+  });
+&lt;/script&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">interativo</span>
+          </div>
+          <div class="demo-panel-body">
+            <form class="m5-form" action="#output" method="get">
+              <div class="m5-output-row">
+                <label for="m5-volume">Volume da trilha sonora</label>
+                <input type="range" id="m5-volume" name="volume" min="0" max="100" value="50">
+                <output for="m5-volume" id="m5-volume-saida">50</output>
+              </div>
+              <p class="m5-demo-note">Arraste o controle e veja o valor mudar no output.</p>
+              <div class="m5-actions">
+                <button class="m5-submit" type="submit">Salvar volume</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="callout callout-success">
+          <p><strong>Boas práticas:</strong> mantenha o output próximo do controle que o origina e forneça feedback textual claro. Não dependa apenas de cor ou de posição.</p>
+        </div>
+      </section>
+
+      <section class="lesson-section" aria-labelledby="resumo-form">
+        <div class="section-title">
+          <span class="section-index">✓</span>
+          <div>
+            <p class="eyebrow">Fechamento</p>
+            <h2 id="resumo-form">Formulários claros e confiáveis</h2>
+          </div>
+        </div>
+        <p>
+          Você estruturou formulários acessíveis, escolheu tipos de entrada
+          adequados, aplicou restrições nativas, organizou opções complexas e
+          conectou um <code>output</code> a um controle. No próximo módulo, o foco
+          é adaptar toda a interface a diferentes telas.
+        </p>
+        <div class="callout callout-success">
+          <p><strong>Exercício:</strong> crie um formulário de inscrição com nome, e-mail, telefone validado por <code>pattern</code>, seleção de trilha, interesses em checkbox, mensagem em <code>textarea</code> e um <code>output</code> que mostre a quantidade de caracteres digitados.</p>
+        </div>
+
+        <div class="lesson-footer">
+          <a class="button button-secondary" href="../index.html">← Voltar ao início</a>
+          <a class="button" href="06-responsividade-media-queries.html">Próximo módulo: Responsividade →</a>
+        </div>
+
+        <nav class="pager" aria-label="Navegação entre módulos">
+          <a class="pager-link" href="04-tabelas-iframes.html">
+            <span>Anterior</span>
+            <strong>04 · Tabelas e iframes</strong>
+          </a>
+          <a class="pager-link" href="06-responsividade-media-queries.html">
+            <span>Próximo</span>
+            <strong>06 · Responsividade</strong>
+          </a>
+        </nav>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>Fundamentos Web · Módulo 05 de 08</p>
+      <nav aria-label="Links do rodapé">
+        <a href="../index.html">Início</a>
+        <a href="06-responsividade-media-queries.html">Próximo módulo</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // Atualiza o <output> sempre que o usuário move o controle deslizante.
+    const volumeDemo = document.querySelector("#m5-volume");
+    const volumeSaidaDemo = document.querySelector("#m5-volume-saida");
+
+    if (volumeDemo && volumeSaidaDemo) {
+      volumeDemo.addEventListener("input", () => {
+        volumeSaidaDemo.value = volumeDemo.value;
+      });
+    }
+  </script>
+</body>
+</html>

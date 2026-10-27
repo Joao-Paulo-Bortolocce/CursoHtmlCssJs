@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Módulo 1: esqueleto HTML5, entidades, títulos, semântica textual, listas, links, imagens e mídias nativas.">
+  <title>Módulo 01 · Fundamentos de HTML | Fundamentos Web</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/style.css">
+
+  <!-- Modo prática: botão "Praticar" que abre os exemplos em um mini editor. -->
+  <link rel="stylesheet" href="../styles/pratica.css">
+  <script src="../scripts/pratica-exercicios.js" defer></script>
+  <script src="../scripts/pratica-blocos.js" defer></script>
+  <script src="../scripts/pratica-montar.js" defer></script>
+  <script src="../scripts/pratica.js" defer></script>
+
+  <!-- Estilos exclusivos das demonstrações deste módulo. -->
+  <style>
+    /* ---------- Demonstração do esqueleto de documento ---------- */
+    .m1-browser {
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    .m1-browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border-bottom: 1px solid var(--line);
+      background: #eef2f7;
+    }
+
+    .m1-browser-bar span {
+      flex: 1;
+      padding: 4px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #ffffff;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+    }
+
+    .m1-browser-bar i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #cbd5e1;
+    }
+
+    .m1-browser-page {
+      padding: 26px;
+    }
+
+    .m1-browser-page h3 {
+      margin-bottom: 8px;
+      font-size: 1.5rem;
+    }
+
+    .m1-browser-page p {
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .m1-badge {
+      display: inline-block;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: var(--brand-soft);
+      color: var(--brand-dark);
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+
+    /* ---------- Espaços, quebras e entidades ---------- */
+    .m1-spaces {
+      padding: 18px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .m1-spaces p {
+      margin-bottom: 8px;
+      font-size: 0.92rem;
+    }
+
+    .m1-spaces hr {
+      margin: 18px 0;
+      border: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .m1-entities {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .m1-entity {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+      text-align: center;
+    }
+
+    .m1-entity span {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+    }
+
+    .m1-entity strong {
+      color: var(--ink);
+      font-size: 1.25rem;
+    }
+
+    /* ---------- Títulos ---------- */
+    .m1-headings {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .m1-headings h1,
+    .m1-headings h2,
+    .m1-headings h3,
+    .m1-headings h4,
+    .m1-headings h5,
+    .m1-headings h6 {
+      margin-bottom: 9px;
+      letter-spacing: -0.035em;
+    }
+
+    .m1-headings h1 { font-size: 2rem; }
+    .m1-headings h2 { font-size: 1.65rem; }
+    .m1-headings h3 { font-size: 1.35rem; }
+    .m1-headings h4 { font-size: 1.15rem; }
+    .m1-headings h5 { font-size: 1rem; }
+    .m1-headings h6 {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      text-transform: uppercase;
+    }
+
+    /* ---------- Semântica textual ---------- */
+    .m1-text-demo {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .m1-text-demo p {
+      margin-bottom: 13px;
+    }
+
+    .m1-text-demo mark {
+      padding: 1px 4px;
+      background: #fef08a;
+    }
+
+    .m1-text-demo del {
+      color: #94a3b8;
+    }
+
+    .m1-text-demo ins {
+      background: #dcfce7;
+      text-decoration-color: #16a34a;
+    }
+
+    .m1-text-demo q {
+      color: var(--brand-dark);
+      font-style: italic;
+    }
+
+    .m1-text-demo blockquote {
+      margin: 18px 0;
+      padding: 16px 20px;
+      border-left: 4px solid var(--brand);
+      border-radius: 0 8px 8px 0;
+      background: var(--brand-soft);
+    }
+
+    .m1-text-demo blockquote p {
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .m1-text-demo blockquote footer {
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .m1-text-demo abbr {
+      cursor: help;
+      text-decoration: underline dotted;
+    }
+
+    .m1-text-demo pre {
+      overflow-x: auto;
+      padding: 12px 14px;
+      border-radius: 7px;
+      background: var(--code-bg);
+      color: var(--code-text);
+      font-size: 0.8rem;
+    }
+
+    /* ---------- Listas ---------- */
+    .m1-list-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .m1-list-card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .m1-list-card h3 {
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    .m1-list-card ol,
+    .m1-list-card ul,
+    .m1-list-card dl {
+      margin-bottom: 0;
+      padding-left: 22px;
+      font-size: 0.88rem;
+    }
+
+    .m1-list-card dl {
+      padding-left: 0;
+    }
+
+    .m1-list-card dt {
+      margin-top: 8px;
+      font-weight: 700;
+    }
+
+    .m1-list-card dd {
+      margin-left: 0;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .m1-list-card ul.m1-markers {
+      list-style: square;
+    }
+
+    /* ---------- Links ---------- */
+    .m1-links {
+      display: grid;
+      gap: 10px;
+    }
+
+    .m1-link-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .m1-link-row code {
+      color: var(--muted);
+      font-size: 0.72rem;
+    }
+
+    /* ---------- Imagens e mídias ---------- */
+    .m1-figure {
+      margin: 0;
+    }
+
+    .m1-figure img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .m1-figure figcaption {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .m1-picture img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .m1-media-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+
+    .m1-media-card {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .m1-media-card h3 {
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    .m1-media-card audio,
+    .m1-media-card video {
+      width: 100%;
+      border-radius: 7px;
+    }
+
+    .m1-video-frame {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      border-radius: 10px;
+      background: #0b1220;
+    }
+
+    .m1-video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    @media (max-width: 760px) {
+      .m1-entities {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .m1-list-grid,
+      .m1-media-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .m1-browser-page {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html" aria-label="Fundamentos Web — página inicial">
+        <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+        <span>fundamentos<span class="brand-accent">.web</span></span>
+      </a>
+      <nav class="header-nav" aria-label="Navegação principal">
+        <a href="../index.html">Trilha completa</a>
+        <span class="module-pill">Módulo 01 de 08</span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo" class="container lesson-layout">
+    <!-- ==================================================================
+         ÍNDICE LATERAL
+         ================================================================== -->
+    <aside class="lesson-sidebar" aria-label="Nesta aula">
+      <a class="back-link" href="../index.html">← Voltar ao início</a>
+      <p class="sidebar-kicker">Neste módulo</p>
+      <nav class="toc" aria-label="Índice do módulo 1">
+        <a href="#estrutura">1. Estrutura HTML5</a>
+        <a href="#espacos">2. Espaços e quebras</a>
+        <a href="#entidades">3. Entidades e emojis</a>
+        <a href="#titulos">4. Hierarquia de títulos</a>
+        <a href="#semantica-textual">5. Semântica textual</a>
+        <a href="#listas">6. Listas</a>
+        <a href="#links">7. Links e navegação</a>
+        <a href="#imagens">8. Imagens e picture</a>
+        <a href="#midias">9. Áudio, vídeo e iframe</a>
+      </nav>
+      <div class="sidebar-note">
+        <strong>Como estudar</strong>
+        <p>Leia o conceito, analise o código e compare com o resultado renderizado logo abaixo. Depois, use o botão “Praticar” para editar o exemplo.</p>
+      </div>
+    </aside>
+
+    <!-- ==================================================================
+         CONTEÚDO DA AULA
+         ================================================================== -->
+    <article class="lesson-content">
+      <header class="lesson-hero">
+        <p class="eyebrow">Módulo 01 · Estrutura e conteúdo</p>
+        <h1>Fundamentos de HTML</h1>
+        <p class="lead">
+          HTML é a linguagem de marcação que descreve a estrutura e o significado
+          do conteúdo de uma página. Neste módulo, você constrói documentos válidos,
+          organiza textos, conecta páginas e incorpora imagens, áudio e vídeo.
+        </p>
+        <ul class="lesson-meta">
+          <li>Nível iniciante</li>
+          <li>9 tópicos práticos</li>
+          <li>Leitura estimada: 35 min</li>
+        </ul>
+      </header>
+
+      <!-- ================================================================
+           1. ESQUELETO HTML5
+           ================================================================ -->
+      <section class="lesson-section" id="estrutura">
+        <div class="section-title">
+          <span class="section-index">01</span>
+          <div>
+            <p class="eyebrow">Ponto de partida</p>
+            <h2>O esqueleto de um documento HTML5</h2>
+          </div>
+        </div>
+
+        <p>
+          Todo documento começa com <code>&lt;!DOCTYPE html&gt;</code>, que ativa o
+          modo de renderização moderno do navegador. O elemento <code>&lt;html&gt;</code>
+          envolve todo o conteúdo e recebe o atributo <code>lang</code> para indicar
+          o idioma principal — uma informação essencial para leitores de tela,
+          tradutores e mecanismos de busca.
+        </p>
+        <p>
+          O <code>&lt;head&gt;</code> guarda metadados invisíveis: codificação,
+          viewport, descrição e título. O <code>&lt;body&gt;</code> contém tudo o que
+          o visitante vê. A declaração <code>charset="UTF-8"</code> permite acentos e
+          símbolos corretamente; o viewport faz a página se adaptar à largura do
+          dispositivo.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>estrutura-base.html</span>
+            <span class="code-lang">HTML</span>
+          </figcaption>
+          <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+  &lt;!-- Codificação de caracteres: permite acentos e emojis. --&gt;
+  &lt;meta charset="UTF-8"&gt;
+
+  &lt;!-- Viewport: base para páginas responsivas em dispositivos móveis. --&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+
+  &lt;!-- Metadados auxiliares para SEO e compartilhamento. --&gt;
+  &lt;meta name="description" content="Minha primeira página em HTML5."&gt;
+
+  &lt;title&gt;Minha primeira página&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Olá, mundo!&lt;/h1&gt;
+  &lt;p&gt;Este é o meu primeiro documento HTML5.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m1-browser">
+              <div class="m1-browser-bar" aria-hidden="true">
+                <i></i><i></i><i></i>
+                <span>localhost/minha-primeira-pagina.html</span>
+              </div>
+              <div class="m1-browser-page">
+                <span class="m1-badge">HTML5 · UTF-8 · pt-BR</span>
+                <h3>Olá, mundo!</h3>
+                <p>Este é o meu primeiro documento HTML5.</p>
+                <p style="margin-bottom: 0;"><small>O navegador exibe o conteúdo do &lt;body&gt;.</small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Dica de professor:</strong> use sempre <code>lang="pt-BR"</code> em páginas em português do Brasil. O atributo não muda a aparência, mas melhora pronúncia, tradução e indexação.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           2. ESPAÇOS E QUEBRAS
+           ================================================================ -->
+      <section class="lesson-section" id="espacos">
+        <div class="section-title">
+          <span class="section-index">02</span>
+          <div>
+            <p class="eyebrow">Fluxo de texto</p>
+            <h2>Espaços, quebras de linha e separadores</h2>
+          </div>
+        </div>
+
+        <p>
+          O HTML reduz sequências de espaços, tabulações e quebras de linha a um
+          único espaço visual. Portanto, apertar <span class="keyboard">Enter</span>
+          várias vezes no código não cria parágrafos. Para iniciar um novo parágrafo,
+          use <code>&lt;p&gt;</code>; para uma quebra dentro do mesmo bloco, use
+          <code>&lt;br&gt;</code>; para uma linha divisória temática, use
+          <code>&lt;hr&gt;</code>.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>texto-e-quebras.html</span>
+            <span class="code-lang">HTML</span>
+          </figcaption>
+          <pre><code>&lt;p&gt;
+  Este texto tem      vários espaços,
+  mas o navegador os reduz a um único espaço visual.
+&lt;/p&gt;
+
+&lt;p&gt;
+  Rua das Flores, 120&lt;br&gt;
+  Centro — São Paulo/SP&lt;br&gt;
+  CEP 01000-000
+&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;O &lt;hr&gt; cria uma separação temática entre assuntos.&lt;/p&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m1-spaces">
+              <p>Este texto tem      vários espaços,
+                mas o navegador os reduz a um único espaço visual.</p>
+              <p>
+                Rua das Flores, 120<br>
+                Centro — São Paulo/SP<br>
+                CEP 01000-000
+              </p>
+              <hr>
+              <p style="margin-bottom: 0;">O <code>&lt;hr&gt;</code> cria uma separação temática entre assuntos.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <p><strong>Cuidado:</strong> <code>&lt;br&gt;</code> serve para quebras de linha reais (poemas, endereços, letras de música), não para criar espaço entre elementos. Para espaçamento visual, use CSS.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           3. ENTIDADES E EMOJIS
+           ================================================================ -->
+      <section class="lesson-section" id="entidades">
+        <div class="section-title">
+          <span class="section-index">03</span>
+          <div>
+            <p class="eyebrow">Caracteres especiais</p>
+            <h2>Entidades HTML e emojis por código</h2>
+          </div>
+        </div>
+
+        <p>
+          Alguns caracteres têm significado especial no HTML, como <code>&lt;</code>
+          e <code>&amp;</code>. Para exibi-los literalmente, use entidades. Elas também
+          representam símbolos que talvez não existam no teclado: <code>&amp;reg;</code>
+          (marca registrada), <code>&amp;copy;</code> (copyright), <code>&amp;euro;</code>
+          (euro), <code>&amp;nbsp;</code> (espaço não separável) e muitas outras.
+        </p>
+        <p>
+          Emojis podem ser inseridos diretamente no documento ou por seu código
+          hexadecimal Unicode, no formato <code>&amp;#x1F680;</code>. O prefixo
+          <code>x</code> indica base hexadecimal. Isso é útil quando o editor não
+          oferece o caractere visual.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>entidades.html</span>
+            <span class="code-lang">HTML</span>
+          </figcaption>
+          <pre><code>&lt;p&gt;Marca registrada: &amp;reg;&lt;/p&gt;
+&lt;p&gt;Direitos autorais: &amp;copy; 2026 Fundamentos Web&lt;/p&gt;
+&lt;p&gt;Preço do curso: &amp;euro; 49,90&lt;/p&gt;
+&lt;p&gt;Setas: &amp;larr; &amp;uarr; &amp;rarr; &amp;darr;&lt;/p&gt;
+&lt;p&gt;Foguete: &amp;#x1F680;&lt;/p&gt;
+&lt;p&gt;Lâmpada: &amp;#x1F4A1;&lt;/p&gt;
+&lt;p&gt;Aprender &amp;amp; praticar: o &amp;lt;code&amp;gt; aparece literalmente.&lt;/p&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m1-entities">
+              <div class="m1-entity"><span>&amp;reg;</span><strong>&reg;</strong></div>
+              <div class="m1-entity"><span>&amp;copy;</span><strong>&copy;</strong></div>
+              <div class="m1-entity"><span>&amp;euro;</span><strong>&euro;</strong></div>
+              <div class="m1-entity"><span>&amp;#x1F680;</span><strong>&#x1F680;</strong></div>
+            </div>
+            <p style="margin: 16px 0 0; font-size: 0.9rem;">
+              Setas: &larr; &uarr; &rarr; &darr; &nbsp;·&nbsp;
+              Aprender &amp; praticar: <code>&lt;code&gt;</code> aparece literalmente.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           4. HIERARQUIA DE TÍTULOS
+           ================================================================ -->
+      <section class="lesson-section" id="titulos">
+        <div class="section-title">
+          <span class="section-index">04</span>
+          <div>
+            <p class="eyebrow">Organização lógica</p>
+            <h2>Hierarquia de títulos: h1 a h6</h2>
+          </div>
+        </div>
+
+        <p>
+          Os títulos criam um sumário navegável para leitores de tela e mecanismos
+          de busca. Use um único <code>&lt;h1&gt;</code> por página para o assunto
+          principal e distribua os demais níveis em ordem lógica, sem pular etapas
+          apenas por preferência visual. O tamanho padrão pode ser alterado com CSS;
+          a escolha do nível deve ser semântica.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>hierarquia-de-titulos.html</span>
+            <span class="code-lang">HTML</span>
+          </figcaption>
+          <pre><code>&lt;h1&gt;Curso de HTML e CSS&lt;/h1&gt;
+  &lt;h2&gt;Módulo 1 — Fundamentos&lt;/h2&gt;
+    &lt;h3&gt;Estrutura do documento&lt;/h3&gt;
+      &lt;h4&gt;O papel do head&lt;/h4&gt;
+        &lt;h5&gt;Metadados essenciais&lt;/h5&gt;
+          &lt;h6&gt;Codificação e viewport&lt;/h6&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m1-headings">
+              <h1>Curso de HTML e CSS</h1>
+              <h2>Módulo 1 — Fundamentos</h2>
+              <h3>Estrutura do documento</h3>
+              <h4>O papel do head</h4>
+              <h5>Metadados essenciais</h5>
+              <h6>Codificação e viewport</h6>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           5. SEMÂNTICA TEXTUAL
+           ================================================================ -->
+      <section class="lesson-section" id="semantica-textual">
+        <div class="section-title">
+          <span class="section-index">05</span>
+          <div>
+            <p class="eyebrow">Significado antes da aparência</p>
+            <h2>Semântica textual avançada</h2>
+          </div>
+        </div>
+
+        <p>
+          Muitos elementos parecem visualmente iguais, mas carregam significados
+          diferentes. <code>&lt;strong&gt;</code> indica importância; <code>&lt;em&gt;</code>
+          indica ênfase; <code>&lt;mark&gt;</code> destaca uma passagem relevante;
+          <code>&lt;del&gt;</code> e <code>&lt;ins&gt;</code> registram remoções e
+          inserções. Use cada um pelo significado, não apenas pelo estilo padrão.
+        </p>
+        <p>
+          Para trechos de código, use <code>&lt;code&gt;</code>. Se precisar preservar
+          espaços e quebras, combine com <code>&lt;pre&gt;</code>. Citações curtas
+          usam <code>&lt;q&gt;</code>; citações longas usam <code>&lt;blockquote&gt;</code>
+          com o atributo <code>cite</code>. Abreviações ganham contexto com
+          <code>&lt;abbr title&gt;</code>.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>semantica-textual.html</span>
+            <span class="code-lang">HTML</span>
+          </figcaption>
+          <pre><code>&lt;p&gt;
+  &lt;strong&gt;Importante:&lt;/strong&gt; valide seu HTML.
+  &lt;em&gt;Semântica&lt;/em&gt; não é decoração.
+  &lt;mark&gt;Este trecho merece atenção.&lt;/mark&gt;
+  &lt;small&gt;Observação secundária.&lt;/small&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+  De &lt;del&gt;R$ 199,00&lt;/del&gt; por &lt;ins&gt;R$ 149,00&lt;/ins&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;Use &lt;code&gt;display: flex;&lt;/code&gt; para alinhar itens.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;const curso = "HTML";
+console.log(curso);&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;
+  Como disse Tim Berners-Lee:
+  &lt;q cite="https://www.w3.org/People/Berners-Lee/"&gt;
+    A Web é para todos.
+  &lt;/q&gt;
+&lt;/p&gt;
+
+&lt;blockquote cite="https://developer.mozilla.org/"&gt;
+  &lt;p&gt;A plataforma web é construída sobre padrões abertos.&lt;/p&gt;
+  &lt;footer&gt;— Documentação da MDN&lt;/footer&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;
+  &lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt;
+  estrutura o conteúdo.
+&lt;/p&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m1-text-demo">
+              <p>
+                <strong>Importante:</strong> valide seu HTML.
+                <em>Semântica</em> não é decoração.
+                <mark>Este trecho merece atenção.</mark>
+                <small>Observação secundária.</small>
+              </p>
+              <p>De <del>R$ 199,00</del> por <ins>R$ 149,00</ins>.</p>
+              <p>Use <code>display: flex;</code> para alinhar itens.</p>
+              <pre><code>const curso = "HTML";
+console.log(curso);</code></pre>
+              <p>
+                Como disse Tim Berners-Lee:
+                <q cite="https://www.w3.org/People/Berners-Lee/">A Web é para todos.</q>
+              </p>
+              <blockquote cite="https://developer.mozilla.org/">
+                <p>A plataforma web é construída sobre padrões abertos.</p>
+                <footer>— Documentação da MDN</footer>
+              </blockquote>
+              <p style="margin-bottom: 0;">
+                <abbr title="HyperText Markup Language">HTML</abbr> estrutura o conteúdo.
+                Passe o mouse sobre a sigla para ver a explicação.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-success">
+          <p><strong>Regra prática:</strong> se você remover o CSS e o conteúdo continuar fazendo sentido e transmitindo a mesma intenção, a semântica está bem aplicada.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           6. LISTAS
+           ================================================================ -->
+      <section class="lesson-section" id="listas">
+        <div class="section-title">
+          <span class="section-index">06</span>
+          <div>
+            <p class="eyebrow">Sequências e coleções</p>
+            <h2>Listas ordenadas, não ordenadas e de definição</h2>
+          </div>
+        </div>
+
+        <p>
+          Use <code>&lt;ol&gt;</code> quando a ordem importa: passos, rankings,
+          instruções. O atributo <code>type</code> escolhe a numeração
+          (<code>1</code>, <code>A</code>, <code>a</code>, <code>I</code>,
+          <code>i</code>) e <code>start</code> define o valor inicial. Para coleções
+          sem ordem, use <code>&lt;ul&gt;</code>. Já <code>&lt;dl&gt;</code> associa
+          termos (<code>&lt;dt&gt;</code>) a definições (<code>&lt;dd&gt;</code>).
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>listas.html</span>
+            <span class="code-lang">HTML</span>
+          </figcaption>
+          <pre><code>&lt;h3&gt;Roteiro de estudo&lt;/h3&gt;
+&lt;ol type="I" start="3"&gt;
+  &lt;li&gt;Revisar o box model&lt;/li&gt;
+  &lt;li&gt;Praticar Flexbox&lt;/li&gt;
+  &lt;li&gt;Construir o projeto final&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3&gt;Ferramentas&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Editor de código&lt;/li&gt;
+  &lt;li&gt;Navegador com DevTools&lt;/li&gt;
+  &lt;li&gt;Validador W3C&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Glossário&lt;/h3&gt;
+&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;
+  &lt;dd&gt;Linguagem de marcação que estrutura o conteúdo.&lt;/dd&gt;
+  &lt;dt&gt;CSS&lt;/dt&gt;
+  &lt;dd&gt;Linguagem de estilos que define a apresentação.&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m1-list-grid">
+              <div class="m1-list-card">
+                <h3>Roteiro de estudo</h3>
+                <ol type="I" start="3">
+                  <li>Revisar o box model</li>
+                  <li>Praticar Flexbox</li>
+                  <li>Construir o projeto final</li>
+                </ol>
+              </div>
+              <div class="m1-list-card">
+                <h3>Ferramentas</h3>
+                <ul class="m1-markers">
+                  <li>Editor de código</li>
+                  <li>Navegador com DevTools</li>
+                  <li>Validador W3C</li>
+                </ul>
+              </div>
+              <div class="m1-list-card">
+                <h3>Glossário</h3>
+                <dl>
+                  <dt>HTML</dt>
+                  <dd>Linguagem de marcação que estrutura o conteúdo.</dd>
+                  <dt>CSS</dt>
+                  <dd>Linguagem de estilos que define a apresentação.</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Observação:</strong> <code>type</code> e <code>start</code> ainda são válidos em <code>&lt;ol&gt;</code>, mas a aparência de marcadores pode ser controlada com <code>list-style-type</code> no CSS. A escolha entre <code>ol</code> e <code>ul</code> continua sendo semântica.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           7. LINKS
+           ================================================================ -->
+      <section class="lesson-section" id="links">
+        <div class="section-title">
+          <span class="section-index">07</span>
+          <div>
+            <p class="eyebrow">A Web é feita de conexões</p>
+            <h2>Links absolutos, relativos e downloads</h2>
+          </div>
+        </div>
+
+        <p>
+          O elemento <code>&lt;a&gt;</code> cria hiperlinks. Um caminho absoluto
+          inclui o protocolo e o domínio; um caminho relativo aponta para outro
+          arquivo do mesmo projeto. Use <code>target="_blank"</code> para abrir em
+          nova aba e, por segurança, acompanhe com
+          <code>rel="noopener noreferrer"</code>. Links externos podem receber
+          <code>rel="external nofollow"</code> para sinalizar que não são do site.
+        </p>
+        <p>
+          O atributo <code>download</code> sugere o download em vez da navegação.
+          O atributo <code>type</code> informa o tipo do arquivo, e <code>href</code>
+          aponta para o recurso. Para âncoras internas, o destino é o <code>id</code>
+          de um elemento.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>links.html</span>
+            <span class="code-lang">HTML</span>
+          </figcaption>
+          <pre><code>&lt;!-- Link absoluto, aberto em nova aba --&gt;
+&lt;a href="https://developer.mozilla.org/pt-BR/"
+   target="_blank"
+   rel="external noopener noreferrer"&gt;
+  Documentação da MDN
+&lt;/a&gt;
+
+&lt;!-- Link relativo: mesmo projeto, outra página --&gt;
+&lt;a href="02-css-fundamentos.html"&gt;
+  Próximo módulo: Fundamentos de CSS
+&lt;/a&gt;
+
+&lt;!-- Âncora interna: leva ao elemento com id="listas" --&gt;
+&lt;a href="#listas"&gt;Ir para a seção de listas&lt;/a&gt;
+
+&lt;!-- Link de e-mail --&gt;
+&lt;a href="mailto:contato@exemplo.com"&gt;Enviar e-mail&lt;/a&gt;
+
+&lt;!-- Download de um arquivo PDF --&gt;
+&lt;a href="guia-fundamentos-web.pdf"
+   download="guia-fundamentos-web.pdf"
+   type="application/pdf"&gt;
+  Baixar guia de estudos (PDF)
+&lt;/a&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m1-links">
+              <div class="m1-link-row">
+                <a href="https://developer.mozilla.org/pt-BR/" target="_blank" rel="external noopener noreferrer">Documentação da MDN ↗</a>
+                <code>target="_blank" rel="external noopener noreferrer"</code>
+              </div>
+              <div class="m1-link-row">
+                <a href="02-css-fundamentos.html">Próximo módulo: Fundamentos de CSS</a>
+                <code>href="02-css-fundamentos.html"</code>
+              </div>
+              <div class="m1-link-row">
+                <a href="#listas">Ir para a seção de listas</a>
+                <code>href="#listas"</code>
+              </div>
+              <div class="m1-link-row">
+                <a href="mailto:contato@exemplo.com">Enviar e-mail</a>
+                <code>mailto:</code>
+              </div>
+              <div class="m1-link-row">
+                <a href="data:application/pdf;base64,JVBERi0xLjQKJcfsj6IKMSAwIG9iago8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFI+PgplbmRvYmoKMiAwIG9iago8PC9UeXBlL1BhZ2VzL0tpZHNbMyAwIFJdL0NvdW50IDE+PgplbmRvYmoKMyAwIG9iago8PC9UeXBlL1BhZ2UvUGFyZW50IDIgMCBSL01lZGlhQm94WzAgMCA1OTUgODQyXS9SZXNvdXJjZXM8PC9Gb250PDwvRjEgNCAwIFI+Pj4+L0NvbnRlbnRzIDUgMCBSPj4KZW5kb2JqCjQgMCBvYmoKPDwvVHlwZS9Gb250L1N1YnR5cGUvVHlwZTEvQmFzZUZvbnQvSGVsdmV0aWNhPj4KZW5kb2JqCjUgMCBvYmoKPDwvTGVuZ3RoIDY4Pj4Kc3RyZWFtCkJUIC9GMSAyNCBUZiA3MiA3MjAgVGQgKEd1aWEgZGUgZXN0dWRvcyAtIEZ1bmRhbWVudG9zIFdlYikgVGogRVQKZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgNgowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwMDkgMDAwMDAgbiAKMDAwMDAwMDA1MiAwMDAwMCBuIAowMDAwMDAwMTAxIDAwMDAwIG4gCjAwMDAwMDAyMTcgMDAwMDAgbiAKMDAwMDAwMDI4NSAwMDAwMCBuIAp0cmFpbGVyCjw8L1NpemUgNi9Sb290IDEgMCBSPj4Kc3RhcnR4cmVmCjQwMgolJUVPRgo=" download="guia-fundamentos-web.pdf" type="application/pdf">Baixar guia de estudos (PDF)</a>
+                <code>download + type="application/pdf"</code>
+              </div>
+            </div>
+            <p style="margin: 16px 0 0; color: var(--muted); font-size: 0.78rem;">
+              O link de download usa um PDF embutido na demonstração para funcionar sem arquivos extras.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <p><strong>Segurança:</strong> ao usar <code>target="_blank"</code>, inclua <code>rel="noopener"</code>. Isso impede que a página aberta tenha acesso ao contexto da página original via <code>window.opener</code>.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           8. IMAGENS E PICTURE
+           ================================================================ -->
+      <section class="lesson-section" id="imagens">
+        <div class="section-title">
+          <span class="section-index">08</span>
+          <div>
+            <p class="eyebrow">Conteúdo visual</p>
+            <h2>Imagens estáticas e imagens adaptativas</h2>
+          </div>
+        </div>
+
+        <p>
+          Toda imagem informativa precisa de <code>alt</code> descrevendo seu
+          conteúdo. Imagens puramente decorativas podem usar <code>alt=""</code>
+          para serem ignoradas por leitores de tela. Informar
+          <code>width</code> e <code>height</code> ajuda o navegador a reservar
+          espaço e reduzir o deslocamento de layout.
+        </p>
+        <p>
+          O elemento <code>&lt;picture&gt;</code> permite oferecer versões
+          diferentes da mesma imagem. O navegador escolhe a primeira
+          <code>&lt;source&gt;</code> compatível com a mídia e o formato. A
+          <code>&lt;img&gt;</code> final é obrigatória e funciona como fallback.
+          Coloque as condições mais específicas primeiro.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>imagens.html</span>
+            <span class="code-lang">HTML</span>
+          </figcaption>
+          <pre><code>&lt;!-- Imagem estática com texto alternativo descritivo --&gt;
+&lt;figure&gt;
+  &lt;img
+    src="https://picsum.photos/seed/paisagem-html/1200/620"
+    alt="Montanhas cobertas de neve refletidas em um lago"
+    width="1200"
+    height="620"
+    loading="lazy"&gt;
+  &lt;figcaption&gt;Paisagem usada como exemplo de imagem estática.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;!-- Imagem adaptativa: o navegador escolhe a fonte adequada --&gt;
+&lt;picture&gt;
+  &lt;source
+    media="(min-width: 900px)"
+    srcset="https://picsum.photos/seed/paisagem-html/1200/620"&gt;
+  &lt;source
+    media="(min-width: 480px)"
+    srcset="https://picsum.photos/seed/paisagem-html/800/520"&gt;
+  &lt;img
+    src="https://picsum.photos/seed/paisagem-html/480/420"
+    alt="Paisagem adaptada para telas menores"
+    width="480"
+    height="420"&gt;
+&lt;/picture&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <figure class="m1-figure">
+              <img
+                src="https://picsum.photos/seed/paisagem-html/1200/620"
+                alt="Montanhas cobertas de neve refletidas em um lago"
+                width="1200"
+                height="620"
+                loading="lazy">
+              <figcaption>Imagem estática com proporção preservada e carregamento preguiçoso.</figcaption>
+            </figure>
+
+            <div style="margin-top: 22px;">
+              <p style="margin-bottom: 8px; font-size: 0.78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted);">Picture · redimensione a janela</p>
+              <picture class="m1-picture">
+                <source media="(min-width: 900px)" srcset="https://picsum.photos/seed/paisagem-html/1200/620">
+                <source media="(min-width: 480px)" srcset="https://picsum.photos/seed/paisagem-html/800/520">
+                <img
+                  src="https://picsum.photos/seed/paisagem-html/480/420"
+                  alt="Paisagem adaptada para telas menores"
+                  width="480"
+                  height="420"
+                  loading="lazy">
+              </picture>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Acessibilidade:</strong> evite <code>alt="imagem"</code> ou <code>alt="foto"</code>. Descreva a informação transmitida. Se a imagem for decorativa, use <code>alt=""</code>.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           9. ÁUDIO, VÍDEO E IFRAME
+           ================================================================ -->
+      <section class="lesson-section" id="midias">
+        <div class="section-title">
+          <span class="section-index">09</span>
+          <div>
+            <p class="eyebrow">Mídia nativa</p>
+            <h2>Áudio, vídeo e incorporação de terceiros</h2>
+          </div>
+        </div>
+
+        <p>
+          <code>&lt;audio&gt;</code> e <code>&lt;video&gt;</code> incorporam mídia
+          sem plugins. O atributo <code>controls</code> exibe os controles nativos;
+          <code>preload</code> orienta o carregamento; <code>loop</code> repete a
+          reprodução. Para vídeo, <code>poster</code> define a imagem exibida antes
+          do play. Ofereça múltiplos <code>&lt;source&gt;</code> para fallback de
+          formato e um texto dentro do elemento para navegadores sem suporte.
+        </p>
+        <p>
+          O <code>&lt;iframe&gt;</code> incorpora outro documento. Ele é comum para
+          mapas, players e widgets. Sempre inclua <code>title</code> descritivo e
+          restrinja permissões com <code>allow</code> quando possível.
+          <code>allowfullscreen</code> autoriza a tela cheia do player.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>midias.html</span>
+            <span class="code-lang">HTML</span>
+          </figcaption>
+          <pre><code>&lt;!-- Áudio com controles, repetição e pré-carregamento leve --&gt;
+&lt;audio controls loop preload="metadata"&gt;
+  &lt;source src="https://www.w3schools.com/html/horse.mp3"
+          type="audio/mpeg"&gt;
+  Seu navegador não suporta o elemento de áudio.
+&lt;/audio&gt;
+
+&lt;!-- Vídeo com poster e múltiplos formatos de fallback --&gt;
+&lt;video
+  controls
+  width="720"
+  poster="https://picsum.photos/seed/poster-video/1200/675"
+  preload="metadata"&gt;
+  &lt;source src="https://www.w3schools.com/html/mov_bbb.mp4"
+          type="video/mp4"&gt;
+  &lt;source src="https://www.w3schools.com/html/mov_bbb.ogg"
+          type="video/ogg"&gt;
+  Seu navegador não suporta o elemento de vídeo.
+&lt;/video&gt;
+
+&lt;!-- Player incorporado do YouTube --&gt;
+&lt;iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/M7lc1UVf-VE"
+  title="Vídeo de apresentação da API de iframe do YouTube"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen
+  loading="lazy"&gt;
+&lt;/iframe&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m1-media-grid">
+              <div class="m1-media-card">
+                <h3>Áudio nativo</h3>
+                <audio controls loop preload="metadata">
+                  <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+                  Seu navegador não suporta o elemento de áudio.
+                </audio>
+                <p style="margin: 10px 0 0; color: var(--muted); font-size: 0.75rem;">Exemplo remoto de áudio MP3.</p>
+              </div>
+
+              <div class="m1-media-card">
+                <h3>Vídeo nativo</h3>
+                <video controls width="720" poster="https://picsum.photos/seed/poster-video/1200/675" preload="metadata">
+                  <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                  <source src="https://www.w3schools.com/html/mov_bbb.ogg" type="video/ogg">
+                  Seu navegador não suporta o elemento de vídeo.
+                </video>
+                <p style="margin: 10px 0 0; color: var(--muted); font-size: 0.75rem;">Vídeo com poster, controles e fallback de formato.</p>
+              </div>
+            </div>
+
+            <div style="margin-top: 22px;">
+              <h3 style="margin-bottom: 10px; font-size: 1rem;">Iframe do YouTube</h3>
+              <div class="m1-video-frame">
+                <iframe
+                  src="https://www.youtube.com/embed/M7lc1UVf-VE"
+                  title="Vídeo de apresentação da API de iframe do YouTube"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                  loading="lazy">
+                </iframe>
+              </div>
+              <p style="margin: 9px 0 0; color: var(--muted); font-size: 0.75rem;">
+                O iframe mantém proporção 16:9 com CSS e é carregado sob demanda.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Visualização local:</strong> ao abrir esta página via <code>file://</code>, o YouTube pode exibir o erro 153. Sirva a pasta com um servidor HTTP, como <code>python -m http.server</code>, e acesse <code>http://localhost:8000</code> para ver o player funcionando.</p>
+        </div>
+
+        <div class="callout callout-warning">
+          <p><strong>Boas práticas:</strong> mídia com reprodução automática pode atrapalhar e é bloqueada por navegadores. Prefira <code>controls</code> e carregamento sob demanda. Para vídeos próprios, adicione legendas com <code>&lt;track kind="captions"&gt;</code>.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           FECHAMENTO
+           ================================================================ -->
+      <section class="lesson-section" aria-labelledby="resumo-modulo">
+        <div class="section-title">
+          <span class="section-index">✓</span>
+          <div>
+            <p class="eyebrow">Fechamento</p>
+            <h2 id="resumo-modulo">O que você já sabe fazer</h2>
+          </div>
+        </div>
+        <p>
+          Você estruturou um documento HTML5 válido, aplicou entidades, organizou
+          textos e listas, criou navegação interna e externa, exibiu imagens
+          adaptativas e incorporou mídias nativas e externas. No próximo módulo,
+          começa a controlar a apresentação visual com CSS.
+        </p>
+        <div class="callout callout-success">
+          <p><strong>Exercício:</strong> crie uma página de apresentação pessoal com um título principal, três seções, uma lista de habilidades, uma imagem com <code>alt</code> descritivo e um link para seu e-mail.</p>
+        </div>
+
+        <div class="lesson-footer">
+          <a class="button button-secondary" href="../index.html">← Voltar ao início</a>
+          <a class="button" href="02-css-fundamentos.html">Próximo módulo: CSS →</a>
+        </div>
+
+        <nav class="pager" aria-label="Navegação entre módulos">
+          <a class="pager-link" href="../index.html">
+            <span>Anterior</span>
+            <strong>Hub do curso</strong>
+          </a>
+          <a class="pager-link" href="02-css-fundamentos.html">
+            <span>Próximo</span>
+            <strong>02 · Fundamentos de CSS</strong>
+          </a>
+        </nav>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>Fundamentos Web · Módulo 01 de 08</p>
+      <nav aria-label="Links do rodapé">
+        <a href="../index.html">Início</a>
+        <a href="02-css-fundamentos.html">Próximo módulo</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

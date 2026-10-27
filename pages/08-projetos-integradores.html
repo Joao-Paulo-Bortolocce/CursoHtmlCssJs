@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Módulo 8: projetos integradores com perfil e redes sociais, galeria de vídeos, mini-site com mascote e variáveis CSS, além de parallax.">
+  <title>Módulo 08 · Projetos integradores | Fundamentos Web</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;600&family=Kaushan+Script&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/style.css">
+
+  <!-- Modo prática: botão "Praticar" que abre os exemplos em um mini editor. -->
+  <link rel="stylesheet" href="../styles/pratica.css">
+  <script src="../scripts/pratica-exercicios.js" defer></script>
+  <script src="../scripts/pratica-blocos.js" defer></script>
+  <script src="../scripts/pratica-montar.js" defer></script>
+  <script src="../scripts/pratica.js" defer></script>
+
+  <style>
+    /* ==================================================================
+       Variáveis usadas pelo mini-site do projeto 3.
+       Nomes prefixados para não interferirem no tema global do curso.
+       ================================================================== */
+    :root {
+      --m8-green: #3ddc84;
+      --m8-green-dark: #0f9d58;
+      --m8-ink: #10241a;
+      --m8-muted: #4b6357;
+      --m8-cream: #f2fff8;
+      --m8-card: #ffffff;
+      --m8-radius: 18px;
+      --m8-gap: 1rem;
+      --m8-display: "Bebas Neue", Impact, sans-serif;
+    }
+
+    /* ---------- Projeto 1: perfil ---------- */
+    .m8-profile {
+      max-width: 640px;
+      margin: 0 auto;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #ffffff;
+      box-shadow: 0 24px 55px rgba(15, 23, 42, 0.12);
+    }
+
+    .m8-profile-cover {
+      height: 128px;
+      background:
+        radial-gradient(circle at 78% 25%, rgba(153, 246, 228, 0.55), transparent 32%),
+        linear-gradient(125deg, #312e81, #4f46e5 52%, #0f766e);
+    }
+
+    .m8-profile-body {
+      padding: 0 24px 24px;
+    }
+
+    .m8-avatar {
+      display: grid;
+      width: 96px;
+      height: 96px;
+      margin-top: -48px;
+      place-items: center;
+      border: 4px solid #ffffff;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0f766e, #4f46e5);
+      color: #ffffff;
+      font-size: 1.7rem;
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
+    }
+
+    .m8-profile-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .m8-profile-head h3 {
+      margin-bottom: 2px;
+      font-size: 1.45rem;
+    }
+
+    .m8-profile-role {
+      margin: 0;
+      color: var(--brand);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .m8-profile-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: #dcfce7;
+      color: #166534;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+
+    .m8-profile-bio {
+      margin: 14px 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.65;
+    }
+
+    .m8-profile-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 0 0 16px;
+      padding: 0;
+      color: var(--muted);
+      font-size: 0.74rem;
+      list-style: none;
+    }
+
+    .m8-profile-meta li {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .m8-socials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .m8-socials a {
+      display: inline-grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #f8faff;
+      color: var(--ink-soft);
+      text-decoration: none;
+      transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+
+    .m8-socials a:hover {
+      border-color: var(--brand);
+      background: var(--brand-soft);
+      color: var(--brand-dark);
+    }
+
+    .m8-socials svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .m8-profile-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin: 0;
+      padding: 14px 0 0;
+      border-top: 1px solid var(--line);
+      list-style: none;
+      text-align: center;
+    }
+
+    .m8-profile-stats strong {
+      display: block;
+      color: var(--ink);
+      font-size: 1.05rem;
+    }
+
+    .m8-profile-stats span {
+      color: var(--muted);
+      font-size: 0.68rem;
+    }
+
+    /* ---------- Projeto 2: galeria ---------- */
+    .m8-gallery {
+      display: grid;
+      gap: 14px;
+    }
+
+    .m8-video-frame {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      background: #0b1220;
+      box-shadow: 0 16px 35px rgba(11, 19, 36, 0.2);
+    }
+
+    .m8-video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .m8-thumbs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .m8-thumb {
+      display: block;
+      overflow: hidden;
+      border: 2px solid transparent;
+      border-radius: 9px;
+      background: #0b1220;
+      color: #ffffff;
+      text-decoration: none;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .m8-thumb:hover {
+      border-color: var(--brand);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .m8-thumb img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .m8-thumb span {
+      display: block;
+      padding: 7px 8px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .m8-thumb small {
+      display: block;
+      margin-top: 1px;
+      color: #94a3b8;
+      font-size: 0.6rem;
+      font-weight: 500;
+    }
+
+    /* ---------- Projeto 3: mini-site com mascote ---------- */
+    .m8-mini-site {
+      overflow: hidden;
+      border: 1px solid #c7e8d7;
+      border-radius: var(--m8-radius);
+      background: var(--m8-cream);
+      color: var(--m8-ink);
+      box-shadow: 0 18px 42px rgba(16, 36, 26, 0.1);
+    }
+
+    .m8-mini-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px clamp(18px, 4vw, 34px);
+      border-bottom: 1px solid #d8f3e3;
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .m8-mini-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--m8-ink);
+      font-family: var(--m8-display);
+      font-size: 1.35rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+
+    .m8-mini-brand i {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--m8-green);
+      box-shadow: 0 0 0 4px rgba(61, 220, 132, 0.22);
+    }
+
+    .m8-mini-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .m8-mini-nav a {
+      color: var(--m8-muted);
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .m8-mini-nav a:hover {
+      color: var(--m8-green-dark);
+    }
+
+    .m8-mini-hero {
+      display: grid;
+      gap: 18px;
+      align-items: center;
+      padding: clamp(24px, 5vw, 48px);
+      background:
+        radial-gradient(circle at 85% 20%, rgba(61, 220, 132, 0.25), transparent 35%),
+        var(--m8-cream);
+    }
+
+    .m8-mini-kicker {
+      margin-bottom: 8px;
+      color: var(--m8-green-dark);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .m8-mini-title {
+      margin-bottom: 12px;
+      color: var(--m8-ink);
+      font-family: var(--m8-display);
+      font-size: clamp(3rem, 10vw, 5.6rem);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 0.88;
+    }
+
+    .m8-mini-title em {
+      color: var(--m8-green-dark);
+      font-family: "Kaushan Script", cursive;
+      font-size: 0.44em;
+      letter-spacing: 0;
+    }
+
+    .m8-mini-lead {
+      max-width: 440px;
+      margin-bottom: 16px;
+      color: var(--m8-muted);
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    .m8-mini-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 15px;
+      border-radius: 999px;
+      background: var(--m8-green-dark);
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .m8-mini-button:hover {
+      background: var(--m8-ink);
+      color: #ffffff;
+    }
+
+    .m8-mascot {
+      width: min(260px, 80%);
+      margin: 0 auto;
+      filter: drop-shadow(0 22px 20px rgba(16, 36, 26, 0.16));
+    }
+
+    .m8-mini-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+      gap: var(--m8-gap);
+      padding: 0 clamp(24px, 5vw, 48px) clamp(24px, 5vw, 48px);
+    }
+
+    .m8-mini-card {
+      padding: 18px;
+      border: 1px solid #d8f3e3;
+      border-radius: 13px;
+      background: var(--m8-card);
+    }
+
+    .m8-mini-card span {
+      display: inline-grid;
+      width: 32px;
+      height: 32px;
+      margin-bottom: 10px;
+      place-items: center;
+      border-radius: 9px;
+      background: rgba(61, 220, 132, 0.18);
+      color: var(--m8-green-dark);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .m8-mini-card h3 {
+      margin-bottom: 5px;
+      font-size: 0.94rem;
+    }
+
+    .m8-mini-card p {
+      margin: 0;
+      color: var(--m8-muted);
+      font-size: 0.78rem;
+      line-height: 1.55;
+    }
+
+    .m8-mini-footer {
+      padding: 14px clamp(18px, 4vw, 34px);
+      border-top: 1px solid #d8f3e3;
+      color: var(--m8-muted);
+      font-size: 0.68rem;
+    }
+
+    @media (min-width: 720px) {
+      .m8-mini-hero {
+        grid-template-columns: minmax(0, 1.15fr) minmax(240px, 0.85fr);
+      }
+    }
+
+    /* ---------- Projeto 4: parallax ---------- */
+    .m8-parallax {
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+    }
+
+    .m8-parallax-section {
+      display: grid;
+      min-height: 230px;
+      place-items: center;
+      padding: 26px;
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .m8-parallax-section h3 {
+      margin-bottom: 6px;
+      color: #ffffff;
+      font-size: clamp(1.4rem, 4vw, 2.1rem);
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
+    }
+
+    .m8-parallax-section p {
+      max-width: 440px;
+      margin: 0 auto;
+      color: #e2e8f0;
+      font-size: 0.84rem;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
+    }
+
+    .m8-parallax-one {
+      background-image:
+        linear-gradient(rgba(11, 19, 36, 0.45), rgba(11, 19, 36, 0.72)),
+        url("https://picsum.photos/seed/parallax-1/1400/800");
+    }
+
+    .m8-parallax-two {
+      background-image:
+        linear-gradient(rgba(6, 78, 59, 0.4), rgba(11, 19, 36, 0.72)),
+        url("https://picsum.photos/seed/parallax-2/1400/800");
+    }
+
+    .m8-parallax-text {
+      padding: clamp(26px, 6vw, 52px);
+      background: #ffffff;
+      text-align: center;
+    }
+
+    .m8-parallax-text h3 {
+      margin-bottom: 8px;
+      font-size: 1.35rem;
+    }
+
+    .m8-parallax-text p {
+      max-width: 560px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 760px) {
+      .m8-parallax-section {
+        background-attachment: scroll;
+      }
+
+      .m8-thumbs {
+        grid-template-columns: 1fr;
+      }
+
+      .m8-profile-body {
+        padding-inline: 18px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .m8-parallax-section {
+        background-attachment: scroll;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html" aria-label="Fundamentos Web — página inicial">
+        <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+        <span>fundamentos<span class="brand-accent">.web</span></span>
+      </a>
+      <nav class="header-nav" aria-label="Navegação principal">
+        <a href="../index.html">Trilha completa</a>
+        <span class="module-pill">Módulo 08 de 08</span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo" class="container lesson-layout">
+    <aside class="lesson-sidebar" aria-label="Nesta aula">
+      <a class="back-link" href="../index.html">← Voltar ao início</a>
+      <p class="sidebar-kicker">Neste módulo</p>
+      <nav class="toc" aria-label="Índice do módulo 8">
+        <a href="#perfil">1. Perfil e redes sociais</a>
+        <a href="#galeria">2. Galeria de vídeos</a>
+        <a href="#mini-site">3. Mini-site com mascote</a>
+        <a href="#parallax">4. Parallax com fundo fixo</a>
+        <a href="#desafio-final">5. Desafio final</a>
+      </nav>
+      <div class="sidebar-note">
+        <strong>Projeto integrador</strong>
+        <p>Combine os conceitos dos módulos anteriores. Não copie apenas: altere cores, textos e medidas.</p>
+      </div>
+    </aside>
+
+    <article class="lesson-content">
+      <header class="lesson-hero">
+        <p class="eyebrow">Módulo 08 · Integração</p>
+        <h1>Projetos integradores</h1>
+        <p class="lead">
+          Chegou a hora de transformar conceitos em interfaces. Os quatro
+          projetos abaixo combinam semântica, CSS, layout, responsividade e
+          mídia. Cada um é apresentado com código e resultado funcional.
+        </p>
+        <ul class="lesson-meta">
+          <li>Nível avançado</li>
+          <li>4 projetos completos</li>
+          <li>Leitura estimada: 50 min</li>
+        </ul>
+      </header>
+
+      <!-- ================================================================
+           1. PERFIL
+           ================================================================ -->
+      <section class="lesson-section" id="perfil">
+        <div class="section-title">
+          <span class="section-index">01</span>
+          <div>
+            <p class="eyebrow">Projeto 1 · Cartão pessoal</p>
+            <h2>Perfil de usuário com redes sociais e ícones</h2>
+          </div>
+        </div>
+
+        <p>
+          Este projeto usa HTML semântico para estruturar o perfil, CSS para a
+          composição visual e SVG inline para os ícones. A capa em gradiente, o
+          avatar sobreposto e as estatísticas mostram como combinar box model,
+          tipografia e Flexbox em um componente coeso.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>perfil.html + perfil.css</span>
+            <span class="code-lang">HTML + CSS</span>
+          </figcaption>
+          <pre><code>&lt;article class="perfil"&gt;
+  &lt;div class="perfil-capa"&gt;&lt;/div&gt;
+
+  &lt;div class="perfil-corpo"&gt;
+    &lt;div class="avatar" aria-hidden="true"&gt;AS&lt;/div&gt;
+
+    &lt;div class="perfil-cabecalho"&gt;
+      &lt;div&gt;
+        &lt;h3&gt;Ana Souza&lt;/h3&gt;
+        &lt;p&gt;Desenvolvedora front-end&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;span class="badge"&gt;Disponível&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;p class="bio"&gt;
+      Construo interfaces acessíveis e focadas na experiência de leitura.
+    &lt;/p&gt;
+
+    &lt;ul class="meta"&gt;
+      &lt;li&gt;São Paulo, Brasil&lt;/li&gt;
+      &lt;li&gt;HTML · CSS · A11y&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;nav class="redes" aria-label="Redes sociais de Ana"&gt;
+      &lt;a href="https://github.com/" aria-label="GitHub"&gt;
+        &lt;svg viewBox="0 0 24 24" aria-hidden="true"&gt;
+          &lt;path d="M8 6 2 12l6 6M16 6l6 6-6 6" /&gt;
+        &lt;/svg&gt;
+      &lt;/a&gt;
+      &lt;a href="mailto:ana@exemplo.com" aria-label="E-mail"&gt;
+        &lt;svg viewBox="0 0 24 24" aria-hidden="true"&gt;
+          &lt;path d="M3 6h18v12H3zM3 7l9 6 9-6" /&gt;
+        &lt;/svg&gt;
+      &lt;/a&gt;
+    &lt;/nav&gt;
+
+    &lt;ul class="numeros"&gt;
+      &lt;li&gt;&lt;strong&gt;24&lt;/strong&gt;&lt;span&gt;projetos&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;8&lt;/strong&gt;&lt;span&gt;anos&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;100%&lt;/strong&gt;&lt;span&gt;foco&lt;/span&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/article&gt;
+
+&lt;style&gt;
+  .perfil {
+    max-width: 640px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 24px 55px rgba(15, 23, 42, .12);
+  }
+
+  .perfil-capa {
+    height: 128px;
+    background: linear-gradient(125deg, #312e81, #4f46e5, #0f766e);
+  }
+
+  .perfil-corpo { padding: 0 24px 24px; }
+
+  .avatar {
+    display: grid;
+    width: 96px;
+    height: 96px;
+    margin-top: -48px;
+    place-items: center;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0f766e, #4f46e5);
+    color: #fff;
+    font-weight: 800;
+  }
+
+  .perfil-cabecalho,
+  .redes,
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .redes a {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    border-radius: 9px;
+    background: #f8faff;
+  }
+
+  .numeros {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid #e1e7f0;
+    text-align: center;
+  }
+&lt;/style&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <article class="m8-profile">
+              <div class="m8-profile-cover"></div>
+              <div class="m8-profile-body">
+                <div class="m8-avatar" aria-hidden="true">AS</div>
+
+                <div class="m8-profile-head">
+                  <div>
+                    <h3>Ana Souza</h3>
+                    <p class="m8-profile-role">Desenvolvedora front-end</p>
+                  </div>
+                  <span class="m8-profile-badge">● Disponível</span>
+                </div>
+
+                <p class="m8-profile-bio">
+                  Construo interfaces acessíveis, com foco em clareza, desempenho
+                  e uma experiência de leitura agradável em qualquer tela.
+                </p>
+
+                <ul class="m8-profile-meta">
+                  <li>São Paulo, Brasil</li>
+                  <li>HTML · CSS · Acessibilidade</li>
+                </ul>
+
+                <nav class="m8-socials" aria-label="Redes sociais de Ana Souza">
+                  <a href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Ana Souza">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M8 6 2 12l6 6M16 6l6 6-6 6"></path>
+                    </svg>
+                  </a>
+                  <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Ana Souza">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                      <path d="M8 11v5M8 8v.01M12 16v-3a2 2 0 0 1 4 0v3" stroke-linecap="round"></path>
+                    </svg>
+                  </a>
+                  <a href="mailto:ana@exemplo.com" aria-label="Enviar e-mail para Ana Souza">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                      <path d="m3 7 9 6 9-6"></path>
+                    </svg>
+                  </a>
+                </nav>
+
+                <ul class="m8-profile-stats">
+                  <li><strong>24</strong><span>projetos</span></li>
+                  <li><strong>8</strong><span>anos</span></li>
+                  <li><strong>100%</strong><span>foco</span></li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Acessibilidade:</strong> cada ícone tem um <code>aria-label</code> no link. O SVG é decorativo (<code>aria-hidden="true"</code>), pois o nome acessível já está no link.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           2. GALERIA DE VÍDEOS
+           ================================================================ -->
+      <section class="lesson-section" id="galeria">
+        <div class="section-title">
+          <span class="section-index">02</span>
+          <div>
+            <p class="eyebrow">Projeto 2 · Mídia incorporada</p>
+            <h2>Mini-galeria de vídeos com navegação por links</h2>
+          </div>
+        </div>
+
+        <p>
+          A galeria usa um único iframe nomeado e links com <code>target</code>
+          apontando para esse nome. Cada miniatura carrega uma URL de embed do
+          YouTube. Ao clicar, o vídeo é trocado dentro do mesmo frame, sem
+          recarregar a página.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>galeria.html + galeria.css</span>
+            <span class="code-lang">HTML + CSS</span>
+          </figcaption>
+          <pre><code>&lt;div class="galeria"&gt;
+  &lt;div class="video-palco"&gt;
+    &lt;iframe
+      name="video-palco"
+      src="https://www.youtube.com/embed/M7lc1UVf-VE"
+      title="Vídeo em destaque"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen
+      loading="lazy"&gt;
+    &lt;/iframe&gt;
+  &lt;/div&gt;
+
+  &lt;div class="miniaturas"&gt;
+    &lt;a href="https://www.youtube.com/embed/aqz-KE-bpKQ"
+       target="video-palco"&gt;
+      &lt;img src="https://i.ytimg.com/vi/aqz-KE-bpKQ/hqdefault.jpg"
+           alt="Miniatura do vídeo Big Buck Bunny"&gt;
+      &lt;span&gt;Big Buck Bunny&lt;/span&gt;
+    &lt;/a&gt;
+
+    &lt;a href="https://www.youtube.com/embed/jNQXAC9IVRw"
+       target="video-palco"&gt;
+      &lt;img src="https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg"
+           alt="Miniatura do primeiro vídeo do YouTube"&gt;
+      &lt;span&gt;Me at the zoo&lt;/span&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+  .video-palco {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #0b1220;
+  }
+
+  .video-palco iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .miniaturas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+  }
+
+  .miniaturas img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+&lt;/style&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">interativo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m8-gallery">
+              <div class="m8-video-frame">
+                <iframe
+                  name="m8-video-palco"
+                  src="https://www.youtube.com/embed/M7lc1UVf-VE"
+                  title="Vídeo em destaque da galeria"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                  loading="lazy">
+                </iframe>
+              </div>
+
+              <div class="m8-thumbs">
+                <a class="m8-thumb" href="https://www.youtube.com/embed/aqz-KE-bpKQ" target="m8-video-palco">
+                  <img src="https://i.ytimg.com/vi/aqz-KE-bpKQ/hqdefault.jpg" alt="Miniatura do vídeo Big Buck Bunny" loading="lazy">
+                  <span>Big Buck Bunny<small>Curta de animação</small></span>
+                </a>
+                <a class="m8-thumb" href="https://www.youtube.com/embed/jNQXAC9IVRw" target="m8-video-palco">
+                  <img src="https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg" alt="Miniatura do primeiro vídeo do YouTube" loading="lazy">
+                  <span>Me at the zoo<small>Primeiro vídeo do YouTube</small></span>
+                </a>
+                <a class="m8-thumb" href="https://www.youtube.com/embed/M7lc1UVf-VE" target="m8-video-palco">
+                  <img src="https://i.ytimg.com/vi/M7lc1UVf-VE/hqdefault.jpg" alt="Miniatura do vídeo de apresentação da API do YouTube" loading="lazy">
+                  <span>IFrame API<small>Documentação em vídeo</small></span>
+                </a>
+              </div>
+            </div>
+            <p style="margin: 12px 0 0; color: var(--muted); font-size: 0.78rem;">
+              Clique nas miniaturas para trocar o vídeo dentro do iframe nomeado.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Visualização local:</strong> o YouTube pode exibir o erro 153 quando a página é aberta via <code>file://</code>. Sirva a pasta com um servidor HTTP, como <code>python -m http.server</code>, e acesse <code>http://localhost:8000</code> para testar a troca de vídeos.</p>
+        </div>
+
+        <div class="callout callout-warning">
+          <p><strong>Privacidade:</strong> vídeos incorporados podem definir cookies e coletar dados. Considere o modo de privacidade do YouTube e informe o visitante quando necessário.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           3. MINI-SITE COM MASCOTE
+           ================================================================ -->
+      <section class="lesson-section" id="mini-site">
+        <div class="section-title">
+          <span class="section-index">03</span>
+          <div>
+            <p class="eyebrow">Projeto 3 · Identidade visual</p>
+            <h2>Mini-site responsivo com mascote e variáveis CSS</h2>
+          </div>
+        </div>
+
+        <p>
+          Este mini-site simula uma página institucional com um mascote estilo
+          Android. As variáveis em <code>:root</code> centralizam a paleta, o
+          raio e o espaçamento. A tipografia combina Bebas Neue, Work Sans e
+          Kaushan Script. O layout usa Grid fluido com <code>auto-fit</code> e
+          <code>minmax()</code>, além de <code>clamp()</code> para escalar títulos
+          sem media queries em cada detalhe.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>mini-site.html + mini-site.css</span>
+            <span class="code-lang">HTML + CSS</span>
+          </figcaption>
+          <pre><code>:root {
+  --verde: #3ddc84;
+  --verde-escuro: #0f9d58;
+  --tinta: #10241a;
+  --creme: #f2fff8;
+  --raio: 18px;
+  --gap: 1rem;
+  --display: "Bebas Neue", Impact, sans-serif;
+}
+
+.hero {
+  display: grid;
+  gap: 18px;
+  padding: clamp(24px, 5vw, 48px);
+  background: radial-gradient(
+    circle at 85% 20%,
+    rgba(61, 220, 132, 0.25),
+    transparent 35%
+  ), var(--creme);
+}
+
+.hero h1 {
+  font-family: var(--display);
+  font-size: clamp(3rem, 10vw, 5.6rem);
+  line-height: 0.88;
+}
+
+.hero h1 em {
+  color: var(--verde-escuro);
+  font-family: "Kaushan Script", cursive;
+  font-size: 0.44em;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+  gap: var(--gap);
+  padding: 0 clamp(24px, 5vw, 48px) clamp(24px, 5vw, 48px);
+}
+
+.card {
+  padding: 18px;
+  border: 1px solid #d8f3e3;
+  border-radius: 13px;
+  background: #fff;
+}
+
+/* A partir de 720px, texto e mascote ficam lado a lado */
+@media (min-width: 720px) {
+  .hero {
+    grid-template-columns: minmax(0, 1.15fr) minmax(240px, 0.85fr);
+    align-items: center;
+  }
+}</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m8-mini-site">
+              <header class="m8-mini-header">
+                <a class="m8-mini-brand" href="#mini-site"><i aria-hidden="true"></i> Droid Academy</a>
+                <nav class="m8-mini-nav" aria-label="Menu do mini-site">
+                  <a href="#mini-site">Início</a>
+                  <a href="#mini-site">Cursos</a>
+                  <a href="#mini-site">Comunidade</a>
+                </nav>
+              </header>
+
+              <div class="m8-mini-hero">
+                <div>
+                  <p class="m8-mini-kicker">Aprenda com o mascote</p>
+                  <h3 class="m8-mini-title">Código<br><em>com alma.</em></h3>
+                  <p class="m8-mini-lead">
+                    Uma escola fictícia para praticar HTML, CSS e acessibilidade
+                    com projetos pequenos, divertidos e cheios de personalidade.
+                  </p>
+                  <a class="m8-mini-button" href="#mini-site">Conhecer a trilha →</a>
+                </div>
+
+                <svg class="m8-mascot" viewBox="0 0 240 260" role="img" aria-label="Mascote robô verde sorridente">
+                  <line x1="80" y1="54" x2="64" y2="22" stroke="var(--m8-green-dark)" stroke-width="6" stroke-linecap="round"></line>
+                  <line x1="160" y1="54" x2="176" y2="22" stroke="var(--m8-green-dark)" stroke-width="6" stroke-linecap="round"></line>
+                  <circle cx="64" cy="18" r="9" fill="var(--m8-green)"></circle>
+                  <circle cx="176" cy="18" r="9" fill="var(--m8-green)"></circle>
+                  <rect x="34" y="54" width="172" height="132" rx="66" fill="var(--m8-green)"></rect>
+                  <circle cx="92" cy="112" r="10" fill="var(--m8-ink)"></circle>
+                  <circle cx="148" cy="112" r="10" fill="var(--m8-ink)"></circle>
+                  <path d="M98 142c12 12 32 12 44 0" fill="none" stroke="var(--m8-ink)" stroke-width="7" stroke-linecap="round"></path>
+                  <rect x="16" y="104" width="16" height="54" rx="8" fill="var(--m8-green-dark)"></rect>
+                  <rect x="208" y="104" width="16" height="54" rx="8" fill="var(--m8-green-dark)"></rect>
+                  <rect x="74" y="186" width="24" height="52" rx="12" fill="var(--m8-green-dark)"></rect>
+                  <rect x="142" y="186" width="24" height="52" rx="12" fill="var(--m8-green-dark)"></rect>
+                </svg>
+              </div>
+
+              <div class="m8-mini-cards">
+                <article class="m8-mini-card">
+                  <span>&lt;/&gt;</span>
+                  <h3>HTML semântico</h3>
+                  <p>Estrutura que faz sentido para pessoas e para máquinas.</p>
+                </article>
+                <article class="m8-mini-card">
+                  <span>Aa</span>
+                  <h3>CSS autoral</h3>
+                  <p>Tipografia, cor e layout com identidade própria.</p>
+                </article>
+                <article class="m8-mini-card">
+                  <span>◎</span>
+                  <h3>Acessibilidade</h3>
+                  <p>Interfaces que funcionam para todos os corpos e contextos.</p>
+                </article>
+              </div>
+
+              <footer class="m8-mini-footer">
+                Droid Academy · projeto fictício do curso Fundamentos Web
+              </footer>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Design system:</strong> quando uma cor ou espaçamento aparece em vários lugares, transforme-o em variável. Isso reduz inconsistências e torna mudanças globais muito mais simples.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           4. PARALLAX
+           ================================================================ -->
+      <section class="lesson-section" id="parallax">
+        <div class="section-title">
+          <span class="section-index">04</span>
+          <div>
+            <p class="eyebrow">Projeto 4 · Profundidade</p>
+            <h2>Parallax simples com background-attachment: fixed</h2>
+          </div>
+        </div>
+
+        <p>
+          O efeito parallax acontece quando o fundo de uma seção permanece fixo
+          enquanto o conteúdo rola. A técnica mais simples usa
+          <code>background-attachment: fixed</code>, <code>background-size: cover</code>
+          e uma camada de gradiente para garantir contraste. Intercale seções de
+          imagem com blocos de texto para criar ritmo.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>parallax.html + parallax.css</span>
+            <span class="code-lang">HTML + CSS</span>
+          </figcaption>
+          <pre><code>&lt;section class="faixa faixa-1"&gt;
+  &lt;div&gt;
+    &lt;h3&gt;Respire.&lt;/h3&gt;
+    &lt;p&gt;O fundo permanece enquanto o texto avança.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section class="texto"&gt;
+  &lt;h3&gt;Conteúdo em primeiro lugar&lt;/h3&gt;
+  &lt;p&gt;O parallax é um detalhe, não o espetáculo principal.&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section class="faixa faixa-2"&gt;
+  &lt;div&gt;
+    &lt;h3&gt;Continue.&lt;/h3&gt;
+    &lt;p&gt;A imagem de fundo fica presa à viewport.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;style&gt;
+  .faixa {
+    min-height: 230px;
+    display: grid;
+    place-items: center;
+    padding: 26px;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    color: #fff;
+    text-align: center;
+  }
+
+  .faixa-1 {
+    background-image:
+      linear-gradient(rgba(11, 19, 36, .45), rgba(11, 19, 36, .72)),
+      url("montanha.jpg");
+  }
+
+  .faixa-2 {
+    background-image:
+      linear-gradient(rgba(6, 78, 59, .4), rgba(11, 19, 36, .72)),
+      url("floresta.jpg");
+  }
+
+  .texto {
+    padding: 52px 26px;
+    background: #fff;
+    text-align: center;
+  }
+
+  /* Em telas pequenas, prefira scroll por desempenho */
+  @media (max-width: 760px) {
+    .faixa {
+      background-attachment: scroll;
+    }
+  }
+&lt;/style&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">role a página</span>
+          </div>
+          <div class="demo-panel-body" style="padding: 0;">
+            <div class="m8-parallax">
+              <section class="m8-parallax-section m8-parallax-one">
+                <div>
+                  <h3>Respire.</h3>
+                  <p>O fundo permanece enquanto o texto avança.</p>
+                </div>
+              </section>
+
+              <section class="m8-parallax-text">
+                <h3>Conteúdo em primeiro lugar</h3>
+                <p>
+                  O parallax é um detalhe visual. O texto continua legível, com
+                  contraste suficiente e sem depender do movimento.
+                </p>
+              </section>
+
+              <section class="m8-parallax-section m8-parallax-two">
+                <div>
+                  <h3>Continue.</h3>
+                  <p>A imagem de fundo fica presa à viewport.</p>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <p><strong>Desempenho e acessibilidade:</strong> <code>background-attachment: fixed</code> pode causar problemas em celulares e sofrer com <code>prefers-reduced-motion</code>. Desative em telas pequenas e ofereça uma versão estática.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           5. DESAFIO FINAL
+           ================================================================ -->
+      <section class="lesson-section" id="desafio-final">
+        <div class="section-title">
+          <span class="section-index">✓</span>
+          <div>
+            <p class="eyebrow">Fim da trilha</p>
+            <h2>Desafio final: combine tudo</h2>
+          </div>
+        </div>
+        <p>
+          Você percorreu os fundamentos do HTML, a apresentação com CSS, o box
+          model, tabelas, formulários, responsividade, Flexbox e projetos. O
+          próximo passo é construir sem copiar: escolha um tema, defina um design
+          system com variáveis e implemente uma página completa.
+        </p>
+
+        <div class="three-col">
+          <div class="mini-card">
+            <h3>Estrutura</h3>
+            <p>Use landmarks, títulos em ordem, listas, tabelas e formulários acessíveis.</p>
+          </div>
+          <div class="mini-card">
+            <h3>Estilo</h3>
+            <p>Crie tokens de cor, tipografia e espaçamento. Documente as decisões.</p>
+          </div>
+          <div class="mini-card">
+            <h3>Adaptação</h3>
+            <p>Comece mobile-first, teste teclado, zoom, orientação e impressão.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-success">
+          <p><strong>Projeto sugerido:</strong> construa um mini-portfólio com perfil, galeria de projetos, formulário de contato, menu responsivo, cards em Flexbox/Grid e uma seção com fundo parallax. Publique e peça feedback.</p>
+        </div>
+
+        <div class="lesson-footer">
+          <a class="button button-secondary" href="../index.html">← Voltar ao início</a>
+          <a class="button" href="01-fundamentos-html.html">Revisar o módulo 01 →</a>
+        </div>
+
+        <nav class="pager" aria-label="Navegação entre módulos">
+          <a class="pager-link" href="07-flexbox-layout.html">
+            <span>Anterior</span>
+            <strong>07 · Flexbox na prática</strong>
+          </a>
+          <a class="pager-link" href="../index.html">
+            <span>Concluído</span>
+            <strong>Voltar à trilha completa</strong>
+          </a>
+        </nav>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>Fundamentos Web · Módulo 08 de 08 · Curso concluído</p>
+      <nav aria-label="Links do rodapé">
+        <a href="../index.html">Início</a>
+        <a href="01-fundamentos-html.html">Revisar módulo 01</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

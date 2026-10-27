@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Módulo 7: modelo Flexbox, eixos, container, direção, quebra, justify-content, align-items, propriedades dos itens e centralização.">
+  <title>Módulo 07 · Flexbox na prática | Fundamentos Web</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/style.css">
+
+  <!-- Modo prática: botão "Praticar" que abre os exemplos em um mini editor. -->
+  <link rel="stylesheet" href="../styles/pratica.css">
+  <script src="../scripts/pratica-exercicios.js" defer></script>
+  <script src="../scripts/pratica-blocos.js" defer></script>
+  <script src="../scripts/pratica-montar.js" defer></script>
+  <script src="../scripts/pratica.js" defer></script>
+
+  <style>
+    /* ---------- Eixos ---------- */
+    .m7-axis-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .m7-axis-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .m7-axis-card h3 {
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+
+    .m7-axis-stage {
+      position: relative;
+      display: flex;
+      min-height: 150px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 34px 22px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 8px;
+      background: #f8faff;
+    }
+
+    .m7-axis-stage.m7-axis-column {
+      flex-direction: column;
+      gap: 6px;
+      padding: 22px 34px;
+    }
+
+    .m7-box {
+      display: grid;
+      min-width: 62px;
+      min-height: 42px;
+      place-items: center;
+      padding: 8px;
+      border-radius: 6px;
+      background: #dbeafe;
+      color: #1e3a8a;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 600;
+    }
+
+    .m7-box:nth-child(2) {
+      background: #e0e7ff;
+      color: #3730a3;
+    }
+
+    .m7-box:nth-child(3) {
+      background: #ccfbf1;
+      color: #115e59;
+    }
+
+    .m7-axis-label {
+      position: absolute;
+      color: var(--brand-dark);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      font-weight: 600;
+    }
+
+    .m7-axis-main {
+      right: 12px;
+      bottom: 8px;
+    }
+
+    .m7-axis-cross {
+      top: 8px;
+      left: 12px;
+    }
+
+    .m7-axis-column .m7-axis-main {
+      right: 8px;
+      bottom: 12px;
+    }
+
+    .m7-axis-column .m7-axis-cross {
+      top: 8px;
+      left: 10px;
+    }
+
+    /* ---------- Demos de container ---------- */
+    .m7-demo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .m7-demo-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #ffffff;
+    }
+
+    .m7-demo-card h3 {
+      margin-bottom: 8px;
+      font-size: 0.82rem;
+    }
+
+    .m7-track {
+      display: flex;
+      min-height: 96px;
+      gap: 7px;
+      padding: 10px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 7px;
+      background: #f8faff;
+    }
+
+    .m7-track > span {
+      display: grid;
+      min-width: 38px;
+      min-height: 34px;
+      place-items: center;
+      padding: 5px;
+      border-radius: 5px;
+      background: #c7d2fe;
+      color: #3730a3;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 600;
+    }
+
+    .m7-row {
+      flex-direction: row;
+    }
+
+    .m7-column {
+      flex-direction: column;
+    }
+
+    .m7-wrap {
+      flex-wrap: wrap;
+      align-content: flex-start;
+    }
+
+    .m7-wrap-reverse {
+      flex-wrap: wrap-reverse;
+      align-content: flex-start;
+    }
+
+    /* ---------- Justify e align ---------- */
+    .m7-justify-list {
+      display: grid;
+      gap: 9px;
+    }
+
+    .m7-justify-row {
+      display: flex;
+      min-height: 58px;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 10px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 7px;
+      background: #f8faff;
+    }
+
+    .m7-justify-row > span {
+      display: grid;
+      min-width: 38px;
+      min-height: 32px;
+      place-items: center;
+      padding: 4px;
+      border-radius: 5px;
+      background: #bfdbfe;
+      color: #1e3a8a;
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      font-weight: 600;
+    }
+
+    .m7-justify-row small {
+      flex: 0 0 150px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+    }
+
+    .m7-jc-start { justify-content: flex-start; }
+    .m7-jc-center { justify-content: center; }
+    .m7-jc-between { justify-content: space-between; }
+    .m7-jc-around { justify-content: space-around; }
+    .m7-jc-evenly { justify-content: space-evenly; }
+
+    .m7-align-list {
+      display: grid;
+      gap: 9px;
+      margin-top: 14px;
+    }
+
+    .m7-align-row {
+      display: flex;
+      min-height: 92px;
+      align-items: stretch;
+      gap: 7px;
+      padding: 9px 10px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 7px;
+      background: #f8faff;
+    }
+
+    .m7-align-row > span {
+      display: grid;
+      min-width: 44px;
+      place-items: center;
+      padding: 6px;
+      border-radius: 5px;
+      background: #ccfbf1;
+      color: #115e59;
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      font-weight: 600;
+    }
+
+    .m7-align-row small {
+      align-self: center;
+      flex: 0 0 150px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+    }
+
+    .m7-ai-stretch { align-items: stretch; }
+    .m7-ai-start { align-items: flex-start; }
+    .m7-ai-center { align-items: center; }
+    .m7-ai-end { align-items: flex-end; }
+
+    /* ---------- Itens ---------- */
+    .m7-items-demo {
+      display: flex;
+      min-height: 130px;
+      gap: 8px;
+      padding: 10px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 8px;
+      background: #f8faff;
+    }
+
+    .m7-item {
+      display: grid;
+      place-items: center;
+      padding: 10px;
+      border-radius: 6px;
+      background: #dbeafe;
+      color: #1e3a8a;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .m7-item-a { flex: 1 1 90px; }
+    .m7-item-b { flex: 2 1 90px; background: #e0e7ff; color: #3730a3; }
+    .m7-item-c { flex-basis: 150px; background: #ccfbf1; color: #115e59; }
+
+    .m7-align-self-demo {
+      display: flex;
+      min-height: 150px;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 10px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 8px;
+      background: #f8faff;
+    }
+
+    .m7-align-self-demo span {
+      display: grid;
+      min-width: 58px;
+      min-height: 36px;
+      place-items: center;
+      padding: 6px;
+      border-radius: 6px;
+      background: #dbeafe;
+      color: #1e3a8a;
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      font-weight: 600;
+    }
+
+    .m7-self-center {
+      align-self: center;
+      background: #fef3c7 !important;
+      color: #92400e !important;
+    }
+
+    .m7-self-end {
+      align-self: flex-end;
+      background: #fce7f3 !important;
+      color: #9d174d !important;
+    }
+
+    .m7-order-demo {
+      display: flex;
+      gap: 8px;
+      padding: 10px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 8px;
+      background: #f8faff;
+    }
+
+    .m7-order-demo span {
+      display: grid;
+      flex: 1;
+      min-height: 56px;
+      place-items: center;
+      padding: 8px;
+      border-radius: 6px;
+      background: #e0e7ff;
+      color: #3730a3;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 600;
+    }
+
+    .m7-order-demo .m7-order-first {
+      order: -1;
+      background: #ccfbf1;
+      color: #115e59;
+    }
+
+    .m7-order-demo .m7-order-last {
+      order: 2;
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    /* ---------- Centralização ---------- */
+    .m7-center-stage {
+      display: flex;
+      min-height: 300px;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 10px;
+      background-color: #f8fafc;
+      background-image: radial-gradient(circle at center, rgba(79, 70, 229, 0.09) 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+
+    .m7-center-card {
+      width: min(290px, 90%);
+      padding: 24px;
+      border: 1px solid var(--border, #c7d2fe);
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: 0 18px 40px rgba(30, 41, 59, 0.14);
+      text-align: center;
+    }
+
+    .m7-center-card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--brand-dark);
+      font-size: 1rem;
+    }
+
+    .m7-center-card span {
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 760px) {
+      .m7-axis-grid,
+      .m7-demo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .m7-justify-row,
+      .m7-align-row {
+        flex-wrap: wrap;
+      }
+
+      .m7-justify-row small,
+      .m7-align-row small {
+        flex-basis: 100%;
+        margin-bottom: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html" aria-label="Fundamentos Web — página inicial">
+        <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+        <span>fundamentos<span class="brand-accent">.web</span></span>
+      </a>
+      <nav class="header-nav" aria-label="Navegação principal">
+        <a href="../index.html">Trilha completa</a>
+        <span class="module-pill">Módulo 07 de 08</span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo" class="container lesson-layout">
+    <aside class="lesson-sidebar" aria-label="Nesta aula">
+      <a class="back-link" href="../index.html">← Voltar ao início</a>
+      <p class="sidebar-kicker">Neste módulo</p>
+      <nav class="toc" aria-label="Índice do módulo 7">
+        <a href="#eixos">1. Eixos do Flexbox</a>
+        <a href="#container">2. Propriedades do container</a>
+        <a href="#distribuicao">3. justify-content e align-items</a>
+        <a href="#itens">4. Propriedades dos itens</a>
+        <a href="#centralizacao-flex">5. Centralização perfeita</a>
+      </nav>
+      <div class="sidebar-note">
+        <strong>Como estudar</strong>
+        <p>Altere uma propriedade por vez. Flexbox fica muito mais simples quando você entende qual eixo está sendo controlado.</p>
+      </div>
+    </aside>
+
+    <article class="lesson-content">
+      <header class="lesson-hero">
+        <p class="eyebrow">Módulo 07 · Layout unidimensional</p>
+        <h1>Flexbox na prática</h1>
+        <p class="lead">
+          Flexbox distribui espaço e alinha itens ao longo de um eixo. É a
+          ferramenta ideal para barras de navegação, grupos de botões, cartões e
+          qualquer layout em que os elementos precisam se adaptar ao espaço.
+        </p>
+        <ul class="lesson-meta">
+          <li>Nível intermediário</li>
+          <li>5 tópicos práticos</li>
+          <li>Leitura estimada: 40 min</li>
+        </ul>
+      </header>
+
+      <!-- ================================================================
+           1. EIXOS
+           ================================================================ -->
+      <section class="lesson-section" id="eixos">
+        <div class="section-title">
+          <span class="section-index">01</span>
+          <div>
+            <p class="eyebrow">A base de tudo</p>
+            <h2>Eixo principal e eixo transversal</h2>
+          </div>
+        </div>
+
+        <p>
+          Ao aplicar <code>display: flex</code>, o elemento se torna um
+          <strong>flex container</strong> e seus filhos diretos se tornam
+          <strong>flex items</strong>. O <strong>main axis</strong> (eixo
+          principal) é a direção em que os itens são distribuídos. O
+          <strong>cross axis</strong> (eixo transversal) é perpendicular a ele.
+          Em <code>flex-direction: row</code>, o eixo principal é horizontal; em
+          <code>column</code>, é vertical.
+        </p>
+        <p>
+          Propriedades como <code>justify-content</code> atuam no eixo principal;
+          <code>align-items</code> atua no eixo transversal. Se a direção muda,
+          esses eixos mudam junto.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>eixos.css</span>
+            <span class="code-lang">CSS</span>
+          </figcaption>
+          <pre><code>/* Row: main axis horizontal, cross axis vertical */
+.container {
+  display: flex;
+  flex-direction: row; /* valor padrão */
+}
+
+/* Column: main axis vertical, cross axis horizontal */
+.container-coluna {
+  display: flex;
+  flex-direction: column;
+}</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m7-axis-grid">
+              <div class="m7-axis-card">
+                <h3>flex-direction: row</h3>
+                <div class="m7-axis-stage">
+                  <span class="m7-axis-label m7-axis-cross">cross axis ↓</span>
+                  <span class="m7-axis-label m7-axis-main">main axis →</span>
+                  <span class="m7-box">1</span>
+                  <span class="m7-box">2</span>
+                  <span class="m7-box">3</span>
+                </div>
+              </div>
+              <div class="m7-axis-card">
+                <h3>flex-direction: column</h3>
+                <div class="m7-axis-stage m7-axis-column">
+                  <span class="m7-axis-label m7-axis-cross">cross axis →</span>
+                  <span class="m7-axis-label m7-axis-main">main axis ↓</span>
+                  <span class="m7-box">1</span>
+                  <span class="m7-box">2</span>
+                  <span class="m7-box">3</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Dica de memorização:</strong> “justify” mexe no eixo principal; “align” mexe no eixo transversal. Mude a direção e as duas propriedades trocam de efeito visual.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           2. CONTAINER
+           ================================================================ -->
+      <section class="lesson-section" id="container">
+        <div class="section-title">
+          <span class="section-index">02</span>
+          <div>
+            <p class="eyebrow">Direção e fluxo</p>
+            <h2>display, flex-direction, flex-wrap e flex-flow</h2>
+          </div>
+        </div>
+
+        <p>
+          <code>display: flex</code> ativa o modelo. <code>flex-direction</code>
+          define a direção do eixo principal e pode ser <code>row</code>,
+          <code>row-reverse</code>, <code>column</code> ou
+          <code>column-reverse</code>. <code>flex-wrap</code> permite que os itens
+          quebrem para a próxima linha (<code>wrap</code>) ou na direção inversa
+          (<code>wrap-reverse</code>). <code>flex-flow</code> é a shorthand de
+          direção + quebra. <code>gap</code> cria espaçamento entre itens sem
+          margens.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>container-flex.css</span>
+            <span class="code-lang">CSS</span>
+          </figcaption>
+          <pre><code>.container {
+  display: flex;
+  gap: 8px;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
+}
+
+/* Itens quebram para a próxima linha quando falta espaço */
+.wrap {
+  flex-wrap: wrap;
+}
+
+/* Quebra na direção inversa */
+.wrap-reverse {
+  flex-wrap: wrap-reverse;
+}
+
+/* Shorthand: direção + quebra */
+.flow {
+  flex-flow: row wrap;
+}</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m7-demo-grid">
+              <div class="m7-demo-card">
+                <h3>row</h3>
+                <div class="m7-track m7-row">
+                  <span>1</span><span>2</span><span>3</span><span>4</span>
+                </div>
+              </div>
+              <div class="m7-demo-card">
+                <h3>column</h3>
+                <div class="m7-track m7-column">
+                  <span>1</span><span>2</span><span>3</span>
+                </div>
+              </div>
+              <div class="m7-demo-card">
+                <h3>wrap</h3>
+                <div class="m7-track m7-wrap">
+                  <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
+                </div>
+              </div>
+              <div class="m7-demo-card">
+                <h3>wrap-reverse</h3>
+                <div class="m7-track m7-wrap-reverse">
+                  <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <p><strong>Cuidado com reverse:</strong> <code>row-reverse</code> e <code>wrap-reverse</code> mudam apenas a ordem visual. A ordem de leitura e de teclado continua sendo a do HTML. Use com intenção.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           3. JUSTIFY E ALIGN
+           ================================================================ -->
+      <section class="lesson-section" id="distribuicao">
+        <div class="section-title">
+          <span class="section-index">03</span>
+          <div>
+            <p class="eyebrow">Distribuir e alinhar</p>
+            <h2>justify-content e align-items</h2>
+          </div>
+        </div>
+
+        <p>
+          <code>justify-content</code> distribui os itens no eixo principal.
+          <code>flex-start</code> agrupa no início, <code>center</code> centraliza,
+          <code>space-between</code> coloca o espaço entre os itens,
+          <code>space-around</code> distribui espaço ao redor e
+          <code>space-evenly</code> iguala todos os intervalos.
+          <code>align-items</code> alinha no eixo transversal:
+          <code>stretch</code>, <code>flex-start</code>, <code>center</code>,
+          <code>flex-end</code> ou <code>baseline</code>.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>justify-align.css</span>
+            <span class="code-lang">CSS</span>
+          </figcaption>
+          <pre><code>.linha {
+  display: flex;
+  min-height: 58px;
+  gap: 7px;
+}
+
+/* Distribuição no eixo principal */
+.start { justify-content: flex-start; }
+.center { justify-content: center; }
+.between { justify-content: space-between; }
+.around { justify-content: space-around; }
+.evenly { justify-content: space-evenly; }
+
+/* Alinhamento no eixo transversal */
+.alinhamento {
+  display: flex;
+  min-height: 92px;
+  align-items: center;
+}
+
+.alinhamento-top { align-items: flex-start; }
+.alinhamento-bottom { align-items: flex-end; }
+.alinhamento-stretch { align-items: stretch; }</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m7-justify-list">
+              <div class="m7-justify-row m7-jc-start">
+                <small>flex-start</small>
+                <span>1</span><span>2</span><span>3</span>
+              </div>
+              <div class="m7-justify-row m7-jc-center">
+                <small>center</small>
+                <span>1</span><span>2</span><span>3</span>
+              </div>
+              <div class="m7-justify-row m7-jc-between">
+                <small>space-between</small>
+                <span>1</span><span>2</span><span>3</span>
+              </div>
+              <div class="m7-justify-row m7-jc-around">
+                <small>space-around</small>
+                <span>1</span><span>2</span><span>3</span>
+              </div>
+              <div class="m7-justify-row m7-jc-evenly">
+                <small>space-evenly</small>
+                <span>1</span><span>2</span><span>3</span>
+              </div>
+            </div>
+
+            <div class="m7-align-list">
+              <div class="m7-align-row m7-ai-start">
+                <small>align-items: flex-start</small>
+                <span>1</span><span>2</span><span>3</span>
+              </div>
+              <div class="m7-align-row m7-ai-center">
+                <small>align-items: center</small>
+                <span>1</span><span>2</span><span>3</span>
+              </div>
+              <div class="m7-align-row m7-ai-end">
+                <small>align-items: flex-end</small>
+                <span>1</span><span>2</span><span>3</span>
+              </div>
+              <div class="m7-align-row m7-ai-stretch">
+                <small>align-items: stretch</small>
+                <span>1</span><span>2</span><span>3</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Espaço disponível:</strong> <code>justify-content</code> só produz efeito visível quando sobra espaço no eixo principal. Se os itens preenchem tudo, experimente <code>gap</code> ou reduza o conteúdo.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           4. ITENS
+           ================================================================ -->
+      <section class="lesson-section" id="itens">
+        <div class="section-title">
+          <span class="section-index">04</span>
+          <div>
+            <p class="eyebrow">Controle individual</p>
+            <h2>flex, flex-basis, align-self e order</h2>
+          </div>
+        </div>
+
+        <p>
+          As propriedades dos itens permitem tratar cada filho de forma diferente.
+          <code>flex</code> é a shorthand de <code>flex-grow</code>,
+          <code>flex-shrink</code> e <code>flex-basis</code>.
+          <code>flex-basis</code> define o tamanho inicial no eixo principal.
+          <code>align-self</code> sobrescreve o alinhamento do container para um
+          item específico. <code>order</code> altera a ordem visual — use com
+          cuidado, pois não altera a ordem de tabulação.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>itens-flex.css</span>
+            <span class="code-lang">CSS</span>
+          </figcaption>
+          <pre><code>/* flex: grow shrink basis */
+.item-a {
+  flex: 1 1 90px;
+}
+
+/* Este item cresce duas vezes mais que o primeiro */
+.item-b {
+  flex: 2 1 90px;
+}
+
+/* Tamanho inicial fixo no eixo principal */
+.item-c {
+  flex-basis: 150px;
+}
+
+/* Sobrescreve o align-items apenas neste item */
+.item-destaque {
+  align-self: center;
+}
+
+/* Reordena visualmente: menor order aparece primeiro */
+.item-primeiro {
+  order: -1;
+}
+
+.item-ultimo {
+  order: 2;
+}</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <p style="margin-bottom: 8px; font-size: 0.78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted);">Crescimento e base</p>
+            <div class="m7-items-demo">
+              <div class="m7-item m7-item-a">flex: 1 1 90px</div>
+              <div class="m7-item m7-item-b">flex: 2 1 90px</div>
+              <div class="m7-item m7-item-c">flex-basis: 150px</div>
+            </div>
+
+            <p style="margin: 20px 0 8px; font-size: 0.78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted);">align-self</p>
+            <div class="m7-align-self-demo">
+              <span>início</span>
+              <span class="m7-self-center">align-self: center</span>
+              <span class="m7-self-end">align-self: flex-end</span>
+            </div>
+
+            <p style="margin: 20px 0 8px; font-size: 0.78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted);">order</p>
+            <div class="m7-order-demo">
+              <span>HTML: 1</span>
+              <span class="m7-order-last">HTML: 2 · order: 2</span>
+              <span class="m7-order-first">HTML: 3 · order: -1</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <p><strong>Acessibilidade:</strong> <code>order</code> muda apenas a posição visual. A navegação por Tab continua seguindo o HTML. Evite criar uma ordem visual muito diferente da ordem lógica.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           5. CENTRALIZAÇÃO
+           ================================================================ -->
+      <section class="lesson-section" id="centralizacao-flex">
+        <div class="section-title">
+          <span class="section-index">05</span>
+          <div>
+            <p class="eyebrow">O clássico</p>
+            <h2>Centralização perfeita na viewport</h2>
+          </div>
+        </div>
+
+        <p>
+          Com Flexbox, centralizar nos dois eixos é direto: o container recebe
+          <code>display: flex</code>, <code>justify-content: center</code> e
+          <code>align-items: center</code>. Para ocupar a altura da tela, use
+          <code>min-height: 100vh</code> ou, em navegadores modernos,
+          <code>100svh</code>, que considera a área visível real em celulares.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>centralizacao-flex.css</span>
+            <span class="code-lang">CSS</span>
+          </figcaption>
+          <pre><code>.palco {
+  display: flex;
+  min-height: 100vh; /* ou 100svh em navegadores modernos */
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* Alternativa com Grid: também centraliza nos dois eixos */
+.palco-grid {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+}</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m7-center-stage">
+              <div class="m7-center-card">
+                <strong>Centralização perfeita</strong>
+                <span>justify-content: center + align-items: center</span>
+              </div>
+            </div>
+            <p style="margin: 12px 0 0; color: var(--muted); font-size: 0.78rem;">
+              O cartão está no centro horizontal e vertical do palco.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout callout-success">
+          <p><strong>Quando usar:</strong> Flexbox é excelente para uma dimensão (linha ou coluna). Para layouts bidimensionais completos, Grid costuma ser mais adequado. Os dois se complementam.</p>
+        </div>
+      </section>
+
+      <section class="lesson-section" aria-labelledby="resumo-flex">
+        <div class="section-title">
+          <span class="section-index">✓</span>
+          <div>
+            <p class="eyebrow">Fechamento</p>
+            <h2 id="resumo-flex">Flexbox no seu repertório</h2>
+          </div>
+        </div>
+        <p>
+          Você identificou os eixos, controlou direção e quebra, distribuiu itens
+          no eixo principal, alinhou no transversal e aplicou propriedades
+          individuais. Agora consegue construir desde barras de navegação até
+          centralizações completas.
+        </p>
+        <div class="callout callout-success">
+          <p><strong>Exercício:</strong> construa uma barra de navegação com logo à esquerda, links ao centro e botão à direita. Em telas pequenas, permita que os links quebrem para outra linha usando <code>flex-wrap</code>.</p>
+        </div>
+
+        <div class="lesson-footer">
+          <a class="button button-secondary" href="../index.html">← Voltar ao início</a>
+          <a class="button" href="08-projetos-integradores.html">Próximo módulo: Projetos →</a>
+        </div>
+
+        <nav class="pager" aria-label="Navegação entre módulos">
+          <a class="pager-link" href="06-responsividade-media-queries.html">
+            <span>Anterior</span>
+            <strong>06 · Responsividade</strong>
+          </a>
+          <a class="pager-link" href="08-projetos-integradores.html">
+            <span>Próximo</span>
+            <strong>08 · Projetos integradores</strong>
+          </a>
+        </nav>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>Fundamentos Web · Módulo 07 de 08</p>
+      <nav aria-label="Links do rodapé">
+        <a href="../index.html">Início</a>
+        <a href="08-projetos-integradores.html">Próximo módulo</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Módulo 2: formas de aplicar CSS, modelos de cor, gradientes, tipografia, seletores, pseudo-classes e especificidade.">
+  <title>Módulo 02 · Fundamentos de CSS | Fundamentos Web</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;600&family=Kaushan+Script&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/style.css">
+
+  <!-- Modo prática: botão "Praticar" que abre os exemplos em um mini editor. -->
+  <link rel="stylesheet" href="../styles/pratica.css">
+  <script src="../scripts/pratica-exercicios.js" defer></script>
+  <script src="../scripts/pratica-blocos.js" defer></script>
+  <script src="../scripts/pratica-montar.js" defer></script>
+  <script src="../scripts/pratica.js" defer></script>
+
+  <!-- Estilos exclusivos das demonstrações do módulo 02. -->
+  <style>
+    /* ---------- Formas de aplicação ---------- */
+    .m2-methods {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .m2-method {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .m2-method span {
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+    }
+
+    .m2-method strong {
+      font-size: 1rem;
+    }
+
+    .m2-method p {
+      margin: 0;
+      font-size: 0.84rem;
+    }
+
+    .m2-inline-text {
+      color: #4f46e5;
+      font-weight: 700;
+    }
+
+    .m2-internal-text {
+      color: #0f766e;
+      font-weight: 700;
+    }
+
+    .m2-external-text {
+      color: var(--brand);
+      font-weight: 700;
+    }
+
+    /* ---------- Modelos de cor ---------- */
+    .m2-swatches {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .m2-swatch {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .m2-swatch-color {
+      display: grid;
+      min-height: 82px;
+      place-items: center;
+      color: #ffffff;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .m2-swatch-info {
+      padding: 11px 12px;
+    }
+
+    .m2-swatch-info strong {
+      display: block;
+      font-size: 0.8rem;
+    }
+
+    .m2-swatch-info span {
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+    }
+
+    .m2-color-named { background: tomato; }
+    .m2-color-hex { background: #4f46e5; }
+    .m2-color-rgb { background: rgb(15 118 110); }
+    .m2-color-hsl { background: hsl(38 92% 45%); }
+
+    /* ---------- Gradientes e fundos ---------- */
+    .m2-gradient-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .m2-gradient-card {
+      display: flex;
+      min-height: 190px;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 18px;
+      border-radius: 12px;
+      color: #ffffff;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+    }
+
+    .m2-gradient-card h3 {
+      margin-bottom: 3px;
+      color: #ffffff;
+      font-size: 1rem;
+    }
+
+    .m2-gradient-card p {
+      margin: 0;
+      font-size: 0.76rem;
+      opacity: 0.9;
+    }
+
+    .m2-linear {
+      background-image: linear-gradient(135deg, #4f46e5 0%, #0ea5e9 52%, #99f6e4 100%);
+    }
+
+    .m2-radial {
+      background-image: radial-gradient(circle at 30% 25%, #fef08a 0%, #fb7185 42%, #4c1d95 100%);
+    }
+
+    .m2-bg-compare {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .m2-bg-strip {
+      display: flex;
+      min-height: 210px;
+      align-items: flex-end;
+      padding: 16px;
+      border-radius: 12px;
+      background-image:
+        linear-gradient(180deg, rgba(11, 19, 36, 0.15), rgba(11, 19, 36, 0.86)),
+        url("https://picsum.photos/seed/css-fundo/900/700");
+      background-position: center;
+      background-size: cover;
+      color: #ffffff;
+    }
+
+    .m2-bg-scroll {
+      background-attachment: scroll;
+    }
+
+    .m2-bg-fixed {
+      background-attachment: fixed;
+    }
+
+    .m2-bg-strip p {
+      margin: 0;
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+
+    .m2-bg-strip strong {
+      display: block;
+      font-size: 0.95rem;
+    }
+
+    /* ---------- Tipografia ---------- */
+    .m2-type-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .m2-type-card {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .m2-type-card > span {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+    }
+
+    .m2-type-work {
+      font-family: "Work Sans", sans-serif;
+    }
+
+    .m2-type-work h3 {
+      margin-bottom: 6px;
+      font-size: 1.35rem;
+    }
+
+    .m2-type-work p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .m2-type-script {
+      font-family: "Kaushan Script", cursive;
+      color: #be123c;
+    }
+
+    .m2-type-script p {
+      margin: 0;
+      font-size: 1.65rem;
+      line-height: 1.25;
+    }
+
+    .m2-type-bebas {
+      font-family: "Bebas Neue", Impact, sans-serif;
+      letter-spacing: 0.04em;
+      color: var(--navy);
+    }
+
+    .m2-type-bebas p {
+      margin: 0;
+      font-size: 2.4rem;
+      line-height: 0.95;
+    }
+
+    .m2-relative-units {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .m2-unit-card {
+      padding: 18px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .m2-unit-card h3 {
+      margin-bottom: 7px;
+      font-size: 1.1rem;
+    }
+
+    .m2-unit-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .m2-rem-demo {
+      font-size: 1.25rem;
+    }
+
+    .m2-rem-demo p {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .m2-em-demo {
+      font-size: 1.25rem;
+    }
+
+    .m2-em-demo p {
+      margin: 0;
+      font-size: 1em;
+    }
+
+    .m2-indent-demo {
+      margin-top: 14px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .m2-indent-demo h3 {
+      margin-bottom: 7px;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .m2-indent-demo p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+      line-height: 1.75;
+      text-align: justify;
+      text-indent: 2em;
+    }
+
+    /* ---------- Seletores ---------- */
+    .m2-selector-demo {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    #m2-titulo-demo {
+      margin-bottom: 6px;
+      color: #3730a3;
+      font-size: 1.3rem;
+    }
+
+    .m2-destaque {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 5px;
+      background: #eef2ff;
+      color: #4338ca;
+      font-weight: 700;
+    }
+
+    .m2-demo-list {
+      margin: 14px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .m2-demo-list > li {
+      padding: 7px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.88rem;
+    }
+
+    .m2-demo-list > li:last-child {
+      border-bottom: 0;
+    }
+
+    .m2-selector-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .m2-btn {
+      display: inline-block;
+      padding: 8px 13px;
+      border: 1px solid var(--brand);
+      border-radius: 6px;
+      background: var(--brand);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .m2-btn:hover {
+      background: var(--brand-dark);
+      color: #ffffff;
+    }
+
+    .m2-btn:active {
+      transform: translateY(2px);
+    }
+
+    .m2-visited-link {
+      color: #7c3aed;
+    }
+
+    .m2-visited-link:visited {
+      color: #be185d;
+    }
+
+    .m2-pseudo-card {
+      position: relative;
+      margin-top: 16px;
+      padding: 14px 16px 14px 38px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8faff;
+      font-size: 0.86rem;
+    }
+
+    .m2-pseudo-card::before {
+      position: absolute;
+      top: 13px;
+      left: 15px;
+      color: #d97706;
+      content: "★";
+      font-size: 1rem;
+    }
+
+    .m2-pseudo-card::after {
+      margin-left: 4px;
+      color: var(--brand);
+      content: " →";
+      font-weight: 700;
+    }
+
+    .m2-specificity-demo p {
+      margin-bottom: 6px;
+      padding: 8px 11px;
+      border-radius: 6px;
+      background: #f8fafc;
+      font-size: 0.88rem;
+    }
+
+    #m2-especificidade {
+      color: #4f46e5;
+      font-weight: 800;
+    }
+
+    .m2-especificidade-classe {
+      color: #0f766e;
+      font-weight: 700;
+    }
+
+    .m2-especificidade-tipo {
+      color: #64748b;
+    }
+
+    @media (max-width: 820px) {
+      .m2-methods,
+      .m2-type-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .m2-swatches {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .m2-gradient-grid,
+      .m2-bg-compare,
+      .m2-relative-units {
+        grid-template-columns: 1fr;
+      }
+
+      .m2-bg-fixed {
+        background-attachment: scroll;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html" aria-label="Fundamentos Web — página inicial">
+        <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+        <span>fundamentos<span class="brand-accent">.web</span></span>
+      </a>
+      <nav class="header-nav" aria-label="Navegação principal">
+        <a href="../index.html">Trilha completa</a>
+        <span class="module-pill">Módulo 02 de 08</span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo" class="container lesson-layout">
+    <aside class="lesson-sidebar" aria-label="Nesta aula">
+      <a class="back-link" href="../index.html">← Voltar ao início</a>
+      <p class="sidebar-kicker">Neste módulo</p>
+      <nav class="toc" aria-label="Índice do módulo 2">
+        <a href="#aplicacao">1. Formas de aplicar CSS</a>
+        <a href="#cores">2. Modelos de cor</a>
+        <a href="#gradientes">3. Gradientes e fundos</a>
+        <a href="#tipografia">4. Tipografia</a>
+        <a href="#seletores">5. Seletores</a>
+        <a href="#pseudo">6. Estados e pseudo-elementos</a>
+        <a href="#especificidade">7. Especificidade</a>
+      </nav>
+      <div class="sidebar-note">
+        <strong>Como estudar</strong>
+        <p>Altere cores, tamanhos e seletores no modo prática (botão “Praticar” de cada bloco de código). O CSS é aprendido pela experimentação.</p>
+      </div>
+    </aside>
+
+    <article class="lesson-content">
+      <header class="lesson-hero">
+        <p class="eyebrow">Módulo 02 · Apresentação visual</p>
+        <h1>Fundamentos de CSS</h1>
+        <p class="lead">
+          CSS (Cascading Style Sheets) controla a apresentação do documento.
+          Neste módulo, você aplica estilos de três maneiras, escolhe cores com
+          diferentes modelos, cria gradientes, domina tipografia e seleciona
+          elementos com precisão.
+        </p>
+        <ul class="lesson-meta">
+          <li>Nível iniciante</li>
+          <li>7 tópicos práticos</li>
+          <li>Leitura estimada: 40 min</li>
+        </ul>
+      </header>
+
+      <!-- ================================================================
+           1. FORMAS DE APLICAÇÃO
+           ================================================================ -->
+      <section class="lesson-section" id="aplicacao">
+        <div class="section-title">
+          <span class="section-index">01</span>
+          <div>
+            <p class="eyebrow">Três caminhos</p>
+            <h2>Inline, interno e externo</h2>
+          </div>
+        </div>
+
+        <p>
+          CSS pode ser aplicado diretamente no elemento com o atributo
+          <code>style</code>, em um bloco <code>&lt;style&gt;</code> dentro do
+          <code>&lt;head&gt;</code> ou em um arquivo <code>.css</code> separado
+          conectado com <code>&lt;link&gt;</code>. A folha externa é a opção mais
+          sustentável: centraliza o estilo, permite cache e mantém o HTML limpo.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>formas-de-aplicar.html</span>
+            <span class="code-lang">HTML + CSS</span>
+          </figcaption>
+          <pre><code>&lt;!-- 1. INLINE: estilo no próprio elemento (use com moderação) --&gt;
+&lt;p style="color: #4f46e5; font-weight: 700;"&gt;
+  Texto com estilo inline.
+&lt;/p&gt;
+
+&lt;!-- 2. INTERNO: bloco no head, válido para a página atual --&gt;
+&lt;style&gt;
+  .destaque-interno {
+    color: #0f766e;
+    font-weight: 700;
+  }
+&lt;/style&gt;
+
+&lt;!-- 3. EXTERNO: arquivo separado compartilhado pelo site --&gt;
+&lt;link rel="stylesheet" href="../styles/style.css"&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m2-methods">
+              <div class="m2-method">
+                <span>01 · inline</span>
+                <strong>Atributo style</strong>
+                <p class="m2-inline-text">Este texto recebeu cor e peso diretamente no elemento.</p>
+                <p style="color: var(--muted); font-size: 0.76rem;">Rápido, porém difícil de manter em escala.</p>
+              </div>
+              <div class="m2-method">
+                <span>02 · interno</span>
+                <strong>Bloco &lt;style&gt;</strong>
+                <p class="m2-internal-text">Esta cor foi definida em uma regra de classe no head.</p>
+                <p style="color: var(--muted); font-size: 0.76rem;">Útil para estilos exclusivos de uma página.</p>
+              </div>
+              <div class="m2-method">
+                <span>03 · externo</span>
+                <strong>Arquivo .css</strong>
+                <p class="m2-external-text">Esta cor vem da folha global do curso.</p>
+                <p style="color: var(--muted); font-size: 0.76rem;">Reutilizável, cacheável e recomendado.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Boa prática:</strong> prefira a folha externa. Reserve o CSS interno para páginas realmente isoladas e o inline para ajustes dinâmicos ou protótipos rápidos.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           2. MODELOS DE COR
+           ================================================================ -->
+      <section class="lesson-section" id="cores">
+        <div class="section-title">
+          <span class="section-index">02</span>
+          <div>
+            <p class="eyebrow">Cor e contraste</p>
+            <h2>Nomes, hexadecimal, rgb() e hsl()</h2>
+          </div>
+        </div>
+
+        <p>
+          O CSS aceita nomes de cor (<code>tomato</code>, <code>navy</code>),
+          hexadecimal (<code>#4f46e5</code>), RGB (<code>rgb(79 70 229)</code>) e
+          HSL (<code>hsl(243 75% 59%)</code>). RGB e HSL também aceitam
+          transparência com o quarto valor. HSL é especialmente útil para criar
+          variações de matiz, saturação e luminosidade sem decorar códigos.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>cores.css</span>
+            <span class="code-lang">CSS</span>
+          </figcaption>
+          <pre><code>/* Nome: legível, com um conjunto limitado de opções */
+.nome {
+  background-color: tomato;
+}
+
+/* Hexadecimal: RR GG BB (e opcionalmente AA para transparência) */
+.hex {
+  background-color: #4f46e5;
+  color: #ffffff;
+}
+
+/* RGB: vermelho, verde, azul; o quarto valor é o alfa */
+.rgb {
+  background-color: rgb(15 118 110);
+  color: rgb(255 255 255 / 0.9);
+}
+
+/* HSL: matiz (0–360), saturação (%) e luminosidade (%) */
+.hsl {
+  background-color: hsl(38 92% 45%);
+  color: hsl(0 0% 100%);
+}</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m2-swatches">
+              <div class="m2-swatch">
+                <div class="m2-swatch-color m2-color-named">tomato</div>
+                <div class="m2-swatch-info">
+                  <strong>Nome</strong>
+                  <span>tomato</span>
+                </div>
+              </div>
+              <div class="m2-swatch">
+                <div class="m2-swatch-color m2-color-hex">#4f46e5</div>
+                <div class="m2-swatch-info">
+                  <strong>Hexadecimal</strong>
+                  <span>#4f46e5</span>
+                </div>
+              </div>
+              <div class="m2-swatch">
+                <div class="m2-swatch-color m2-color-rgb">rgb()</div>
+                <div class="m2-swatch-info">
+                  <strong>RGB</strong>
+                  <span>rgb(15 118 110)</span>
+                </div>
+              </div>
+              <div class="m2-swatch">
+                <div class="m2-swatch-color m2-color-hsl">hsl()</div>
+                <div class="m2-swatch-info">
+                  <strong>HSL</strong>
+                  <span>hsl(38 92% 45%)</span>
+                </div>
+              </div>
+            </div>
+            <p style="margin: 14px 0 0; color: var(--muted); font-size: 0.78rem;">
+              Garanta contraste suficiente entre texto e fundo. Ferramentas de acessibilidade ajudam a validar as combinações.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <p><strong>Atenção ao contraste:</strong> cor não deve ser o único meio de transmitir informação. Erros, estados e links precisam de texto ou ícones complementares.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           3. GRADIENTES E FUNDOS
+           ================================================================ -->
+      <section class="lesson-section" id="gradientes">
+        <div class="section-title">
+          <span class="section-index">03</span>
+          <div>
+            <p class="eyebrow">Profundidade visual</p>
+            <h2>Gradientes lineares, radiais e fundos fixos</h2>
+          </div>
+        </div>
+
+        <p>
+          Gradientes são imagens geradas pelo navegador. <code>linear-gradient()</code>
+          transita entre cores ao longo de uma direção; <code>radial-gradient()</code>
+          parte de um ponto. Eles podem ser combinados com imagens usando camadas:
+          a primeira camada fica na frente. <code>background-size: cover</code> cobre
+          toda a área, enquanto <code>contain</code> garante que a imagem inteira
+          apareça.
+        </p>
+        <p>
+          <code>background-attachment: fixed</code> fixa o fundo em relação à
+          viewport, criando um efeito de profundidade ao rolar a página. Use com
+          moderação e desative em telas pequenas por questões de desempenho.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>gradientes.css</span>
+            <span class="code-lang">CSS</span>
+          </figcaption>
+          <pre><code>/* Linear: direção de 135 graus, com três paradas de cor */
+.linear {
+  background-image: linear-gradient(
+    135deg,
+    #4f46e5 0%,
+    #0ea5e9 52%,
+    #99f6e4 100%
+  );
+}
+
+/* Radial: círculo posicionado a 30% da esquerda e 25% do topo */
+.radial {
+  background-image: radial-gradient(
+    circle at 30% 25%,
+    #fef08a 0%,
+    #fb7185 42%,
+    #4c1d95 100%
+  );
+}
+
+/* Duas camadas: gradiente escuro na frente + imagem atrás */
+.hero-fundo {
+  background-image:
+    linear-gradient(180deg, rgba(11, 19, 36, 0.15), rgba(11, 19, 36, 0.86)),
+    url("imagem.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m2-gradient-grid">
+              <div class="m2-gradient-card m2-linear">
+                <h3>linear-gradient()</h3>
+                <p>Transição em linha reta, com ângulo de 135°.</p>
+              </div>
+              <div class="m2-gradient-card m2-radial">
+                <h3>radial-gradient()</h3>
+                <p>Transição circular a partir de um ponto focal.</p>
+              </div>
+            </div>
+
+            <div class="m2-bg-compare">
+              <div class="m2-bg-strip m2-bg-scroll">
+                <p><strong>background-attachment: scroll</strong>A imagem acompanha o conteúdo ao rolar.</p>
+              </div>
+              <div class="m2-bg-strip m2-bg-fixed">
+                <p><strong>background-attachment: fixed</strong>A imagem permanece presa à viewport.</p>
+              </div>
+            </div>
+            <p style="margin: 12px 0 0; color: var(--muted); font-size: 0.78rem;">
+              Role a página lentamente e observe a diferença entre os dois painéis.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           4. TIPOGRAFIA
+           ================================================================ -->
+      <section class="lesson-section" id="tipografia">
+        <div class="section-title">
+          <span class="section-index">04</span>
+          <div>
+            <p class="eyebrow">Leitura e personalidade</p>
+            <h2>Pilhas de fontes, unidades e alinhamento</h2>
+          </div>
+        </div>
+
+        <p>
+          A propriedade <code>font-family</code> recebe uma pilha: o navegador tenta
+          a primeira fonte e segue para as próximas se disponíveis. Sempre termine
+          com uma família genérica (<code>sans-serif</code>, <code>serif</code>,
+          <code>monospace</code>). Use <code>rem</code> para tamanhos globais
+          previsíveis e <code>em</code> para escalas relativas ao contexto local.
+        </p>
+        <p>
+          <code>text-align</code> alinha o texto; <code>text-indent</code> recua a
+          primeira linha; <code>line-height</code> controla o espaçamento vertical
+          entre linhas. Fontes externas podem ser carregadas com uma tag
+          <code>&lt;link&gt;</code> (recomendado) ou com <code>@import</code> no
+          início do CSS.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>tipografia.html + tipografia.css</span>
+            <span class="code-lang">HTML + CSS</span>
+          </figcaption>
+          <pre><code>&lt;!-- Fontes externas do Google Fonts --&gt;
+&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+&lt;link
+  href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Kaushan+Script&amp;family=Work+Sans:wght@400;700&amp;display=swap"
+  rel="stylesheet"&gt;
+
+/* Pilha de fontes para o corpo do texto */
+body {
+  font-family: "Work Sans", system-ui, sans-serif;
+  font-size: 1rem; /* relativo ao tamanho raiz */
+  line-height: 1.7;
+}
+
+/* Unidades: rem é relativo ao html; em é relativo ao elemento pai */
+html {
+  font-size: 100%; /* normalmente 16px */
+}
+
+h1 {
+  font-size: 2.5rem; /* 40px em um contexto de 16px */
+}
+
+.artigo p {
+  font-size: 1.125rem;
+  text-align: justify;
+  text-indent: 2em; /* recuo proporcional ao tamanho da fonte */
+}
+
+/* Fontes com personalidades diferentes */
+.script {
+  font-family: "Kaushan Script", cursive;
+}
+
+.display {
+  font-family: "Bebas Neue", Impact, sans-serif;
+  letter-spacing: 0.04em;
+}</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m2-type-grid">
+              <div class="m2-type-card m2-type-work">
+                <span>Work Sans · interface e leitura</span>
+                <h3>Clareza para o conteúdo</h3>
+                <p>Uma sans-serif versátil, com boa legibilidade em títulos e textos corridos.</p>
+              </div>
+              <div class="m2-type-card m2-type-script">
+                <span>Kaushan Script · destaque</span>
+                <p>Aprender<br>criando.</p>
+              </div>
+              <div class="m2-type-card m2-type-bebas">
+                <span>Bebas Neue · display</span>
+                <p>HTML<br>CSS</p>
+              </div>
+            </div>
+
+            <div class="m2-relative-units">
+              <div class="m2-unit-card m2-rem-demo">
+                <h3>rem</h3>
+                <p>O texto interno usa 1rem e permanece previsível, independentemente do tamanho do bloco pai.</p>
+              </div>
+              <div class="m2-unit-card m2-em-demo">
+                <h3>em</h3>
+                <p>O texto interno usa 1em e acompanha o tamanho de fonte deste cartão, que é 1.25rem.</p>
+              </div>
+            </div>
+
+            <div class="m2-indent-demo">
+              <h3>Recuo de primeira linha</h3>
+              <p>
+                A propriedade text-indent desloca apenas a primeira linha do parágrafo.
+                Esse recurso é comum em textos literários e em composições editoriais que
+                desejam marcar visualmente o início de cada bloco de leitura. Use com
+                equilíbrio e sempre verifique a legibilidade em telas pequenas.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Desempenho:</strong> carregue apenas os pesos e estilos realmente usados. Fontes externas são recursos de rede e impactam o primeiro carregamento.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           5. SELETORES
+           ================================================================ -->
+      <section class="lesson-section" id="seletores">
+        <div class="section-title">
+          <span class="section-index">05</span>
+          <div>
+            <p class="eyebrow">Encontrar o alvo certo</p>
+            <h2>Seletores, classes, IDs e combinadores</h2>
+          </div>
+        </div>
+
+        <p>
+          Seletores determinam quais elementos recebem uma regra. IDs usam
+          <code>#</code>, classes usam <code>.</code>, o seletor universal
+          <code>*</code> atinge todos os elementos, e o agrupamento separa
+          seletores por vírgula. O combinador <code>&gt;</code> atinge apenas
+          filhos diretos. Essas ferramentas permitem criar estilos reutilizáveis
+          sem repetir código.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>seletores.css</span>
+            <span class="code-lang">CSS</span>
+          </figcaption>
+          <pre><code>/* ID: identifica um elemento único; use com moderação */
+#titulo-principal {
+  color: #3730a3;
+}
+
+/* Classe: reutilizável em vários elementos */
+.destaque {
+  padding: 3px 8px;
+  border-radius: 5px;
+  background: #eef2ff;
+  color: #4338ca;
+}
+
+/* Universal: aplica a todos os elementos */
+* {
+  box-sizing: border-box;
+}
+
+/* Agrupamento: a mesma regra para vários seletores */
+h1,
+h2,
+h3 {
+  letter-spacing: -0.03em;
+}
+
+/* Filho direto: somente os li que são filhos de .lista */
+.lista &gt; li {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Descendente: qualquer strong dentro de .artigo */
+.artigo strong {
+  color: #0f766e;
+}</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m2-selector-demo">
+              <h3 id="m2-titulo-demo">Este título é estilizado por um seletor de ID</h3>
+              <p>
+                O seletor de classe aplica o mesmo visual a trechos reutilizáveis:
+                <span class="m2-destaque">destaque importante</span>.
+              </p>
+              <ul class="m2-demo-list">
+                <li>Primeiro item — recebe borda pelo seletor de filho direto.</li>
+                <li>Segundo item — o seletor atinge somente os filhos diretos da lista.</li>
+                <li>Terceiro item — regras agrupadas mantêm a consistência.</li>
+              </ul>
+              <div class="m2-selector-actions">
+                <a class="m2-btn" href="https://developer.mozilla.org/pt-BR/" target="_blank" rel="noopener noreferrer">Passe o mouse</a>
+                <a class="m2-visited-link" href="https://developer.mozilla.org/pt-BR/docs/Web/CSS" target="_blank" rel="noopener noreferrer">Link com :visited</a>
+              </div>
+              <div class="m2-pseudo-card">
+                Este cartão ganha um marcador antes e uma seta depois via pseudo-elementos.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           6. PSEUDO-CLASSES E PSEUDO-ELEMENTOS
+           ================================================================ -->
+      <section class="lesson-section" id="pseudo">
+        <div class="section-title">
+          <span class="section-index">06</span>
+          <div>
+            <p class="eyebrow">Estados e partes do elemento</p>
+            <h2>:hover, :active, :visited, ::before e ::after</h2>
+          </div>
+        </div>
+
+        <p>
+          Pseudo-classes selecionam um estado ou posição do elemento. As mais
+          comuns em links são <code>:hover</code> (ponteiro sobre o elemento),
+          <code>:active</code> (enquanto pressionado) e <code>:visited</code>
+          (link já visitado). Pseudo-elementos criam partes estilizáveis que não
+          existem no HTML, como <code>::before</code> e <code>::after</code>.
+          Eles exigem a propriedade <code>content</code>, mesmo que receba uma
+          string vazia.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>estados-e-pseudo-elementos.css</span>
+            <span class="code-lang">CSS</span>
+          </figcaption>
+          <pre><code>.botao {
+  padding: 8px 13px;
+  border-radius: 6px;
+  background: #4f46e5;
+  color: #ffffff;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+/* Hover: quando o ponteiro está sobre o elemento */
+.botao:hover {
+  background: #3730a3;
+}
+
+/* Active: enquanto o botão está pressionado */
+.botao:active {
+  transform: translateY(2px);
+}
+
+/* Visited: link que o visitante já acessou */
+.link:visited {
+  color: #be185d;
+}
+
+/* Before: cria conteúdo antes do conteúdo interno */
+.card::before {
+  color: #d97706;
+  content: "★";
+  margin-right: 8px;
+}
+
+/* After: cria conteúdo depois do conteúdo interno */
+.card::after {
+  color: #4f46e5;
+  content: " →";
+  font-weight: 700;
+}</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">interativo</span>
+          </div>
+          <div class="demo-panel-body">
+            <p style="margin-bottom: 12px; font-size: 0.86rem;">
+              Passe o mouse, clique e segure no botão. O link abaixo muda de cor depois de visitado.
+            </p>
+            <div class="m2-selector-actions" style="margin-top: 0;">
+              <a class="m2-btn" href="#pseudo">Testar :hover e :active</a>
+              <a class="m2-visited-link" href="https://developer.mozilla.org/pt-BR/docs/Web/CSS/:visited" target="_blank" rel="noopener noreferrer">Testar :visited</a>
+            </div>
+            <div class="m2-pseudo-card">
+              Este cartão usa ::before e ::after sem adicionar elementos ao HTML.
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <p><strong>Privacidade:</strong> navegadores limitam quais propriedades podem ser alteradas em <code>:visited</code>. Isso impede que um site descubra seu histórico de navegação.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           7. ESPECIFICIDADE
+           ================================================================ -->
+      <section class="lesson-section" id="especificidade">
+        <div class="section-title">
+          <span class="section-index">07</span>
+          <div>
+            <p class="eyebrow">Quem vence a disputa?</p>
+            <h2>Especificidade e cascata</h2>
+          </div>
+        </div>
+
+        <p>
+          Quando duas regras conflitam, o navegador calcula a especificidade.
+          A ordem de força é: estilos inline, IDs, classes/atributos/pseudo-classes
+          e tipos/pseudo-elementos. O seletor universal não soma pontos. Em caso
+          de empate, vence a regra declarada por último. <code>!important</code>
+          deve ser evitado, pois rompe a cascata e dificulta a manutenção.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>especificidade.css</span>
+            <span class="code-lang">CSS</span>
+          </figcaption>
+          <pre><code>/* (0,0,0,1): um seletor de tipo */
+p {
+  color: #64748b;
+}
+
+/* (0,0,1,0): uma classe */
+.texto-especial {
+  color: #0f766e;
+}
+
+/* (0,1,0,0): um ID */
+#mensagem-principal {
+  color: #4f46e5;
+}
+
+/* O ID vence, mesmo que a classe apareça depois no arquivo. */
+&lt;p id="mensagem-principal" class="texto-especial"&gt;
+  Qual cor será aplicada?
+&lt;/p&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m2-specificity-demo">
+              <p class="m2-especificidade-tipo">Seletor de tipo: p { color: #64748b; }</p>
+              <p class="m2-especificidade-classe">Seletor de classe: .texto-especial { color: #0f766e; }</p>
+              <p id="m2-especificidade" class="m2-especificidade-classe">Seletor de ID vence: #mensagem-principal { color: #4f46e5; }</p>
+            </div>
+
+            <table class="reference-table">
+              <caption>Como calcular a especificidade (inline, IDs, classes, tipos)</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Seletor</th>
+                  <th scope="col">Especificidade</th>
+                  <th scope="col">Quem vence?</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>*</code></td>
+                  <td>(0, 0, 0, 0)</td>
+                  <td>Menor prioridade</td>
+                </tr>
+                <tr>
+                  <td><code>p</code></td>
+                  <td>(0, 0, 0, 1)</td>
+                  <td>Tipo</td>
+                </tr>
+                <tr>
+                  <td><code>.card</code></td>
+                  <td>(0, 0, 1, 0)</td>
+                  <td>Classe</td>
+                </tr>
+                <tr>
+                  <td><code>#menu</code></td>
+                  <td>(0, 1, 0, 0)</td>
+                  <td>ID</td>
+                </tr>
+                <tr>
+                  <td><code>style="..."</code></td>
+                  <td>(1, 0, 0, 0)</td>
+                  <td>Inline</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="callout callout-success">
+          <p><strong>Estratégia recomendada:</strong> estilize principalmente por classes. IDs são melhores para âncoras e referências únicas; estilos inline ficam para exceções.</p>
+        </div>
+      </section>
+
+      <section class="lesson-section" aria-labelledby="resumo-css">
+        <div class="section-title">
+          <span class="section-index">✓</span>
+          <div>
+            <p class="eyebrow">Fechamento</p>
+            <h2 id="resumo-css">Seu primeiro kit de estilos</h2>
+          </div>
+        </div>
+        <p>
+          Você já consegue conectar CSS ao HTML, escolher cores com diferentes
+          modelos, criar gradientes, controlar tipografia e selecionar elementos
+          com precisão. No próximo módulo, o foco passa a ser o espaço que cada
+          elemento ocupa na página.
+        </p>
+        <div class="callout callout-success">
+          <p><strong>Exercício:</strong> crie um cartão de artigo com uma imagem de fundo em gradiente, um título em Work Sans, um destaque em Bebas Neue e um link com estados <code>:hover</code> e <code>:visited</code>.</p>
+        </div>
+
+        <div class="lesson-footer">
+          <a class="button button-secondary" href="../index.html">← Voltar ao início</a>
+          <a class="button" href="03-layout-caixas-fundos.html">Próximo módulo: Layout →</a>
+        </div>
+
+        <nav class="pager" aria-label="Navegação entre módulos">
+          <a class="pager-link" href="01-fundamentos-html.html">
+            <span>Anterior</span>
+            <strong>01 · Fundamentos de HTML</strong>
+          </a>
+          <a class="pager-link" href="03-layout-caixas-fundos.html">
+            <span>Próximo</span>
+            <strong>03 · Caixas, fundos e semântica</strong>
+          </a>
+        </nav>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>Fundamentos Web · Módulo 02 de 08</p>
+      <nav aria-label="Links do rodapé">
+        <a href="../index.html">Início</a>
+        <a href="03-layout-caixas-fundos.html">Próximo módulo</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

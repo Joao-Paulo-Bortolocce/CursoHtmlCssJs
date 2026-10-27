@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Módulo 6: abordagem mobile-first, media queries para tela, impressão e orientação, breakpoints, imagens fluidas e menu hambúrguer com CSS.">
+  <title>Módulo 06 · Responsividade e media queries | Fundamentos Web</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/style.css">
+
+  <!-- Modo prática: botão "Praticar" que abre os exemplos em um mini editor. -->
+  <link rel="stylesheet" href="../styles/pratica.css">
+  <script src="../scripts/pratica-exercicios.js" defer></script>
+  <script src="../scripts/pratica-blocos.js" defer></script>
+  <script src="../scripts/pratica-montar.js" defer></script>
+  <script src="../scripts/pratica.js" defer></script>
+
+  <style>
+    /* ---------- Mobile-first e breakpoints ---------- */
+    .m6-breakpoint-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #ffffff;
+    }
+
+    .m6-breakpoint-bar strong {
+      font-size: 0.78rem;
+    }
+
+    .m6-bp {
+      display: none;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: var(--brand-soft);
+      color: var(--brand-dark);
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 600;
+    }
+
+    .m6-bp-base {
+      display: inline-flex;
+      background: var(--navy);
+      color: var(--mint);
+    }
+
+    @media (min-width: 480px) {
+      .m6-bp-base { display: none; }
+      .m6-bp-480 { display: inline-flex; }
+    }
+
+    @media (min-width: 768px) {
+      .m6-bp-480 { display: none; }
+      .m6-bp-768 { display: inline-flex; }
+    }
+
+    @media (min-width: 1024px) {
+      .m6-bp-768 { display: none; }
+      .m6-bp-1024 { display: inline-flex; }
+    }
+
+    @media (min-width: 1440px) {
+      .m6-bp-1024 { display: none; }
+      .m6-bp-1440 { display: inline-flex; }
+    }
+
+    .m6-card-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .m6-card {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #ffffff;
+    }
+
+    .m6-card h3 {
+      margin-bottom: 5px;
+      font-size: 0.95rem;
+    }
+
+    .m6-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    @media (min-width: 600px) {
+      .m6-card-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 900px) {
+      .m6-card-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    /* ---------- Orientação e impressão ---------- */
+    .m6-media-demo {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .m6-orientation {
+      display: flex;
+      min-height: 150px;
+      flex-direction: column;
+      justify-content: center;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: linear-gradient(135deg, #eef2ff, #f0fdfa);
+    }
+
+    .m6-orientation span {
+      display: none;
+      color: var(--ink-soft);
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+
+    .m6-orientation strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--brand-dark);
+      font-size: 1rem;
+    }
+
+    .m6-portrait {
+      display: block !important;
+    }
+
+    @media (orientation: landscape) {
+      .m6-portrait {
+        display: none !important;
+      }
+
+      .m6-landscape {
+        display: block !important;
+      }
+    }
+
+    .m6-print-card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .m6-print-card h3 {
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .m6-print-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .m6-print-only {
+      display: none;
+      color: #166534;
+      font-weight: 700;
+    }
+
+    /* ---------- Imagem fluida e componente adaptativo ---------- */
+    .m6-media-object {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      align-items: center;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .m6-media-object img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .m6-media-object h3 {
+      margin-bottom: 5px;
+      font-size: 1.05rem;
+    }
+
+    .m6-media-object p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    @media (min-width: 700px) {
+      .m6-media-object {
+        grid-template-columns: 260px minmax(0, 1fr);
+      }
+    }
+
+    /* ---------- Menu hambúrguer com CSS ---------- */
+    .m6-mobile-nav {
+      position: relative;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .m6-menu-toggle {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+    }
+
+    .m6-menu-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      border: 1px solid var(--line-strong);
+      border-radius: 7px;
+      background: var(--navy);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .m6-menu-toggle:focus-visible + .m6-menu-button {
+      outline: 3px solid rgba(79, 70, 229, 0.5);
+      outline-offset: 3px;
+    }
+
+    .m6-menu-links {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 10px;
+      padding: 6px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--surface-alt);
+    }
+
+    .m6-menu-toggle:checked ~ .m6-menu-links {
+      display: flex;
+    }
+
+    .m6-menu-links a {
+      padding: 8px 10px;
+      border-radius: 5px;
+      color: var(--ink-soft);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .m6-menu-links a:hover {
+      background: #eef2ff;
+      color: var(--brand-dark);
+    }
+
+    @media (min-width: 640px) {
+      .m6-menu-button {
+        display: none;
+      }
+
+      .m6-menu-toggle {
+        display: none;
+      }
+
+      .m6-menu-links {
+        display: flex;
+        flex-direction: row;
+        gap: 4px;
+        margin-top: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+      }
+    }
+
+    @media print {
+      .m6-screen-only {
+        display: none !important;
+      }
+
+      .m6-print-only {
+        display: inline !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .m6-media-demo {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html" aria-label="Fundamentos Web — página inicial">
+        <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+        <span>fundamentos<span class="brand-accent">.web</span></span>
+      </a>
+      <nav class="header-nav" aria-label="Navegação principal">
+        <a href="../index.html">Trilha completa</a>
+        <span class="module-pill">Módulo 06 de 08</span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo" class="container lesson-layout">
+    <aside class="lesson-sidebar" aria-label="Nesta aula">
+      <a class="back-link" href="../index.html">← Voltar ao início</a>
+      <p class="sidebar-kicker">Neste módulo</p>
+      <nav class="toc" aria-label="Índice do módulo 6">
+        <a href="#mobile-first">1. Mobile-first</a>
+        <a href="#media-types">2. Tela, impressão e orientação</a>
+        <a href="#breakpoints">3. Breakpoints</a>
+        <a href="#imagens-fluidas">4. Imagens fluidas</a>
+        <a href="#menu-hamburguer">5. Menu hambúrguer</a>
+      </nav>
+      <div class="sidebar-note">
+        <strong>Como estudar</strong>
+        <p>Redimensione a janela do navegador e observe o indicador de breakpoint e o menu.</p>
+      </div>
+    </aside>
+
+    <article class="lesson-content">
+      <header class="lesson-hero">
+        <p class="eyebrow">Módulo 06 · Adaptação</p>
+        <h1>Responsividade e media queries</h1>
+        <p class="lead">
+          Um layout responsivo não é um layout “para celular” separado: é o mesmo
+          conteúdo se adaptando ao espaço disponível. Aqui você parte da tela
+          menor, define breakpoints com intenção e constrói componentes flexíveis.
+        </p>
+        <ul class="lesson-meta">
+          <li>Nível intermediário</li>
+          <li>5 tópicos práticos</li>
+          <li>Leitura estimada: 35 min</li>
+        </ul>
+      </header>
+
+      <!-- ================================================================
+           1. MOBILE-FIRST
+           ================================================================ -->
+      <section class="lesson-section" id="mobile-first">
+        <div class="section-title">
+          <span class="section-index">01</span>
+          <div>
+            <p class="eyebrow">Comece pelo essencial</p>
+            <h2>Abordagem mobile-first e viewport</h2>
+          </div>
+        </div>
+
+        <p>
+          Mobile-first significa escrever primeiro o estilo necessário para telas
+          pequenas e depois adicionar melhorias com <code>min-width</code>. Essa
+          abordagem prioriza conteúdo, desempenho e simplicidade. A tag de
+          viewport é indispensável: sem ela, o celular simula uma tela larga e
+          reduz tudo, prejudicando a leitura e o toque.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>mobile-first.html + CSS</span>
+            <span class="code-lang">HTML + CSS</span>
+          </figcaption>
+          <pre><code>&lt;meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"&gt;
+
+/* Base: telas pequenas */
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  padding: 16px;
+}
+
+/* A partir de 600px, duas colunas */
+@media (min-width: 600px) {
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* A partir de 900px, três colunas */
+@media (min-width: 900px) {
+  .cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    padding: 24px;
+  }
+}</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">redimensione</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m6-breakpoint-bar">
+              <strong>Faixa atual:</strong>
+              <span class="m6-bp m6-bp-base">base · menos de 480px</span>
+              <span class="m6-bp m6-bp-480">≥ 480px · mobile amplo</span>
+              <span class="m6-bp m6-bp-768">≥ 768px · tablet</span>
+              <span class="m6-bp m6-bp-1024">≥ 1024px · desktop</span>
+              <span class="m6-bp m6-bp-1440">≥ 1440px · tela ampla</span>
+            </div>
+            <div class="m6-card-grid">
+              <article class="m6-card">
+                <h3>Conteúdo primeiro</h3>
+                <p>A base funciona em uma coluna, sem depender de largura.</p>
+              </article>
+              <article class="m6-card">
+                <h3>Melhoria progressiva</h3>
+                <p>As colunas extras aparecem quando há espaço suficiente.</p>
+              </article>
+              <article class="m6-card">
+                <h3>Leitura confortável</h3>
+                <p>Espaçamento e tamanho de fonte acompanham o contexto.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Não comece pelo desktop:</strong> escrever primeiro para telas grandes costuma gerar regras de “desfazer” e layouts frágeis. A base mobile mantém o foco no conteúdo essencial.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           2. MEDIA TYPES E ORIENTAÇÃO
+           ================================================================ -->
+      <section class="lesson-section" id="media-types">
+        <div class="section-title">
+          <span class="section-index">02</span>
+          <div>
+            <p class="eyebrow">Contexto de uso</p>
+            <h2>@media screen, print e orientation</h2>
+          </div>
+        </div>
+
+        <p>
+          Media queries não servem apenas para largura. O tipo de mídia
+          <code>screen</code> representa telas; <code>print</code> representa a
+          impressão. A característica <code>orientation</code> distingue retrato e
+          paisagem. Também é possível combinar condições com <code>and</code> e
+          vírgulas, que funcionam como “ou”.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>media-types.css</span>
+            <span class="code-lang">CSS</span>
+          </figcaption>
+          <pre><code>/* Estilos específicos para tela */
+@media screen {
+  body {
+    background: #f6f8fc;
+  }
+}
+
+/* Estilos para impressão: economize tinta e remova distrações */
+@media print {
+  .site-header,
+  .site-footer,
+  .menu {
+    display: none;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+  }
+}
+
+/* Orientação do dispositivo */
+@media (orientation: portrait) {
+  .aviso::before {
+    content: "Modo retrato";
+  }
+}
+
+@media (orientation: landscape) {
+  .aviso::before {
+    content: "Modo paisagem";
+  }
+}</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">depende do dispositivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m6-media-demo">
+              <div class="m6-orientation">
+                <span class="m6-portrait"><strong>Orientação: retrato</strong>O layout prioriza uma coluna e leitura vertical.</span>
+                <span class="m6-landscape"><strong>Orientação: paisagem</strong>O layout pode aproveitar mais colunas e largura.</span>
+              </div>
+              <div class="m6-print-card">
+                <h3>Versão de impressão</h3>
+                <p class="m6-screen-only">Use <span class="keyboard">Ctrl</span> + <span class="keyboard">P</span> para visualizar a versão de impressão desta página. Menus e rodapés são ocultados.</p>
+                <p class="m6-print-only">Modo de impressão ativo: esta mensagem só aparece no papel.</p>
+              </div>
+            </div>
+            <p style="margin: 12px 0 0; color: var(--muted); font-size: 0.78rem;">
+              Gire um dispositivo ou redimensione a janela para ver a mensagem de orientação mudar.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <p><strong>Impressão:</strong> teste com a pré-visualização de impressão. Esconda navegação, botões e elementos decorativos, e garanta que links e conteúdo essencial continuem legíveis.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           3. BREAKPOINTS
+           ================================================================ -->
+      <section class="lesson-section" id="breakpoints">
+        <div class="section-title">
+          <span class="section-index">03</span>
+          <div>
+            <p class="eyebrow">Pontos de mudança</p>
+            <h2>Breakpoints para tablet, desktop e telas amplas</h2>
+          </div>
+        </div>
+
+        <p>
+          Breakpoints são larguras em que o layout precisa mudar para continuar
+          legível. Não existe uma lista universal: observe o conteúdo e escolha
+          pontos em que ele quebra. Uma progressão comum é 480px, 768px, 1024px e
+          1440px. Use <code>min-width</code> para mobile-first e combine com
+          características como <code>min-resolution</code> para telas de alta
+          densidade.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>breakpoints.css</span>
+            <span class="code-lang">CSS</span>
+          </figcaption>
+          <pre><code>/* Mobile amplo */
+@media (min-width: 480px) {
+  .container {
+    padding-inline: 24px;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Telas amplas + alta densidade de pixels */
+@media (min-width: 1440px) and (min-resolution: 2dppx) {
+  .hero {
+    background-image: url("hero@2x.jpg");
+  }
+}</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">redimensione</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m6-breakpoint-bar">
+              <strong>Breakpoint ativo:</strong>
+              <span class="m6-bp m6-bp-base">base</span>
+              <span class="m6-bp m6-bp-480">480px</span>
+              <span class="m6-bp m6-bp-768">768px</span>
+              <span class="m6-bp m6-bp-1024">1024px</span>
+              <span class="m6-bp m6-bp-1440">1440px</span>
+            </div>
+            <div class="m6-card-grid">
+              <article class="m6-card">
+                <h3>480px</h3>
+                <p>Mais respiro horizontal e tipografia um pouco maior.</p>
+              </article>
+              <article class="m6-card">
+                <h3>768px</h3>
+                <p>Duas colunas para conteúdo e componentes lado a lado.</p>
+              </article>
+              <article class="m6-card">
+                <h3>1024px</h3>
+                <p>Três colunas e navegação expandida.</p>
+              </article>
+              <article class="m6-card">
+                <h3>1440px</h3>
+                <p>Container com largura máxima para evitar linhas longas.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Breakpoints por conteúdo:</strong> redimensione devagar e observe onde o texto fica apertado, as imagens cortam ou os botões quebram. Esse é o ponto real de mudança, não um número de dispositivo específico.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           4. IMAGENS FLUIDAS
+           ================================================================ -->
+      <section class="lesson-section" id="imagens-fluidas">
+        <div class="section-title">
+          <span class="section-index">04</span>
+          <div>
+            <p class="eyebrow">Mídia que acompanha o espaço</p>
+            <h2>Imagens fluidas e componentes adaptativos</h2>
+          </div>
+        </div>
+
+        <p>
+          A regra base é <code>max-width: 100%; height: auto;</code>. Ela impede
+          que a imagem ultrapasse o contêiner e preserva a proporção. Para
+          oferecer resoluções diferentes, use <code>srcset</code> e
+          <code>sizes</code>. Componentes adaptativos combinam essas imagens com
+          grids que mudam de uma para duas colunas conforme o espaço.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>imagens-fluidas.html + CSS</span>
+            <span class="code-lang">HTML + CSS</span>
+          </figcaption>
+          <pre><code>/* Imagem nunca maior que o contêiner */
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Componente: uma coluna no mobile, duas a partir de 700px */
+.media-object {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 700px) {
+  .media-object {
+    grid-template-columns: 260px minmax(0, 1fr);
+    align-items: center;
+  }
+}
+
+&lt;img
+  src="imagem-600.jpg"
+  srcset="imagem-600.jpg 600w, imagem-1200.jpg 1200w"
+  sizes="(min-width: 700px) 260px, 100vw"
+  alt="Descrição objetiva da imagem"
+  width="1200"
+  height="800"
+  loading="lazy"&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">redimensione</span>
+          </div>
+          <div class="demo-panel-body">
+            <article class="m6-media-object">
+              <img
+                src="https://picsum.photos/seed/responsivo-css/1200/800"
+                srcset="https://picsum.photos/seed/responsivo-css/600/400 600w, https://picsum.photos/seed/responsivo-css/1200/800 1200w"
+                sizes="(min-width: 700px) 260px, 100vw"
+                alt="Paisagem natural usada para demonstrar imagem fluida"
+                width="1200"
+                height="800"
+                loading="lazy">
+              <div>
+                <h3>Componente adaptativo</h3>
+                <p>
+                  Em telas pequenas, a imagem fica acima do texto. A partir de
+                  700px, ela passa para a esquerda com largura fixa e o texto ocupa
+                  o espaço restante. O mesmo HTML se reorganiza com CSS.
+                </p>
+              </div>
+            </article>
+            <p style="margin: 12px 0 0; color: var(--muted); font-size: 0.78rem;">
+              A imagem é fluida e o componente muda de coluna conforme a largura.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <p><strong>Proporção:</strong> informe <code>width</code> e <code>height</code> no HTML para reservar espaço e evitar saltos de layout. O CSS com <code>height:auto</code> preserva a proporção.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           5. MENU HAMBÚRGUER
+           ================================================================ -->
+      <section class="lesson-section" id="menu-hamburguer">
+        <div class="section-title">
+          <span class="section-index">05</span>
+          <div>
+            <p class="eyebrow">Componente adaptativo</p>
+            <h2>Menu hambúrguer com CSS puro</h2>
+          </div>
+        </div>
+
+        <p>
+          Um menu hambúrguer economiza espaço em telas pequenas. Podemos criar
+          uma versão funcional sem JavaScript usando um <code>checkbox</code>
+          oculto e um <code>label</code> que o alterna. O seletor
+          <code>:checked</code> revela a lista de links. Em telas maiores, a
+          media query esconde o botão e exibe a navegação completa.
+        </p>
+        <p>
+          Para uma experiência de acessibilidade mais robusta, adicione
+          JavaScript para atualizar <code>aria-expanded</code> e gerenciar o foco.
+          A versão com CSS já funciona por teclado e clique, mas não anuncia o
+          estado aberto/fechado a todos os leitores de tela.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>menu-hamburguer.html + CSS</span>
+            <span class="code-lang">HTML + CSS</span>
+          </figcaption>
+          <pre><code>&lt;div class="mobile-nav"&gt;
+  &lt;input
+    type="checkbox"
+    id="menu-toggle"
+    class="menu-toggle"
+    aria-label="Abrir menu de navegação"&gt;
+
+  &lt;label for="menu-toggle" class="menu-button"&gt;
+    ☰ Menu
+  &lt;/label&gt;
+
+  &lt;nav class="menu-links" aria-label="Menu principal"&gt;
+    &lt;a href="#"&gt;Início&lt;/a&gt;
+    &lt;a href="#cursos"&gt;Cursos&lt;/a&gt;
+    &lt;a href="#contato"&gt;Contato&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/div&gt;
+
+/* Base mobile: links escondidos até marcar o checkbox */
+.menu-links {
+  display: none;
+  flex-direction: column;
+}
+
+.menu-toggle:checked ~ .menu-links {
+  display: flex;
+}
+
+/* Desktop: menu sempre visível, botão oculto */
+@media (min-width: 640px) {
+  .menu-button,
+  .menu-toggle {
+    display: none;
+  }
+
+  .menu-links {
+    display: flex;
+    flex-direction: row;
+  }
+}</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">interativo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m6-mobile-nav">
+              <input
+                type="checkbox"
+                id="m6-menu-toggle"
+                class="m6-menu-toggle"
+                aria-label="Abrir menu de navegação">
+              <label for="m6-menu-toggle" class="m6-menu-button">☰ Menu</label>
+              <nav class="m6-menu-links" aria-label="Menu de demonstração">
+                <a href="#mobile-first">Início</a>
+                <a href="#breakpoints">Breakpoints</a>
+                <a href="#imagens-fluidas">Imagens</a>
+                <a href="#menu-hamburguer">Contato</a>
+              </nav>
+            </div>
+            <p style="margin: 12px 0 0; color: var(--muted); font-size: 0.78rem;">
+              Em telas menores que 640px, clique em “Menu” para abrir os links. Em telas maiores, a navegação fica sempre visível.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Teste de toque:</strong> alvos interativos devem ter pelo menos cerca de 44 × 44 px. O label do menu precisa ser fácil de acertar com o dedo.</p>
+        </div>
+      </section>
+
+      <section class="lesson-section" aria-labelledby="resumo-responsivo">
+        <div class="section-title">
+          <span class="section-index">✓</span>
+          <div>
+            <p class="eyebrow">Fechamento</p>
+            <h2 id="resumo-responsivo">Uma interface, muitos contextos</h2>
+          </div>
+        </div>
+        <p>
+          Você adotou a mentalidade mobile-first, usou media queries para tela,
+          impressão e orientação, estruturou breakpoints, aplicou imagens fluidas
+          e construiu um menu adaptativo com CSS.
+        </p>
+        <div class="callout callout-success">
+          <p><strong>Exercício:</strong> crie uma página de produto com uma grade de 1, 2 e 3 colunas, uma imagem fluida com <code>srcset</code>, uma versão de impressão sem menus e um menu hambúrguer funcional em telas pequenas.</p>
+        </div>
+
+        <div class="lesson-footer">
+          <a class="button button-secondary" href="../index.html">← Voltar ao início</a>
+          <a class="button" href="07-flexbox-layout.html">Próximo módulo: Flexbox →</a>
+        </div>
+
+        <nav class="pager" aria-label="Navegação entre módulos">
+          <a class="pager-link" href="05-formularios-avancados.html">
+            <span>Anterior</span>
+            <strong>05 · Formulários avançados</strong>
+          </a>
+          <a class="pager-link" href="07-flexbox-layout.html">
+            <span>Próximo</span>
+            <strong>07 · Flexbox na prática</strong>
+          </a>
+        </nav>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>Fundamentos Web · Módulo 06 de 08</p>
+      <nav aria-label="Links do rodapé">
+        <a href="../index.html">Início</a>
+        <a href="07-flexbox-layout.html">Próximo módulo</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

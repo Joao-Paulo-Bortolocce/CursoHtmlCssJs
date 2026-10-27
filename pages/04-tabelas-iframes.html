@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Módulo 4: tabelas semânticas e acessíveis, colspan, rowspan, cabeçalho sticky, rolagem horizontal e iframes com navegação por target.">
+  <title>Módulo 04 · Tabelas e iframes | Fundamentos Web</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/style.css">
+
+  <!-- Modo prática: botão "Praticar" que abre os exemplos em um mini editor. -->
+  <link rel="stylesheet" href="../styles/pratica.css">
+  <script src="../scripts/pratica-exercicios.js" defer></script>
+  <script src="../scripts/pratica-blocos.js" defer></script>
+  <script src="../scripts/pratica-montar.js" defer></script>
+  <script src="../scripts/pratica.js" defer></script>
+
+  <style>
+    /* ---------- Tabelas ---------- */
+    .m4-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .m4-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+    }
+
+    .m4-table caption {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink-soft);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-align: left;
+    }
+
+    .m4-table th,
+    .m4-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .m4-table thead th {
+      background: var(--navy);
+      color: #ffffff;
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .m4-table tbody th {
+      background: #f8faff;
+      color: var(--ink-soft);
+      font-weight: 700;
+    }
+
+    .m4-table tfoot td {
+      background: #f1f5f9;
+      color: var(--ink-soft);
+      font-weight: 700;
+    }
+
+    .m4-table tbody tr:nth-child(even) {
+      background: #f8faff;
+    }
+
+    .m4-table tbody tr:hover {
+      background: #eef2ff;
+    }
+
+    .m4-table .m4-center {
+      text-align: center;
+    }
+
+    /* Tabela com cabeçalho fixo e rolagem */
+    .m4-sticky-wrap {
+      max-height: 300px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .m4-sticky-table {
+      min-width: 650px;
+    }
+
+    .m4-sticky-table thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .m4-sticky-table th:first-child {
+      position: sticky;
+      left: 0;
+      z-index: 1;
+      background: #f8faff;
+    }
+
+    .m4-sticky-table thead th:first-child {
+      z-index: 3;
+      background: var(--navy);
+    }
+
+    .m4-sticky-table tbody tr:nth-child(even) th:first-child {
+      background: #eef2ff;
+    }
+
+    .m4-note {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    /* ---------- Iframes ---------- */
+    .m4-iframe-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .m4-iframe-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .m4-iframe-card h3 {
+      margin-bottom: 8px;
+      font-size: 0.92rem;
+    }
+
+    .m4-frame {
+      width: 100%;
+      height: 300px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8fafc;
+    }
+
+    .m4-frame-local {
+      height: 330px;
+    }
+
+    .m4-frame-caption {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 0.72rem;
+    }
+
+    .m4-frame-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 12px;
+    }
+
+    .m4-frame-nav a {
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #ffffff;
+      color: var(--ink-soft);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .m4-frame-nav a:hover {
+      border-color: var(--brand);
+      background: var(--brand-soft);
+      color: var(--brand-dark);
+    }
+
+    .m4-frame-shell {
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .m4-frame-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--line);
+      background: #eef2f7;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+    }
+
+    .m4-frame-bar i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #cbd5e1;
+    }
+
+    .m4-frame-bar span {
+      margin-left: 5px;
+    }
+
+    @media (max-width: 760px) {
+      .m4-iframe-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .m4-frame {
+        height: 260px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html" aria-label="Fundamentos Web — página inicial">
+        <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+        <span>fundamentos<span class="brand-accent">.web</span></span>
+      </a>
+      <nav class="header-nav" aria-label="Navegação principal">
+        <a href="../index.html">Trilha completa</a>
+        <span class="module-pill">Módulo 04 de 08</span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo" class="container lesson-layout">
+    <aside class="lesson-sidebar" aria-label="Nesta aula">
+      <a class="back-link" href="../index.html">← Voltar ao início</a>
+      <p class="sidebar-kicker">Neste módulo</p>
+      <nav class="toc" aria-label="Índice do módulo 4">
+        <a href="#estrutura-tabela">1. Estrutura de tabelas</a>
+        <a href="#acessibilidade">2. Acessibilidade e colgroup</a>
+        <a href="#mesclagem">3. Mesclagem, zebra e sticky</a>
+        <a href="#iframes">4. Iframes</a>
+        <a href="#frames-nomeados">5. Frames nomeados e target</a>
+      </nav>
+      <div class="sidebar-note">
+        <strong>Como estudar</strong>
+        <p>Reduza a janela para testar a rolagem horizontal e navegue pelos links que controlam o iframe.</p>
+      </div>
+    </aside>
+
+    <article class="lesson-content">
+      <header class="lesson-hero">
+        <p class="eyebrow">Módulo 04 · Dados e incorporação</p>
+        <h1>Tabelas e iframes</h1>
+        <p class="lead">
+          Tabelas organizam dados em linhas e colunas; iframes incorporam outro
+          documento dentro da página. Este módulo mostra como usar ambos com
+          semântica, acessibilidade e responsabilidade.
+        </p>
+        <ul class="lesson-meta">
+          <li>Nível intermediário</li>
+          <li>5 tópicos práticos</li>
+          <li>Leitura estimada: 35 min</li>
+        </ul>
+      </header>
+
+      <!-- ================================================================
+           1. ESTRUTURA DE TABELAS
+           ================================================================ -->
+      <section class="lesson-section" id="estrutura-tabela">
+        <div class="section-title">
+          <span class="section-index">01</span>
+          <div>
+            <p class="eyebrow">Dados tabulares</p>
+            <h2>table, caption, thead, tbody, tfoot, tr, th e td</h2>
+          </div>
+        </div>
+
+        <p>
+          Use tabelas para dados que se relacionam em linhas e colunas, não para
+          montar layout. O <code>&lt;caption&gt;</code> descreve a tabela e deve ser
+          o primeiro elemento. <code>&lt;thead&gt;</code> agrupa o cabeçalho,
+          <code>&lt;tbody&gt;</code> os dados e <code>&lt;tfoot&gt;</code> o
+          rodapé. Cada linha usa <code>&lt;tr&gt;</code>; células de cabeçalho usam
+          <code>&lt;th&gt;</code> e células de dados usam <code>&lt;td&gt;</code>.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>tabela-semantica.html</span>
+            <span class="code-lang">HTML</span>
+          </figcaption>
+          <pre><code>&lt;table&gt;
+  &lt;caption&gt;Notas do curso — turma A&lt;/caption&gt;
+
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;Aluno&lt;/th&gt;
+      &lt;th scope="col"&gt;HTML&lt;/th&gt;
+      &lt;th scope="col"&gt;CSS&lt;/th&gt;
+      &lt;th scope="col"&gt;Projeto&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th scope="row"&gt;Ana Souza&lt;/th&gt;
+      &lt;td&gt;9,0&lt;/td&gt;
+      &lt;td&gt;8,5&lt;/td&gt;
+      &lt;td&gt;9,5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th scope="row"&gt;Bruno Lima&lt;/th&gt;
+      &lt;td&gt;8,0&lt;/td&gt;
+      &lt;td&gt;9,0&lt;/td&gt;
+      &lt;td&gt;8,5&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+
+  &lt;tfoot&gt;
+    &lt;tr&gt;
+      &lt;td colspan="3"&gt;Média da turma&lt;/td&gt;
+      &lt;td&gt;8,8&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m4-table-wrap">
+              <table class="m4-table">
+                <caption>Notas do curso — turma A</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Aluno</th>
+                    <th scope="col">HTML</th>
+                    <th scope="col">CSS</th>
+                    <th scope="col">Projeto</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Ana Souza</th>
+                    <td>9,0</td>
+                    <td>8,5</td>
+                    <td>9,5</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Bruno Lima</th>
+                    <td>8,0</td>
+                    <td>9,0</td>
+                    <td>8,5</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Carla Mendes</th>
+                    <td>9,5</td>
+                    <td>9,0</td>
+                    <td>9,0</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="3">Média da turma</td>
+                    <td>8,9</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Semântica:</strong> <code>th</code> não é apenas “texto em negrito”. Ele informa que aquela célula é um cabeçalho, e leitores de tela usam essa relação para anunciar os dados.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           2. ACESSIBILIDADE E COLGROUP
+           ================================================================ -->
+      <section class="lesson-section" id="acessibilidade">
+        <div class="section-title">
+          <span class="section-index">02</span>
+          <div>
+            <p class="eyebrow">Relações explícitas</p>
+            <h2>scope, colgroup e col</h2>
+          </div>
+        </div>
+
+        <p>
+          O atributo <code>scope</code> associa um cabeçalho às células que ele
+          descreve. Use <code>scope="col"</code> para colunas e
+          <code>scope="row"</code> para linhas. O <code>&lt;colgroup&gt;</code>
+          agrupa colunas e <code>&lt;col&gt;</code> permite aplicar estilos ou
+          larguras a uma ou várias colunas sem repetir regras em cada célula.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>acessibilidade-colgroup.html</span>
+            <span class="code-lang">HTML + CSS</span>
+          </figcaption>
+          <pre><code>&lt;table&gt;
+  &lt;caption&gt;Horário semanal&lt;/caption&gt;
+
+  &lt;colgroup&gt;
+    &lt;col&gt;
+    &lt;col span="2" class="destaque"&gt;
+  &lt;/colgroup&gt;
+
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;Horário&lt;/th&gt;
+      &lt;th scope="col"&gt;Segunda&lt;/th&gt;
+      &lt;th scope="col"&gt;Terça&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th scope="row"&gt;08h — 10h&lt;/th&gt;
+      &lt;td&gt;HTML&lt;/td&gt;
+      &lt;td&gt;CSS&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;style&gt;
+  /* Colunas com a classe destaque recebem fundo */
+  col.destaque {
+    background-color: #eef2ff;
+  }
+&lt;/style&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m4-table-wrap">
+              <table class="m4-table">
+                <caption>Horário semanal — colunas de terça e quarta destacadas com colgroup</caption>
+                <colgroup>
+                  <col>
+                  <col span="2" style="background: #eef2ff;">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th scope="col">Horário</th>
+                    <th scope="col">Segunda</th>
+                    <th scope="col">Terça</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">08h — 10h</th>
+                    <td>HTML</td>
+                    <td>CSS</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">10h — 12h</th>
+                    <td>Prática</td>
+                    <td>Layout</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">14h — 16h</th>
+                    <td>Projeto</td>
+                    <td>Revisão</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="m4-note">O <code>colgroup</code> pinta as duas últimas colunas sem adicionar classes em cada célula.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <p><strong>Limitação:</strong> <code>&lt;col&gt;</code> estiliza fundo, largura e borda das colunas, mas não propriedades como <code>padding</code> ou <code>text-align</code> em todas as situações. Para esses casos, estilize as células.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           3. MESCLAGEM, ZEBRA E STICKY
+           ================================================================ -->
+      <section class="lesson-section" id="mesclagem">
+        <div class="section-title">
+          <span class="section-index">03</span>
+          <div>
+            <p class="eyebrow">Tabelas maiores</p>
+            <h2>colspan, rowspan, :nth-child e cabeçalho sticky</h2>
+          </div>
+        </div>
+
+        <p>
+          <code>colspan</code> faz uma célula ocupar várias colunas;
+          <code>rowspan</code> faz o mesmo com linhas. O seletor
+          <code>:nth-child(even)</code> cria o efeito zebra. Em tabelas longas,
+          envolva a tabela em um contêiner com <code>overflow-x: auto</code> para
+          permitir rolagem horizontal em telas pequenas. O cabeçalho pode ficar
+          visível com <code>position: sticky; top: 0</code>.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>tabela-avancada.html + CSS</span>
+            <span class="code-lang">HTML + CSS</span>
+          </figcaption>
+          <pre><code>&lt;div class="table-scroll"&gt;
+  &lt;table&gt;
+    &lt;caption&gt;Agenda do curso&lt;/caption&gt;
+
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th scope="col"&gt;Período&lt;/th&gt;
+        &lt;th scope="col"&gt;Segunda&lt;/th&gt;
+        &lt;th scope="col"&gt;Terça&lt;/th&gt;
+        &lt;th scope="col"&gt;Quarta&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;th scope="row" rowspan="2"&gt;Manhã&lt;/th&gt;
+        &lt;td&gt;HTML&lt;/td&gt;
+        &lt;td&gt;CSS&lt;/td&gt;
+        &lt;td&gt;Projetos&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td colspan="3"&gt;Intervalo e revisão&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th scope="row"&gt;Tarde&lt;/th&gt;
+        &lt;td colspan="2"&gt;Laboratório integrado&lt;/td&gt;
+        &lt;td&gt;Mentoria&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+  .table-scroll {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 650px;
+    border-collapse: collapse;
+  }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #0b1324;
+    color: #fff;
+  }
+
+  tbody tr:nth-child(even) {
+    background: #f8faff;
+  }
+&lt;/style&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">role para testar</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m4-sticky-wrap">
+              <table class="m4-table m4-sticky-table">
+                <caption>Agenda do curso — cabeçalho fixo e células mescladas</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Período</th>
+                    <th scope="col">Segunda</th>
+                    <th scope="col">Terça</th>
+                    <th scope="col">Quarta</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row" rowspan="2">Manhã</th>
+                    <td>HTML</td>
+                    <td>CSS</td>
+                    <td>Projetos</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">Intervalo e revisão</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Tarde</th>
+                    <td colspan="2">Laboratório integrado</td>
+                    <td>Mentoria</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Noite</th>
+                    <td>Exercícios</td>
+                    <td>Leitura</td>
+                    <td>Entrega</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Extra</th>
+                    <td colspan="3">Plantão de dúvidas e code review</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="m4-note">Role dentro da tabela: o cabeçalho permanece visível. Em telas pequenas, a rolagem horizontal também é ativada.</p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Acessibilidade:</strong> não use <code>colspan</code> e <code>rowspan</code> para “esconder” a estrutura. Mantenha a ordem lógica das células para que a leitura por tecnologia assistiva continue correta.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           4. IFRAMES
+           ================================================================ -->
+      <section class="lesson-section" id="iframes">
+        <div class="section-title">
+          <span class="section-index">04</span>
+          <div>
+            <p class="eyebrow">Uma janela dentro da página</p>
+            <h2>Incorporar documentos locais e remotos</h2>
+          </div>
+        </div>
+
+        <p>
+          O <code>&lt;iframe&gt;</code> cria um contexto de navegação independente.
+          Ele é útil para mapas, vídeos, documentação e widgets. Defina largura,
+          altura, um <code>title</code> descritivo e, quando possível,
+          <code>loading="lazy"</code> para adiar o carregamento. O conteúdo interno
+          do iframe é um fallback para navegadores sem suporte.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>iframes.html</span>
+            <span class="code-lang">HTML</span>
+          </figcaption>
+          <pre><code>&lt;!-- Documento local do mesmo projeto --&gt;
+&lt;iframe
+  src="01-fundamentos-html.html"
+  title="Aula de fundamentos de HTML"
+  width="100%"
+  height="330"
+  loading="lazy"&gt;
+  Seu navegador não suporta iframes.
+&lt;/iframe&gt;
+
+&lt;!-- Documento remoto: mapa incorporado --&gt;
+&lt;iframe
+  src="https://www.openstreetmap.org/export/embed.html?bbox=-46.70%2C-23.60%2C-46.60%2C-23.53&amp;layer=mapnik"
+  title="Mapa da região central de São Paulo"
+  width="100%"
+  height="300"
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade"&gt;
+  Mapa não disponível.
+&lt;/iframe&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">ao vivo</span>
+          </div>
+          <div class="demo-panel-body">
+            <div class="m4-iframe-grid">
+              <div class="m4-iframe-card">
+                <h3>Iframe local</h3>
+                <iframe
+                  class="m4-frame"
+                  src="01-fundamentos-html.html"
+                  title="Aula de fundamentos de HTML"
+                  loading="lazy">
+                  Seu navegador não suporta iframes.
+                </iframe>
+                <p class="m4-frame-caption">Uma página do próprio curso exibida dentro do frame.</p>
+              </div>
+              <div class="m4-iframe-card">
+                <h3>Iframe remoto</h3>
+                <iframe
+                  class="m4-frame"
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=-46.70%2C-23.60%2C-46.60%2C-23.53&amp;layer=mapnik"
+                  title="Mapa da região central de São Paulo"
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade">
+                  Mapa não disponível.
+                </iframe>
+                <p class="m4-frame-caption">Conteúdo remoto depende da rede e da política de incorporação do site.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-danger">
+          <p><strong>Segurança:</strong> sites podem bloquear a incorporação com <code>X-Frame-Options</code> ou <code>Content-Security-Policy</code>. Para conteúdo não confiável, use <code>sandbox</code> e conceda apenas as permissões necessárias.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           5. FRAMES NOMEADOS E TARGET
+           ================================================================ -->
+      <section class="lesson-section" id="frames-nomeados">
+        <div class="section-title">
+          <span class="section-index">05</span>
+          <div>
+            <p class="eyebrow">Navegação direcionada</p>
+            <h2>name no iframe e target nos links</h2>
+          </div>
+        </div>
+
+        <p>
+          Ao dar um <code>name</code> ao iframe, você cria um alvo nomeado. Um link
+          com <code>target</code> igual a esse nome abre o destino dentro do frame.
+          Isso permite construir galerias, documentação interativa e painéis de
+          pré-visualização sem JavaScript. Use <code>target="_blank"</code> quando
+          o destino deve abrir em uma nova aba.
+        </p>
+
+        <figure class="code-window">
+          <figcaption>
+            <span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>frames-nomeados.html</span>
+            <span class="code-lang">HTML</span>
+          </figcaption>
+          <pre><code>&lt;nav aria-label="Pré-visualização das aulas"&gt;
+  &lt;a href="01-fundamentos-html.html" target="frame-demo"&gt;Abrir módulo 01&lt;/a&gt;
+  &lt;a href="02-css-fundamentos.html" target="frame-demo"&gt;Abrir módulo 02&lt;/a&gt;
+  &lt;a href="03-layout-caixas-fundos.html" target="frame-demo"&gt;Abrir módulo 03&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;iframe
+  src="01-fundamentos-html.html"
+  name="frame-demo"
+  title="Pré-visualização das aulas"
+  width="100%"
+  height="330"&gt;
+  Seu navegador não suporta iframes.
+&lt;/iframe&gt;
+
+&lt;!-- Abre a aula em uma nova aba, fora do frame --&gt;
+&lt;a href="04-tabelas-iframes.html" target="_blank"&gt;
+  Abrir em nova aba
+&lt;/a&gt;</code></pre>
+        </figure>
+
+        <div class="demo-panel">
+          <div class="demo-panel-head">
+            <span class="demo-dot" aria-hidden="true"></span>
+            Resultado renderizado
+            <span class="demo-tag">interativo</span>
+          </div>
+          <div class="demo-panel-body">
+            <nav class="m4-frame-nav" aria-label="Pré-visualização das aulas">
+              <a href="01-fundamentos-html.html" target="frame-demo">Módulo 01</a>
+              <a href="02-css-fundamentos.html" target="frame-demo">Módulo 02</a>
+              <a href="03-layout-caixas-fundos.html" target="frame-demo">Módulo 03</a>
+              <a href="01-fundamentos-html.html" target="_blank" rel="noopener noreferrer">Abrir módulo 01 em nova aba ↗</a>
+            </nav>
+            <div class="m4-frame-shell">
+              <div class="m4-frame-bar" aria-hidden="true">
+                <i></i><i></i><i></i>
+                <span>name="frame-demo"</span>
+              </div>
+              <iframe
+                class="m4-frame m4-frame-local"
+                src="01-fundamentos-html.html"
+                name="frame-demo"
+                title="Pré-visualização das aulas do curso"
+                loading="lazy">
+                Seu navegador não suporta iframes.
+              </iframe>
+            </div>
+            <p class="m4-note">Clique nos links acima e observe que o conteúdo muda dentro do iframe.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <p><strong>Boas práticas:</strong> nomeie frames de forma descritiva, mantenha um título em cada iframe e evite incorporar páginas que você não controla sem revisar permissões e privacidade.</p>
+        </div>
+      </section>
+
+      <section class="lesson-section" aria-labelledby="resumo-tabelas">
+        <div class="section-title">
+          <span class="section-index">✓</span>
+          <div>
+            <p class="eyebrow">Fechamento</p>
+            <h2 id="resumo-tabelas">Dados claros, conteúdo incorporado</h2>
+          </div>
+        </div>
+        <p>
+          Você estruturou tabelas semânticas, usou <code>scope</code> e
+          <code>colgroup</code>, mesclou células, criou cabeçalho fixo e rolagem
+          horizontal, além de incorporar documentos e controlá-los com
+          <code>target</code>.
+        </p>
+        <div class="callout callout-success">
+          <p><strong>Exercício:</strong> crie uma tabela de comparação de planos com três colunas, cabeçalho fixo, linhas zebradas e uma célula que ocupe duas colunas. Depois, adicione um iframe com um mapa ou vídeo e um link que o atualize.</p>
+        </div>
+
+        <div class="lesson-footer">
+          <a class="button button-secondary" href="../index.html">← Voltar ao início</a>
+          <a class="button" href="05-formularios-avancados.html">Próximo módulo: Formulários →</a>
+        </div>
+
+        <nav class="pager" aria-label="Navegação entre módulos">
+          <a class="pager-link" href="03-layout-caixas-fundos.html">
+            <span>Anterior</span>
+            <strong>03 · Caixas, fundos e semântica</strong>
+          </a>
+          <a class="pager-link" href="05-formularios-avancados.html">
+            <span>Próximo</span>
+            <strong>05 · Formulários avançados</strong>
+          </a>
+        </nav>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>Fundamentos Web · Módulo 04 de 08</p>
+      <nav aria-label="Links do rodapé">
+        <a href="../index.html">Início</a>
+        <a href="05-formularios-avancados.html">Próximo módulo</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

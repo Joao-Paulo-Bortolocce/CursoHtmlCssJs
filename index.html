@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Trilha completa de HTML5 e CSS3 com teoria, código comentado e componentes renderizados em oito módulos práticos.">
+  <meta name="author" content="Fundamentos Web">
+  <title>Fundamentos Web — Curso completo de HTML e CSS</title>
+
+  <!-- Fontes externas: Work Sans para a interface e JetBrains Mono para código. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Folha de estilos global do curso. -->
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+  <!-- Atalho de acessibilidade: permite pular o cabeçalho usando o teclado. -->
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="Fundamentos Web — página inicial">
+        <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+        <span>fundamentos<span class="brand-accent">.web</span></span>
+      </a>
+
+      <nav class="header-nav" aria-label="Navegação principal">
+        <a href="#modulos">Módulos</a>
+        <a href="#metodo">Como estudar</a>
+        <span class="module-pill">HTML + CSS</span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <!-- ====================================================================
+         HERO: apresentação do curso e chamada para ação
+         ==================================================================== -->
+    <section class="hero" aria-labelledby="titulo-principal">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Trilha completa · 8 módulos</p>
+          <h1 id="titulo-principal">Do primeiro <em>&lt;h1&gt;</em><br>ao layout completo.</h1>
+          <p class="hero-lead">
+            Um curso de HTML5 e CSS3 construído para quem quer entender o que escreve.
+            Cada conceito vem acompanhado de teoria objetiva, código comentado e o
+            resultado real renderizado no navegador. No modo prática, você edita
+            cada exemplo e vê o resultado mudar na hora.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button" href="pages/01-fundamentos-html.html">
+              Começar pelo módulo 01 <span aria-hidden="true">→</span>
+            </a>
+            <a class="button button-secondary" href="#modulos">Ver a trilha completa</a>
+          </div>
+
+          <ul class="hero-stats">
+            <li><strong>08</strong> módulos progressivos</li>
+            <li><strong>60+</strong> demonstrações ao vivo</li>
+            <li><strong>100%</strong> prático e comentado</li>
+          </ul>
+        </div>
+
+        <!-- Janela de código ilustrativa: reforça o padrão “código + resultado”. -->
+        <aside class="hero-code" aria-label="Prévia de código HTML e CSS">
+          <div class="hero-code-bar" aria-hidden="true">
+            <i></i><i></i><i></i>
+            <span>aula-01.html</span>
+          </div>
+          <pre><code><span class="tok-comment">&lt;!-- Estrutura semântica --&gt;</span>
+&lt;<span class="tok-tag">section</span> <span class="tok-attr">class</span>=<span class="tok-string">"aula"</span>&gt;
+  &lt;<span class="tok-tag">h1</span>&gt;Aprender &amp;amp; praticar&lt;/<span class="tok-tag">h1</span>&gt;
+  &lt;<span class="tok-tag">p</span>&gt;Código + resultado.&lt;/<span class="tok-tag">p</span>&gt;
+&lt;/<span class="tok-tag">section</span>&gt;
+
+<span class="tok-comment">/* Estilo consistente */</span>
+.<span class="tok-property">aula</span> {
+  <span class="tok-property">display</span>: <span class="tok-value">grid</span>;
+  <span class="tok-property">gap</span>: <span class="tok-value">1.5rem</span>;
+}</code></pre>
+          <div class="hero-code-footer">
+            <span>HTML + CSS</span>
+            <span>resultado ao vivo ✓</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TRILHA DE MÓDULOS: cada cartão leva a uma página de aula
+         ==================================================================== -->
+    <section class="hub-section hub-section-alt" id="modulos" aria-labelledby="titulo-modulos">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Mapa da jornada</p>
+            <h2 id="titulo-modulos">A trilha de aprendizagem</h2>
+          </div>
+          <p>
+            A sequência foi pensada para construir repertório: primeiro a estrutura,
+            depois a apresentação, o layout, os componentes e, por fim, projetos completos.
+          </p>
+        </div>
+
+        <div class="module-grid">
+          <!-- Módulo 01 -->
+          <article class="module-card">
+            <div class="module-card-top">
+              <span class="module-number">01</span>
+              <span class="module-track">HTML · Base</span>
+            </div>
+            <h3><a href="pages/01-fundamentos-html.html">Fundamentos de HTML</a></h3>
+            <p>Esqueleto HTML5, texto, listas, links, imagens, áudio, vídeo e as primeiras decisões semânticas.</p>
+            <ul class="tag-list">
+              <li>Documento</li>
+              <li>Semântica</li>
+              <li>Listas</li>
+              <li>Links</li>
+              <li>Mídia</li>
+            </ul>
+            <span class="module-cta">Estudar módulo <span aria-hidden="true">→</span></span>
+          </article>
+
+          <!-- Módulo 02 -->
+          <article class="module-card">
+            <div class="module-card-top">
+              <span class="module-number">02</span>
+              <span class="module-track">CSS · Estilo</span>
+            </div>
+            <h3><a href="pages/02-css-fundamentos.html">Fundamentos de CSS</a></h3>
+            <p>Formas de aplicação, modelos de cor, gradientes, tipografia, seletores e o cálculo de especificidade.</p>
+            <ul class="tag-list">
+              <li>Cores</li>
+              <li>Gradientes</li>
+              <li>Tipografia</li>
+              <li>Seletores</li>
+              <li>Especificidade</li>
+            </ul>
+            <span class="module-cta">Estudar módulo <span aria-hidden="true">→</span></span>
+          </article>
+
+          <!-- Módulo 03 -->
+          <article class="module-card">
+            <div class="module-card-top">
+              <span class="module-number">03</span>
+              <span class="module-track">CSS · Layout</span>
+            </div>
+            <h3><a href="pages/03-layout-caixas-fundos.html">Caixas, fundos e semântica</a></h3>
+            <p>Box model completo, block versus inline, regiões semânticas do HTML5, fundos e centralização absoluta.</p>
+            <ul class="tag-list">
+              <li>Box model</li>
+              <li>Block / inline</li>
+              <li>HTML5</li>
+              <li>Background</li>
+              <li>Position</li>
+            </ul>
+            <span class="module-cta">Estudar módulo <span aria-hidden="true">→</span></span>
+          </article>
+
+          <!-- Módulo 04 -->
+          <article class="module-card">
+            <div class="module-card-top">
+              <span class="module-number">04</span>
+              <span class="module-track">HTML · Dados</span>
+            </div>
+            <h3><a href="pages/04-tabelas-iframes.html">Tabelas e iframes</a></h3>
+            <p>Tabelas acessíveis, agrupamento de colunas, mesclagem de células, cabeçalho fixo e navegação por frames.</p>
+            <ul class="tag-list">
+              <li>Table</li>
+              <li>Acessibilidade</li>
+              <li>Colspan</li>
+              <li>Sticky</li>
+              <li>Iframe</li>
+            </ul>
+            <span class="module-cta">Estudar módulo <span aria-hidden="true">→</span></span>
+          </article>
+
+          <!-- Módulo 05 -->
+          <article class="module-card">
+            <div class="module-card-top">
+              <span class="module-number">05</span>
+              <span class="module-track">HTML · Interação</span>
+            </div>
+            <h3><a href="pages/05-formularios-avancados.html">Formulários avançados</a></h3>
+            <p>Campos, rótulos, validação nativa, expressões regulares, agrupamentos, seleções e saída dinâmica.</p>
+            <ul class="tag-list">
+              <li>Label</li>
+              <li>Validação</li>
+              <li>Pattern</li>
+              <li>Fieldset</li>
+              <li>Datalist</li>
+            </ul>
+            <span class="module-cta">Estudar módulo <span aria-hidden="true">→</span></span>
+          </article>
+
+          <!-- Módulo 06 -->
+          <article class="module-card">
+            <div class="module-card-top">
+              <span class="module-number">06</span>
+              <span class="module-track">CSS · Adaptação</span>
+            </div>
+            <h3><a href="pages/06-responsividade-media-queries.html">Responsividade</a></h3>
+            <p>Mobile-first, media queries, orientação, breakpoints, imagens fluidas e menu hambúrguer com CSS.</p>
+            <ul class="tag-list">
+              <li>Mobile-first</li>
+              <li>@media</li>
+              <li>Breakpoints</li>
+              <li>Imagens</li>
+              <li>Menu</li>
+            </ul>
+            <span class="module-cta">Estudar módulo <span aria-hidden="true">→</span></span>
+          </article>
+
+          <!-- Módulo 07 -->
+          <article class="module-card">
+            <div class="module-card-top">
+              <span class="module-number">07</span>
+              <span class="module-track">CSS · Flexbox</span>
+            </div>
+            <h3><a href="pages/07-flexbox-layout.html">Flexbox na prática</a></h3>
+            <p>Eixos, direção, quebra de linha, distribuição, alinhamento, propriedades dos itens e centralização perfeita.</p>
+            <ul class="tag-list">
+              <li>Main axis</li>
+              <li>Wrap</li>
+              <li>Justify</li>
+              <li>Align</li>
+              <li>Flex items</li>
+            </ul>
+            <span class="module-cta">Estudar módulo <span aria-hidden="true">→</span></span>
+          </article>
+
+          <!-- Módulo 08 -->
+          <article class="module-card">
+            <div class="module-card-top">
+              <span class="module-number">08</span>
+              <span class="module-track">Projeto · Integração</span>
+            </div>
+            <h3><a href="pages/08-projetos-integradores.html">Projetos integradores</a></h3>
+            <p>Perfil profissional, galeria de vídeos, mini-site com mascote, variáveis CSS e parallax com fundo fixo.</p>
+            <ul class="tag-list">
+              <li>Perfil</li>
+              <li>Galeria</li>
+              <li>Mascote</li>
+              <li>:root</li>
+              <li>Parallax</li>
+            </ul>
+            <span class="module-cta">Ver projetos <span aria-hidden="true">→</span></span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         MÉTODO DE ESTUDO
+         ==================================================================== -->
+    <section class="hub-section" id="metodo" aria-labelledby="titulo-metodo">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Método de estudo</p>
+            <h2 id="titulo-metodo">Leia, compare, construa</h2>
+          </div>
+          <p>
+            O material foi organizado para ser consultado com o navegador aberto.
+            A repetição do ciclo de leitura e experimentação é o que consolida o aprendizado.
+          </p>
+        </div>
+
+        <div class="study-grid">
+          <article class="step-card">
+            <span class="step-number">01</span>
+            <h3>Entenda o conceito</h3>
+            <p>Leia a explicação e identifique qual problema aquele elemento ou propriedade resolve. Contexto antes de decoração.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-number">02</span>
+            <h3>Leia o código</h3>
+            <p>Observe a estrutura, os atributos e os comentários. Tente prever o que o navegador fará antes de olhar o resultado.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-number">03</span>
+            <h3>Pratique e altere</h3>
+            <p>Clique em “Praticar” em qualquer bloco de código: edite o HTML e o CSS com o resultado ao vivo ou monte a página arrastando blocos e veja o código surgir ao lado. Erro faz parte do processo.</p>
+          </article>
+        </div>
+        <p class="hub-note">Dica: para ver os vídeos incorporados do YouTube, sirva a pasta com <code>python -m http.server</code> e abra <code>http://localhost:8000</code>.</p>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         CHAMADA FINAL
+         ==================================================================== -->
+    <section class="hub-section" aria-labelledby="titulo-projeto">
+      <div class="container">
+        <div class="final-cta">
+          <div>
+            <p class="eyebrow">Destino da trilha</p>
+            <h2 id="titulo-projeto">Transforme os conceitos em quatro projetos reais.</h2>
+            <p>
+              No último módulo, você combina semântica, CSS moderno, variáveis,
+              Flexbox, responsividade e fundos para construir interfaces completas.
+            </p>
+          </div>
+          <a class="button" href="pages/08-projetos-integradores.html">
+            Explorar projetos <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>Fundamentos Web · Curso modular de HTML5 e CSS3</p>
+      <nav aria-label="Links do rodapé">
+        <a href="#modulos">Módulos</a>
+        <a href="pages/01-fundamentos-html.html">Começar agora</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
